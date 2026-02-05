@@ -1,0 +1,19 @@
+{
+  "name": "playtime-pets",
+  "version": "1.0.0",
+  "description": "Playtime Pets - Pet Toy Business Website",
+  "scripts": {
+    "build": "npm run build:css && eleventy",
+    "build:css": "sass src/assets/scss/main.scss:src/assets/css/main.css",
+    "watch:css": "sass --watch src/assets/scss/main.scss:src/assets/css/main.css",
+    "watch": "npm run watch:css & eleventy --serve",
+    "start": "npm run watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1",
+    "sass": "^1.77.0"
+  }
+}
