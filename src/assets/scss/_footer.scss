@@ -1,0 +1,15 @@
+// Footer Component
+footer {
+  background-color: $color-background-alt;
+  border-top: 1px solid $color-border;
+  padding: $spacing-xl 0;
+  margin-top: auto;
+  
+  p {
+    @include container;
+    text-align: center;
+    color: $color-text-light;
+    font-size: $font-size-sm;
+    margin: 0;
+  }
+}

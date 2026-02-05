@@ -1,0 +1,40 @@
+// Main SCSS file
+// Import order matters - variables and mixins first, then components
+
+// 1. Variables (must come first)
+@import 'variables';
+
+// 2. Mixins (can use variables)
+@import 'mixins';
+
+// 3. Base/Reset Styles
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: $font-size-base;
+}
+
+body {
+  font-family: $font-family-primary;
+  line-height: $line-height-base;
+  color: $color-text;
+  background-color: $color-background;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+// 4. Component Styles
+@import 'header';
+@import 'footer';
+@import 'hero';
+@import 'shop-card';
+
+// 5. Page-Specific Styles
+@import 'home-page';
+@import 'shop-page';
+@import 'shop-item-show';

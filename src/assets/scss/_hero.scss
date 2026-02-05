@@ -1,0 +1,42 @@
+// Hero Component
+.hero {
+  background: linear-gradient(135deg, $color-primary 0%, $color-accent 100%);
+  color: $color-background;
+  padding: $spacing-xxxl $spacing-md;
+  text-align: center;
+  
+  @include respond-to(md) {
+    padding: $spacing-xxxl * 1.5 $spacing-md;
+  }
+  
+  &__container {
+    @include container;
+  }
+  
+  &__title {
+    font-size: $font-size-h1;
+    font-weight: $font-weight-bold;
+    margin-bottom: $spacing-lg;
+    line-height: $line-height-heading;
+    
+    @include respond-to(md) {
+      font-size: 3rem;
+    }
+  }
+  
+  &__subtitle {
+    font-size: $font-size-xl;
+    margin-bottom: $spacing-xl;
+    opacity: 0.95;
+    
+    @include respond-to(md) {
+      font-size: $font-size-xxl;
+    }
+  }
+  
+  &__cta {
+    @include button-secondary;
+    font-size: $font-size-lg;
+    padding: $spacing-md $spacing-xl;
+  }
+}
