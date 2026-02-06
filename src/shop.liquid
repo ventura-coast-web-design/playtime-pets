@@ -26,9 +26,71 @@ title: Shop
     <!-- View 1 Content -->
     <div class="shop-view shop-view--1" data-view="shop1">
       <div class="shop-view__content">
-        <h2 class="shop-view__title">Shop View 1</h2>
-        <p class="shop-view__description">This is the content for shop view 1. Add your products and layout here.</p>
-        <!-- Add your shop view 1 content here -->
+        <!-- Shop Header -->
+        <div class="shop-view__header">
+          <div class="shop-view__header-content">
+            <h1 class="shop-view__title">All Products</h1>
+            <p class="shop-view__product-count">{{ products | size }} products</p>
+          </div>
+        </div>
+
+        <!-- Filters and Sort Bar -->
+        <div class="shop-view__toolbar">
+          <div class="shop-view__filters">
+            <button class="shop-view__filter-btn" type="button">
+              <span>Filter</span>
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M2 4h12M4 8h8M6 12h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+              </svg>
+            </button>
+          </div>
+          <div class="shop-view__sort">
+            <label for="sort-select" class="shop-view__sort-label">Sort by:</label>
+            <select id="sort-select" class="shop-view__sort-select">
+              <option value="featured">Featured</option>
+              <option value="price-low">Price: Low to High</option>
+              <option value="price-high">Price: High to Low</option>
+              <option value="name-asc">Name: A-Z</option>
+              <option value="name-desc">Name: Z-A</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="shop-view__grid">
+          {% for product in products %}
+          <a href="/shop/{{ product.id }}" class="shop-card">
+            <div class="shop-card__image-wrapper">
+              <img src="{{ product.image }}" alt="{{ product.title }}" loading="lazy">
+              {% if product.comparePrice %}
+              <span class="shop-card__badge">Sale</span>
+              {% endif %}
+            </div>
+            <div class="shop-card__content">
+              <h3 class="shop-card__title">{{ product.title }}</h3>
+              <p class="shop-card__description">{{ product.description }}</p>
+              <div class="shop-card__footer">
+                <div class="shop-card__price-wrapper">
+                  {% if product.comparePrice %}
+                  <span class="shop-card__price shop-card__price--sale">${{ product.price | round: 2 }}</span>
+                  <span class="shop-card__price shop-card__price--compare">${{ product.comparePrice | round: 2 }}</span>
+                  {% else %}
+                  <span class="shop-card__price">${{ product.price | round: 2 }}</span>
+                  {% endif %}
+                </div>
+                <button class="shop-card__button" type="button">Add to Cart</button>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+
+        <!-- Empty State (if no products) -->
+        {% if products.size == 0 %}
+        <div class="shop-view__empty">
+          <p>No products found.</p>
+        </div>
+        {% endif %}
       </div>
     </div>
 
