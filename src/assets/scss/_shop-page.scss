@@ -70,4 +70,87 @@
       margin-bottom: $spacing-md;
     }
   }
+  
+  // View Selector (Radio Buttons)
+  &__view-selector {
+    margin-bottom: $spacing-xl;
+    padding: $spacing-lg;
+    background-color: $color-background-alt;
+    border-radius: $border-radius-md;
+  }
+  
+  &__radio-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    justify-content: center;
+    
+    @include respond-to(md) {
+      justify-content: flex-start;
+    }
+  }
+  
+  &__radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: $spacing-sm $spacing-md;
+    border-radius: $border-radius-md;
+    transition: background-color $transition-base;
+    
+    &:hover {
+      background-color: rgba($color-primary, 0.1);
+    }
+  }
+  
+  &__radio {
+    margin-right: $spacing-sm;
+    cursor: pointer;
+    width: 18px;
+    height: 18px;
+    accent-color: $color-primary;
+    
+    &:checked + .shop-page__radio-text {
+      color: $color-primary;
+      font-weight: $font-weight-semibold;
+    }
+  }
+  
+  &__radio-text {
+    font-size: $font-size-base;
+    color: $color-text;
+    transition: color $transition-base;
+    user-select: none;
+  }
+}
+
+// Shop View Base Styles
+.shop-view {
+  animation: fadeIn 0.3s ease;
+  
+  &__content {
+    padding: $spacing-xl 0;
+  }
+  
+  &__title {
+    font-size: $font-size-h2;
+    font-weight: $font-weight-bold;
+    color: $color-text;
+    margin-bottom: $spacing-md;
+  }
+  
+  &__description {
+    font-size: $font-size-lg;
+    color: $color-text-light;
+    line-height: $line-height-base;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }

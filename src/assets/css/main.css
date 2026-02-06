@@ -377,7 +377,78 @@ footer p {
   font-size: 18px;
   margin-bottom: 1rem;
 }
+.shop-page__view-selector {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+}
+.shop-page__radio-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+}
+@media (min-width: 768px) {
+  .shop-page__radio-group {
+    justify-content: flex-start;
+  }
+}
+.shop-page__radio-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+.shop-page__radio-label:hover {
+  background-color: rgba(74, 144, 226, 0.1);
+}
+.shop-page__radio {
+  margin-right: 0.5rem;
+  cursor: pointer;
+  width: 18px;
+  height: 18px;
+  accent-color: #4a90e2;
+}
+.shop-page__radio:checked + .shop-page__radio-text {
+  color: #4a90e2;
+  font-weight: 600;
+}
+.shop-page__radio-text {
+  font-size: 16px;
+  color: #333333;
+  transition: color 0.3s ease;
+  user-select: none;
+}
 
+.shop-view {
+  animation: fadeIn 0.3s ease;
+}
+.shop-view__content {
+  padding: 2rem 0;
+}
+.shop-view__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+.shop-view__description {
+  font-size: 18px;
+  color: #666666;
+  line-height: 1.6;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .shop-item-show {
   padding: 2rem 0;
   min-height: 60vh;
@@ -578,6 +649,51 @@ footer p {
 }
 .shop-item-show__meta p:last-child {
   margin-bottom: 0;
+}
+
+.shop-view--1 .shop-view__content {
+  padding: 2rem 0;
+}
+.shop-view--1 .shop-view__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+.shop-view--1 .shop-view__description {
+  font-size: 18px;
+  color: #666666;
+  line-height: 1.6;
+}
+
+.shop-view--2 .shop-view__content {
+  padding: 2rem 0;
+}
+.shop-view--2 .shop-view__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+.shop-view--2 .shop-view__description {
+  font-size: 18px;
+  color: #666666;
+  line-height: 1.6;
+}
+
+.shop-view--3 .shop-view__content {
+  padding: 2rem 0;
+}
+.shop-view--3 .shop-view__title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333333;
+  margin-bottom: 1rem;
+}
+.shop-view--3 .shop-view__description {
+  font-size: 18px;
+  color: #666666;
+  line-height: 1.6;
 }
 
 /*# sourceMappingURL=main.css.map */

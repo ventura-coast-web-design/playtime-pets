@@ -1,0 +1,55 @@
+---
+layout: base
+title: Shop
+---
+
+<div class="shop-page">
+  <div class="shop-page__container">
+    <!-- Radio Button Controls -->
+    <div class="shop-page__view-selector">
+      <div class="shop-page__radio-group">
+        <label class="shop-page__radio-label">
+          <input type="radio" name="shop-view" value="shop1" class="shop-page__radio" checked>
+          <span class="shop-page__radio-text">View 1</span>
+        </label>
+        <label class="shop-page__radio-label">
+          <input type="radio" name="shop-view" value="shop2" class="shop-page__radio">
+          <span class="shop-page__radio-text">View 2</span>
+        </label>
+        <label class="shop-page__radio-label">
+          <input type="radio" name="shop-view" value="shop3" class="shop-page__radio">
+          <span class="shop-page__radio-text">View 3</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- View 1 Content -->
+    <div class="shop-view shop-view--1" data-view="shop1">
+      <div class="shop-view__content">
+        <h2 class="shop-view__title">Shop View 1</h2>
+        <p class="shop-view__description">This is the content for shop view 1. Add your products and layout here.</p>
+        <!-- Add your shop view 1 content here -->
+      </div>
+    </div>
+
+    <!-- View 2 Content -->
+    <div class="shop-view shop-view--2" data-view="shop2" style="display: none;">
+      <div class="shop-view__content">
+        <h2 class="shop-view__title">Shop View 2</h2>
+        <p class="shop-view__description">This is the content for shop view 2. Add your products and layout here.</p>
+        <!-- Add your shop view 2 content here -->
+      </div>
+    </div>
+
+    <!-- View 3 Content -->
+    <div class="shop-view shop-view--3" data-view="shop3" style="display: none;">
+      <div class="shop-view__content">
+        <h2 class="shop-view__title">Shop View 3</h2>
+        <p class="shop-view__description">This is the content for shop view 3. Add your products and layout here.</p>
+        <!-- Add your shop view 3 content here -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="/assets/js/shop-view-switcher.js"></script>

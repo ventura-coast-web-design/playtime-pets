@@ -1,0 +1,29 @@
+// Shop View 3 Styles
+.shop-view--3 {
+  // Add your specific styles for shop view 3 here
+  // This file contains styles that only apply to view 3
+  
+  .shop-view__content {
+    padding: $spacing-xl 0;
+  }
+  
+  .shop-view__title {
+    font-size: $font-size-h2;
+    font-weight: $font-weight-bold;
+    color: $color-text;
+    margin-bottom: $spacing-md;
+  }
+  
+  .shop-view__description {
+    font-size: $font-size-lg;
+    color: $color-text-light;
+    line-height: $line-height-base;
+  }
+  
+  // Example: List layout for view 3
+  // .shop-view__list {
+  //   display: flex;
+  //   flex-direction: column;
+  //   gap: $spacing-md;
+  // }
+}

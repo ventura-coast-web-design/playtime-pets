@@ -38,3 +38,8 @@ body {
 @import 'home-page';
 @import 'shop-page';
 @import 'shop-item-show';
+
+// 6. Shop View Styles (separate files for easy deletion)
+@import 'shop1';
+@import 'shop2';
+@import 'shop3';
