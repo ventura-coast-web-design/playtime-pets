@@ -1,4 +1,6 @@
 // Shop Item Show Page (Product Detail Page)
+@use 'mixins' as *;
+
 .shop-item-show {
   padding: $spacing-xl 0;
   min-height: 60vh;

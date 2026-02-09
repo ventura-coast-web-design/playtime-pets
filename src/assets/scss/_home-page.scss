@@ -1,4 +1,6 @@
 // Home Page Styles
+@use 'mixins' as *;
+
 .home-page {
   min-height: 60vh;
   

@@ -1,4 +1,6 @@
 // Shop View 1 Styles - Light & Fun Shopify-style Layout
+@use 'mixins' as *;
+
 .shop-view--1 {
   background-color: #fafafa; // Very light gray background (Google/eBay style)
   

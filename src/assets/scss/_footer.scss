@@ -1,4 +1,6 @@
 // Footer Component
+@use 'mixins' as *;
+
 footer {
   background-color: $color-background-alt;
   border-top: 1px solid $color-border;

@@ -1,4 +1,6 @@
 // Shop Card Component
+@use 'mixins' as *;
+
 .shop-card {
   @include card;
   @include flex-column;

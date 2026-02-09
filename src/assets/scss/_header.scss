@@ -1,4 +1,6 @@
 // Header Component
+@use 'mixins' as *;
+
 header {
   background-color: $color-background;
   border-bottom: 1px solid $color-border;
