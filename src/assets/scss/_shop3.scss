@@ -1,29 +1,296 @@
-// Shop View 3 Styles
+// Shop View 3 Styles - Fun Pops of Color Design
+@use 'mixins' as *;
+
 .shop-view--3 {
-  // Add your specific styles for shop view 3 here
-  // This file contains styles that only apply to view 3
+  background-color: #FDFBF5; // Warm cream background
   
   .shop-view__content {
     padding: $spacing-xl 0;
+    
+    @include respond-to(md) {
+      padding: $spacing-xxl 0;
+    }
   }
   
-  .shop-view__title {
-    font-size: $font-size-h2;
-    font-weight: $font-weight-bold;
-    color: $color-text;
+  // Product Grid
+  .shop-view__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: $spacing-xl;
+    margin-bottom: $spacing-xxl;
+    
+    @include respond-to(sm) {
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    }
+    
+    @include respond-to(md) {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: $spacing-xxl;
+    }
+    
+    @include respond-to(lg) {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+  }
+  
+  // Product Card
+  .shop-view__product-card {
+    background-color: #ffffff;
+    border-radius: $border-radius-lg;
+    overflow: hidden;
+    transition: transform $transition-base;
+    
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+  
+  .shop-view__product-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .shop-view__product-image {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background-color: #f8f9fa;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $transition-slow;
+    }
+    
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+  
+  .shop-view__sale-badge {
+    position: absolute;
+    top: $spacing-sm;
+    right: $spacing-sm;
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: #ffffff;
+    background-color: #FF6B9D; // Fun pink for sale badge
+    border-radius: $border-radius-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 1;
+  }
+  
+  .shop-view__product-info {
+    padding: $spacing-md;
+  }
+  
+  .shop-view__product-type {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    color: #26335F; // Dark blue
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: $spacing-xs;
+  }
+  
+  .shop-view__product-title {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-normal;
+    color: #26335F; // Dark blue
+    margin: 0 0 $spacing-sm 0;
+    line-height: 1.4;
+  }
+  
+  .shop-view__product-price {
+    display: flex;
+    align-items: baseline;
+    gap: $spacing-sm;
     margin-bottom: $spacing-md;
   }
   
-  .shop-view__description {
+  .shop-view__price-current {
     font-size: $font-size-lg;
-    color: $color-text-light;
-    line-height: $line-height-base;
+    font-weight: $font-weight-semibold;
+    color: #26335F; // Dark blue
   }
   
-  // Example: List layout for view 3
-  // .shop-view__list {
-  //   display: flex;
-  //   flex-direction: column;
-  //   gap: $spacing-md;
-  // }
+  .shop-view__price-original {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-normal;
+    color: #999999;
+    text-decoration: line-through;
+  }
+  
+  // Color/Pattern Variations - Fun Pops of Color!
+  .shop-view__variations {
+    display: flex;
+    gap: $spacing-sm;
+    flex-wrap: wrap;
+  }
+  
+  .shop-view__variation-option {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all $transition-fast;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+    
+    &--active {
+      border-color: #26335F !important; // Dark blue border for active
+      box-shadow: 0 0 0 2px rgba(38, 51, 95, 0.2);
+    }
+  }
+  
+  // Shop All Button
+  .shop-view__shop-all {
+    display: flex;
+    justify-content: center;
+    margin: $spacing-xxl 0;
+  }
+  
+  .shop-view__shop-all-btn {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: #ffffff;
+    background-color: #26335F; // Dark blue
+    border: none;
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all $transition-base;
+    
+    &:hover {
+      background-color: #1a2447; // Darker blue
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(38, 51, 95, 0.3);
+    }
+    
+    svg {
+      width: 18px;
+      height: 18px;
+    }
+  }
+  
+  // Informational Banner - Vibrant Blue Pop!
+  .shop-view__banner {
+    width: 100%;
+    padding: $spacing-lg $spacing-md;
+    background-color: #6CAAE1; // Vibrant blue
+    margin: $spacing-xxl 0;
+    text-align: center;
+    
+    @include respond-to(md) {
+      padding: $spacing-xl $spacing-md;
+    }
+  }
+  
+  .shop-view__banner-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    
+    @include respond-to(md) {
+      font-size: $font-size-xl;
+      gap: $spacing-lg;
+    }
+  }
+  
+  .shop-view__banner-separator {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: $font-size-xl;
+    
+    @include respond-to(md) {
+      font-size: $font-size-xxl;
+    }
+  }
+  
+  // Shop by Collection Section
+  .shop-view__collections {
+    margin-top: $spacing-xxxl;
+    text-align: center;
+  }
+  
+  .shop-view__collections-title {
+    font-size: $font-size-h2;
+    font-weight: $font-weight-semibold;
+    color: #26335F; // Dark blue
+    margin-bottom: $spacing-xxl;
+    letter-spacing: -0.01em;
+  }
+  
+  .shop-view__collections-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-xl;
+    
+    @include respond-to(md) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: $spacing-xxl;
+    }
+  }
+  
+  .shop-view__collection-item {
+    cursor: pointer;
+    transition: transform $transition-base;
+    
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+  
+  .shop-view__collection-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: $border-radius-lg;
+    margin-bottom: $spacing-md;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: box-shadow $transition-base;
+    
+    &:hover {
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+  }
+  
+  .shop-view__collection-name {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: #26335F; // Dark blue
+    margin: 0;
+  }
+  
+  // Empty State
+  .shop-view__empty {
+    text-align: center;
+    padding: $spacing-xxxl 0;
+    color: #666666;
+    
+    p {
+      font-size: $font-size-lg;
+      margin: 0;
+    }
+  }
 }

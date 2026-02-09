@@ -106,9 +106,92 @@ title: Shop
     <!-- View 3 Content -->
     <div class="shop-view shop-view--3" data-view="shop3" style="display: none;">
       <div class="shop-view__content">
-        <h2 class="shop-view__title">Shop View 3</h2>
-        <p class="shop-view__description">This is the content for shop view 3. Add your products and layout here.</p>
-        <!-- Add your shop view 3 content here -->
+        <!-- Product Grid -->
+        <div class="shop-view__grid">
+          {% for product in products %}
+          <div class="shop-view__product-card">
+            <a href="/shop/{{ product.id }}" class="shop-view__product-link">
+              <div class="shop-view__product-image">
+                <img src="{{ product.image }}" alt="{{ product.title }}" loading="lazy">
+                {% if product.comparePrice %}
+                <span class="shop-view__sale-badge">Sale</span>
+                {% endif %}
+              </div>
+            </a>
+            
+            <div class="shop-view__product-info">
+              <div class="shop-view__product-type">TOY</div>
+              <h3 class="shop-view__product-title">{{ product.title }}</h3>
+              
+              <div class="shop-view__product-price">
+                {% if product.comparePrice %}
+                <span class="shop-view__price-original">${{ product.comparePrice }}</span>
+                <span class="shop-view__price-current">${{ product.price }}</span>
+                {% else %}
+                <span class="shop-view__price-current">${{ product.price }}</span>
+                {% endif %}
+              </div>
+              
+              <!-- Color/Pattern Variations -->
+              <div class="shop-view__variations">
+                <div class="shop-view__variation-option shop-view__variation-option--active" style="background: linear-gradient(135deg, #87CEEB 0%, #E0F6FF 50%, #FFFFFF 100%); border: 2px solid #26335F;"></div>
+                <div class="shop-view__variation-option" style="background: radial-gradient(circle, #000000 20%, transparent 20%), radial-gradient(circle, #000000 20%, transparent 20%), #FFFFFF; background-size: 12px 12px; background-position: 0 0, 6px 6px;"></div>
+                <div class="shop-view__variation-option" style="background: linear-gradient(45deg, #FFB6C1 25%, #FFA500 25%, #FFA500 50%, #FFB6C1 50%, #FFB6C1 75%, #FFA500 75%); background-size: 16px 16px;"></div>
+                <div class="shop-view__variation-option" style="background: linear-gradient(135deg, #228B22 0%, #40E0D0 100%);"></div>
+                <div class="shop-view__variation-option" style="background: radial-gradient(circle, #FFFFFF 30%, transparent 30%), #DC143C; background-size: 20px 20px;"></div>
+                <div class="shop-view__variation-option" style="background: #8B4513;"></div>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Shop All Button -->
+        <div class="shop-view__shop-all">
+          <button class="shop-view__shop-all-btn">
+            <span>SHOP ALL</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+            </svg>
+          </button>
+        </div>
+
+        <!-- Informational Banner -->
+        <div class="shop-view__banner">
+          <div class="shop-view__banner-content">
+            <span>PLAY TIME</span>
+            <span class="shop-view__banner-separator">✦</span>
+            <span>FUN TIME</span>
+            <span class="shop-view__banner-separator">✦</span>
+            <span>HAPPY PETS</span>
+          </div>
+        </div>
+
+        <!-- Shop by Collection Section -->
+        <div class="shop-view__collections">
+          <h2 class="shop-view__collections-title">Shop by Collection</h2>
+          <div class="shop-view__collections-grid">
+            <div class="shop-view__collection-item">
+              <div class="shop-view__collection-image" style="background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);"></div>
+              <h3 class="shop-view__collection-name">Interactive Toys</h3>
+            </div>
+            <div class="shop-view__collection-item">
+              <div class="shop-view__collection-image" style="background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);"></div>
+              <h3 class="shop-view__collection-name">Plush Friends</h3>
+            </div>
+            <div class="shop-view__collection-item">
+              <div class="shop-view__collection-image" style="background: linear-gradient(135deg, #FBD786 0%, #F7971E 100%);"></div>
+              <h3 class="shop-view__collection-name">Outdoor Fun</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Empty State -->
+        {% if products.size == 0 %}
+        <div class="shop-view__empty">
+          <p>No products found.</p>
+        </div>
+        {% endif %}
       </div>
     </div>
   </div>
