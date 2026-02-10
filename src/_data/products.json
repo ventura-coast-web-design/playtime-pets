@@ -5,7 +5,7 @@
     "description": "Keep your pet mentally stimulated with this engaging puzzle feeder. Perfect for dogs and cats who love a challenge!",
     "price": 24.99,
     "comparePrice": 29.99,
-    "image": "https://via.placeholder.com/400x400?text=Interactive+Puzzle+Feeder",
+    "image": "../assets/images/1.webp",
     "category": "Toys",
     "tags": ["interactive", "puzzle", "feeding"],
     "inStock": true
@@ -16,7 +16,7 @@
     "description": "Soft and cuddly plush duck with a squeaker inside. Your pet's new best friend!",
     "price": 12.99,
     "comparePrice": null,
-    "image": "https://via.placeholder.com/400x400?text=Plush+Squeaky+Duck",
+    "image": "../assets/images/2.webp",
     "category": "Toys",
     "tags": ["plush", "squeaky", "soft"],
     "inStock": true
@@ -27,7 +27,7 @@
     "description": "Durable rope toy perfect for tug-of-war games. Made from natural fibers and safe for your pet.",
     "price": 8.99,
     "comparePrice": null,
-    "image": "https://via.placeholder.com/400x400?text=Rope+Tug+Toy",
+    "image": "../assets/images/3.webp",
     "category": "Toys",
     "tags": ["rope", "tug", "durable"],
     "inStock": true
@@ -38,7 +38,7 @@
     "description": "Keep your dog active with this automatic ball launcher. Adjustable distance and perfect for fetch enthusiasts!",
     "price": 79.99,
     "comparePrice": 99.99,
-    "image": "https://via.placeholder.com/400x400?text=Automatic+Ball+Launcher",
+    "image": "../assets/images/4.webp",
     "category": "Toys",
     "tags": ["automatic", "fetch", "active"],
     "inStock": true
@@ -49,7 +49,7 @@
     "description": "Irresistible catnip-filled mouse that will drive your cat wild with excitement!",
     "price": 6.99,
     "comparePrice": null,
-    "image": "https://via.placeholder.com/400x400?text=Catnip+Mouse",
+    "image": "../assets/images/5.webp",
     "category": "Toys",
     "tags": ["catnip", "mouse", "cats"],
     "inStock": true
@@ -60,7 +60,7 @@
     "description": "High-flying frisbee designed specifically for dogs. Soft edges and easy to catch!",
     "price": 14.99,
     "comparePrice": null,
-    "image": "https://via.placeholder.com/400x400?text=Frisbee+for+Dogs",
+    "image": "../assets/images/6.webp",
     "category": "Toys",
     "tags": ["frisbee", "outdoor", "fetch"],
     "inStock": true
@@ -71,7 +71,7 @@
     "description": "Endless entertainment for cats! This laser pointer features multiple patterns and automatic modes.",
     "price": 19.99,
     "comparePrice": 24.99,
-    "image": "https://via.placeholder.com/400x400?text=Laser+Pointer+Toy",
+    "image": "../assets/images/7.webp",
     "category": "Toys",
     "tags": ["laser", "cats", "interactive"],
     "inStock": true
@@ -82,7 +82,7 @@
     "description": "Reward your pet while they play! This ball dispenses treats as your pet rolls it around.",
     "price": 16.99,
     "comparePrice": null,
-    "image": "https://via.placeholder.com/400x400?text=Treat+Dispensing+Ball",
+    "image": "../assets/images/8.webp",
     "category": "Toys",
     "tags": ["treats", "dispensing", "reward"],
     "inStock": true
@@ -93,7 +93,7 @@
     "description": "Interactive wand toy with colorful feathers that will keep your cat jumping and pouncing for hours!",
     "price": 11.99,
     "comparePrice": null,
-    "image": "https://via.placeholder.com/400x400?text=Feather+Wand+Toy",
+    "image": "../assets/images/9.webp",
     "category": "Toys",
     "tags": ["wand", "feathers", "cats"],
     "inStock": true
@@ -104,7 +104,7 @@
     "description": "The classic Kong toy that bounces unpredictably and can be stuffed with treats. A must-have for any dog!",
     "price": 13.99,
     "comparePrice": null,
-    "image": "https://via.placeholder.com/400x400?text=Kong+Classic+Dog+Toy",
+    "image": "../assets/images/10.webp",
     "category": "Toys",
     "tags": ["kong", "classic", "durable"],
     "inStock": true
@@ -115,7 +115,7 @@
     "description": "Expandable tunnel system perfect for cats and small dogs. Multiple entry points for endless fun!",
     "price": 34.99,
     "comparePrice": 39.99,
-    "image": "https://via.placeholder.com/400x400?text=Tunnel+Play+Set",
+    "image": "../assets/images/11.webp",
     "category": "Toys",
     "tags": ["tunnel", "play", "expandable"],
     "inStock": true
@@ -126,7 +126,7 @@
     "description": "Set of three squeaky tennis balls. Perfect for fetch games and training exercises!",
     "price": 9.99,
     "comparePrice": null,
-    "image": "https://via.placeholder.com/400x400?text=Squeaky+Tennis+Balls",
+      "image": "../assets/images/12.webp",
     "category": "Toys",
     "tags": ["tennis", "balls", "squeaky"],
     "inStock": true
