@@ -97,9 +97,120 @@ title: Shop
     <!-- View 2 Content -->
     <div class="shop-view shop-view--2" data-view="shop2" style="display: none;">
       <div class="shop-view__content">
-        <h2 class="shop-view__title">Shop View 2</h2>
-        <p class="shop-view__description">This is the content for shop view 2. Add your products and layout here.</p>
-        <!-- Add your shop view 2 content here -->
+        <!-- Category Navigation -->
+        <div class="shop-view__categories">
+          <div class="shop-view__category-item shop-view__category-item--active">
+            <div class="shop-view__category-icon">🆕</div>
+            <span class="shop-view__category-name">New!</span>
+          </div>
+          <div class="shop-view__category-item">
+            <div class="shop-view__category-icon">🐰</div>
+            <span class="shop-view__category-name">Easter</span>
+          </div>
+          <div class="shop-view__category-item">
+            <div class="shop-view__category-icon">💝</div>
+            <span class="shop-view__category-name">Valentine's Day</span>
+          </div>
+          <div class="shop-view__category-item">
+            <div class="shop-view__category-icon">🍀</div>
+            <span class="shop-view__category-name">St. Pup's Day</span>
+          </div>
+          <div class="shop-view__category-item">
+            <div class="shop-view__category-icon">🛒</div>
+            <span class="shop-view__category-name">Grocery Store</span>
+          </div>
+          <div class="shop-view__category-item">
+            <div class="shop-view__category-icon">🌸</div>
+            <span class="shop-view__category-name">Spring On The Farm</span>
+          </div>
+          <div class="shop-view__category-item">
+            <div class="shop-view__category-icon">🏈</div>
+            <span class="shop-view__category-name">Puppy Bowl</span>
+          </div>
+          <div class="shop-view__category-item">
+            <div class="shop-view__category-icon">🏀</div>
+            <span class="shop-view__category-name">Mutt Madness</span>
+          </div>
+        </div>
+
+        <!-- Shop All Banner -->
+        <div class="shop-view__banner">
+          <div class="shop-view__banner-decoration">
+            <div class="shop-view__banner-dot"></div>
+            <div class="shop-view__banner-dot"></div>
+            <div class="shop-view__banner-dot"></div>
+            <div class="shop-view__banner-dot"></div>
+            <div class="shop-view__banner-dot"></div>
+            <div class="shop-view__banner-squiggle"></div>
+            <div class="shop-view__banner-squiggle"></div>
+          </div>
+          <h1 class="shop-view__banner-text">SHOP ALL</h1>
+        </div>
+
+        <!-- Filter Options -->
+        <div class="shop-view__filters">
+          <button class="shop-view__filter-pill">Sort</button>
+          <button class="shop-view__filter-pill">Product Type</button>
+          <button class="shop-view__filter-pill">Durability</button>
+          <button class="shop-view__filter-pill">Play Style</button>
+          <button class="shop-view__filter-pill">Toy Size</button>
+          <button class="shop-view__filter-pill">Treat Type</button>
+          <button class="shop-view__filter-pill">Protein</button>
+          <button class="shop-view__filter-pill">Price</button>
+          <button class="shop-view__filter-pill">Partnership</button>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="shop-view__grid">
+          {% for product in products %}
+          <div class="shop-view__product-card">
+            <a href="/shop/{{ product.id }}" class="shop-view__product-link">
+              <div class="shop-view__product-image">
+                <img src="{{ product.image }}" alt="{{ product.title }}" loading="lazy">
+                {% if product.comparePrice %}
+                <div class="shop-view__sale-badge">
+                  {% assign diff = product.comparePrice | minus: product.price %}
+                  {% assign savings = diff | times: 100 | divided_by: product.comparePrice %}
+                  SAVE {{ savings }}%
+                </div>
+                {% endif %}
+                {% if product.comparePrice %}
+                <div class="shop-view__on-sale-badge">ON SALE</div>
+                {% endif %}
+              </div>
+            </a>
+            
+            <div class="shop-view__product-info">
+              <h3 class="shop-view__product-title">{{ product.title }}</h3>
+              
+              {% if product.tags contains "durable" or product.tags contains "super" %}
+              <div class="shop-view__product-size">2 SIZES</div>
+              {% endif %}
+              
+              <div class="shop-view__product-price-row">
+                <div class="shop-view__product-price">
+                  {% if product.comparePrice %}
+                  <span class="shop-view__price-current">${{ product.price }}</span>
+                  <span class="shop-view__price-original">${{ product.comparePrice }}</span>
+                  {% else %}
+                  <span class="shop-view__price-current">${{ product.price }}</span>
+                  {% endif %}
+                </div>
+                <button class="shop-view__add-button" type="button" onclick="event.preventDefault();">
+                  <span>+</span> Add
+                </button>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <!-- Empty State -->
+        {% if products.size == 0 %}
+        <div class="shop-view__empty">
+          <p>No products found.</p>
+        </div>
+        {% endif %}
       </div>
     </div>
 
