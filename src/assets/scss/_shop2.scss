@@ -8,6 +8,12 @@
     padding: 0;
   }
   
+  // Category Navigation Wrapper with Color Block
+  .shop-view__categories-wrapper {
+    background: linear-gradient(135deg, #FFE5F1 0%, #FFB6D9 100%); // Pink gradient
+    padding: $spacing-lg 0;
+  }
+  
   // Category Navigation
   .shop-view__categories {
     display: flex;
@@ -36,17 +42,23 @@
     cursor: pointer;
     padding: $spacing-sm;
     border-radius: $border-radius-md;
-    transition: background-color $transition-fast;
+    background-color: rgba(255, 255, 255, 0.6);
+    transition: all $transition-fast;
     
     &:hover {
-      background-color: #f5f5f5;
+      background-color: rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
     }
     
     &--active {
+      background-color: rgba(255, 255, 255, 0.95);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      
       .shop-view__category-name {
-        color: #4A90E2; // Light blue
-        border-bottom: 2px solid #4A90E2;
+        color: #E91E63; // Pink/magenta for active
+        border-bottom: 2px solid #E91E63;
         padding-bottom: $spacing-xs;
+        font-weight: $font-weight-semibold;
       }
     }
   }
@@ -178,6 +190,12 @@
     }
   }
   
+  // Filter Wrapper with Color Block
+  .shop-view__filters-wrapper {
+    background: linear-gradient(135deg, #E0F7FA 0%, #B2EBF2 100%); // Light cyan gradient
+    padding: $spacing-lg 0;
+  }
+  
   // Filter Pills
   .shop-view__filters {
     display: flex;
@@ -195,16 +213,18 @@
     padding: $spacing-sm $spacing-md;
     font-size: $font-size-sm;
     font-weight: $font-weight-medium;
-    color: #4A90E2; // Light blue text
-    background-color: #f0f0f0; // Light gray background
-    border: none;
+    color: #0277BD; // Darker blue text
+    background-color: rgba(255, 255, 255, 0.8); // Semi-transparent white
+    border: 1px solid rgba(2, 119, 189, 0.2);
     border-radius: $border-radius-full;
     cursor: pointer;
     transition: all $transition-fast;
     
     &:hover {
-      background-color: #e0e0e0;
+      background-color: rgba(255, 255, 255, 1);
+      border-color: #0277BD;
       transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     
     &:active {
@@ -212,12 +232,18 @@
     }
   }
   
+  // Product Grid Wrapper with Alternating Color Blocks
+  .shop-view__grid-wrapper {
+    background: linear-gradient(180deg, #FFF9E6 0%, #FFFFFF 30%, #F0F8FF 60%, #FFFFFF 100%); // Cream to white to light blue gradient
+    padding: $spacing-xl 0;
+  }
+  
   // Product Grid
   .shop-view__grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: $spacing-lg;
-    padding: 0 $spacing-md $spacing-xxl;
+    padding: 0 $spacing-md;
     
     @include respond-to(sm) {
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -226,7 +252,7 @@
     
     @include respond-to(md) {
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      padding: 0 $spacing-lg $spacing-xxxl;
+      padding: 0 $spacing-lg;
     }
     
     @include respond-to(lg) {
@@ -234,13 +260,37 @@
     }
   }
   
-  // Product Card
+  // Product Card with Color Block Backgrounds
   .shop-view__product-card {
-    background-color: #ffffff;
     border-radius: $border-radius-lg;
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all $transition-base;
+    
+    // Color variations for product cards
+    &--color-0 {
+      background-color: #FFF5F5; // Light pink
+    }
+    
+    &--color-1 {
+      background-color: #F0F8FF; // Light blue
+    }
+    
+    &--color-2 {
+      background-color: #FFF9E6; // Light yellow/cream
+    }
+    
+    &--color-3 {
+      background-color: #F0FFF0; // Light green
+    }
+    
+    &--color-4 {
+      background-color: #FFF0F5; // Lavender blush
+    }
+    
+    &--color-5 {
+      background-color: #E6F3FF; // Light sky blue
+    }
     
     &:hover {
       transform: translateY(-4px);
@@ -259,7 +309,7 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     
     img {
       width: 100%;
