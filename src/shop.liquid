@@ -224,10 +224,45 @@ title: Shop
     <!-- View 3 Content -->
     <div class="shop-view shop-view--3" data-view="shop3" style="display: none;">
       <div class="shop-view__content">
+        <!-- Big Hero Banner -->
+        <div class="shop-view__hero-banner">
+          <div class="shop-view__hero-content">
+            <div class="shop-view__hero-text-wrapper">
+              <h1 class="shop-view__hero-title">PLAYTIME PETS</h1>
+              <p class="shop-view__hero-subtitle">Where Fun Meets Furry Friends!</p>
+              <button class="shop-view__hero-button">SHOP NOW</button>
+            </div>
+            <div class="shop-view__hero-decoration">
+              <div class="shop-view__hero-shape shop-view__hero-shape--1"></div>
+              <div class="shop-view__hero-shape shop-view__hero-shape--2"></div>
+              <div class="shop-view__hero-shape shop-view__hero-shape--3"></div>
+              <div class="shop-view__hero-shape shop-view__hero-shape--4"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Colorful Category Strip -->
+        <div class="shop-view__category-strip">
+          <div class="shop-view__category-block shop-view__category-block--pink">
+            <span>🆕 New Arrivals</span>
+          </div>
+          <div class="shop-view__category-block shop-view__category-block--blue">
+            <span>⭐ Best Sellers</span>
+          </div>
+          <div class="shop-view__category-block shop-view__category-block--yellow">
+            <span>🔥 On Sale</span>
+          </div>
+          <div class="shop-view__category-block shop-view__category-block--green">
+            <span>🎁 Gift Sets</span>
+          </div>
+        </div>
+
         <!-- Product Grid -->
-        <div class="shop-view__grid">
-          {% for product in products %}
-          <div class="shop-view__product-card">
+        <div class="shop-view__grid-wrapper">
+          <div class="shop-view__grid">
+            {% for product in products %}
+            {% assign index = forloop.index0 | modulo: 6 %}
+            <div class="shop-view__product-card shop-view__product-card--color-{{ index }}">
             <a href="/shop/{{ product.id }}" class="shop-view__product-link">
               <div class="shop-view__product-image">
                 <img src="{{ product.image }}" alt="{{ product.title }}" loading="lazy">
@@ -262,6 +297,22 @@ title: Shop
             </div>
           </div>
           {% endfor %}
+        </div>
+
+        <!-- Colorful Promo Section -->
+        <div class="shop-view__promo-section">
+          <div class="shop-view__promo-card shop-view__promo-card--purple">
+            <h3 class="shop-view__promo-title">Free Shipping</h3>
+            <p class="shop-view__promo-text">On orders over $50</p>
+          </div>
+          <div class="shop-view__promo-card shop-view__promo-card--orange">
+            <h3 class="shop-view__promo-title">30-Day Returns</h3>
+            <p class="shop-view__promo-text">Hassle-free returns</p>
+          </div>
+          <div class="shop-view__promo-card shop-view__promo-card--teal">
+            <h3 class="shop-view__promo-title">Happy Pets</h3>
+            <p class="shop-view__promo-text">100% satisfaction</p>
+          </div>
         </div>
 
         <!-- Shop All Button -->

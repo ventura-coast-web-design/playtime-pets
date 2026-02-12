@@ -5,10 +5,218 @@
   background-color: #FDFBF5; // Warm cream background
   
   .shop-view__content {
-    padding: $spacing-xl 0;
+    padding: 0;
+  }
+  
+  // Big Hero Banner
+  .shop-view__hero-banner {
+    position: relative;
+    width: 100%;
+    min-height: 400px;
+    background: linear-gradient(135deg, #FF6B9D 0%, #C44569 25%, #6CAAE1 50%, #4ECDC4 75%, #FBD786 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-bottom: $spacing-xl;
     
     @include respond-to(md) {
-      padding: $spacing-xxl 0;
+      min-height: 500px;
+      margin-bottom: $spacing-xxl;
+    }
+  }
+  
+  .shop-view__hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: $spacing-xl $spacing-md;
+    max-width: 800px;
+  }
+  
+  .shop-view__hero-text-wrapper {
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: $spacing-xxl $spacing-xl;
+    border-radius: $border-radius-xl;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    
+    @include respond-to(md) {
+      padding: $spacing-xxxl $spacing-xxl;
+    }
+  }
+  
+  .shop-view__hero-title {
+    font-size: 3rem;
+    font-weight: $font-weight-bold;
+    color: #26335F;
+    margin: 0 0 $spacing-md 0;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, #FF6B9D 0%, #6CAAE1 50%, #4ECDC4 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    
+    @include respond-to(md) {
+      font-size: 4.5rem;
+      letter-spacing: 6px;
+    }
+  }
+  
+  .shop-view__hero-subtitle {
+    font-size: $font-size-xl;
+    color: #666666;
+    margin: 0 0 $spacing-xl 0;
+    
+    @include respond-to(md) {
+      font-size: $font-size-xxl;
+    }
+  }
+  
+  .shop-view__hero-button {
+    padding: $spacing-md $spacing-xxl;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: #ffffff;
+    background: linear-gradient(135deg, #FF6B9D 0%, #6CAAE1 100%);
+    border: none;
+    border-radius: $border-radius-full;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    transition: all $transition-base;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  .shop-view__hero-decoration {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+  
+  .shop-view__hero-shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.3;
+    animation: float-shape 6s ease-in-out infinite;
+    
+    &--1 {
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle, #FFB6C1 0%, #FF6B9D 100%);
+      top: 10%;
+      left: 10%;
+      animation-delay: 0s;
+    }
+    
+    &--2 {
+      width: 80px;
+      height: 80px;
+      background: radial-gradient(circle, #87CEEB 0%, #6CAAE1 100%);
+      top: 60%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+    
+    &--3 {
+      width: 100px;
+      height: 100px;
+      background: radial-gradient(circle, #98FB98 0%, #4ECDC4 100%);
+      bottom: 20%;
+      left: 20%;
+      animation-delay: 4s;
+    }
+    
+    &--4 {
+      width: 60px;
+      height: 60px;
+      background: radial-gradient(circle, #FBD786 0%, #F7971E 100%);
+      top: 30%;
+      right: 30%;
+      animation-delay: 1s;
+    }
+  }
+  
+  @keyframes float-shape {
+    0%, 100% {
+      transform: translateY(0) translateX(0) scale(1);
+    }
+    33% {
+      transform: translateY(-20px) translateX(10px) scale(1.1);
+    }
+    66% {
+      transform: translateY(10px) translateX(-10px) scale(0.9);
+    }
+  }
+  
+  // Colorful Category Strip
+  .shop-view__category-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    padding: $spacing-lg $spacing-md;
+    margin-bottom: $spacing-xl;
+    
+    @include respond-to(md) {
+      padding: $spacing-xl $spacing-lg;
+      margin-bottom: $spacing-xxl;
+    }
+  }
+  
+  .shop-view__category-block {
+    flex: 1;
+    min-width: 200px;
+    padding: $spacing-lg $spacing-md;
+    border-radius: $border-radius-lg;
+    text-align: center;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all $transition-base;
+    cursor: pointer;
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    }
+    
+    &--pink {
+      background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
+    }
+    
+    &--blue {
+      background: linear-gradient(135deg, #6CAAE1 0%, #4A90E2 100%);
+    }
+    
+    &--yellow {
+      background: linear-gradient(135deg, #FBD786 0%, #F7971E 100%);
+    }
+    
+    &--green {
+      background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+    }
+  }
+  
+  // Product Grid Wrapper with Color Background
+  .shop-view__grid-wrapper {
+    background: linear-gradient(180deg, #FFF9E6 0%, #FDFBF5 50%, #F0F8FF 100%);
+    padding: $spacing-xl $spacing-md;
+    
+    @include respond-to(md) {
+      padding: $spacing-xxl $spacing-lg;
     }
   }
   
@@ -17,7 +225,6 @@
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
     gap: $spacing-xl;
-    margin-bottom: $spacing-xxl;
     
     @include respond-to(sm) {
       grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
@@ -33,15 +240,47 @@
     }
   }
   
-  // Product Card
+  // Product Card with Color Variations
   .shop-view__product-card {
-    background-color: #ffffff;
     border-radius: $border-radius-lg;
     overflow: hidden;
-    transition: transform $transition-base;
+    transition: all $transition-base;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    
+    // Color variations
+    &--color-0 {
+      background: linear-gradient(135deg, #FFF5F5 0%, #ffffff 100%);
+      border-top: 4px solid #FF6B9D;
+    }
+    
+    &--color-1 {
+      background: linear-gradient(135deg, #F0F8FF 0%, #ffffff 100%);
+      border-top: 4px solid #6CAAE1;
+    }
+    
+    &--color-2 {
+      background: linear-gradient(135deg, #FFF9E6 0%, #ffffff 100%);
+      border-top: 4px solid #FBD786;
+    }
+    
+    &--color-3 {
+      background: linear-gradient(135deg, #F0FFF0 0%, #ffffff 100%);
+      border-top: 4px solid #4ECDC4;
+    }
+    
+    &--color-4 {
+      background: linear-gradient(135deg, #FFF0F5 0%, #ffffff 100%);
+      border-top: 4px solid #C44569;
+    }
+    
+    &--color-5 {
+      background: linear-gradient(135deg, #E6F3FF 0%, #ffffff 100%);
+      border-top: 4px solid #4A90E2;
+    }
     
     &:hover {
-      transform: translateY(-4px);
+      transform: translateY(-6px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     }
   }
   
@@ -56,7 +295,7 @@
     width: 100%;
     aspect-ratio: 1 / 1;
     overflow: hidden;
-    background-color: #f8f9fa;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     
     img {
       width: 100%;
@@ -66,7 +305,7 @@
     }
     
     &:hover img {
-      transform: scale(1.05);
+      transform: scale(1.08);
     }
   }
   
@@ -153,11 +392,64 @@
     }
   }
   
+  // Colorful Promo Section
+  .shop-view__promo-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-lg;
+    padding: $spacing-xl $spacing-md;
+    margin: $spacing-xxl 0;
+    
+    @include respond-to(md) {
+      grid-template-columns: repeat(3, 1fr);
+      padding: $spacing-xxl $spacing-lg;
+    }
+  }
+  
+  .shop-view__promo-card {
+    padding: $spacing-xl $spacing-lg;
+    border-radius: $border-radius-lg;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    transition: all $transition-base;
+    
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+    
+    &--purple {
+      background: linear-gradient(135deg, #C44569 0%, #FF6B9D 100%);
+    }
+    
+    &--orange {
+      background: linear-gradient(135deg, #F7971E 0%, #FBD786 100%);
+    }
+    
+    &--teal {
+      background: linear-gradient(135deg, #44A08D 0%, #4ECDC4 100%);
+    }
+  }
+  
+  .shop-view__promo-title {
+    font-size: $font-size-xl;
+    font-weight: $font-weight-bold;
+    color: #ffffff;
+    margin: 0 0 $spacing-xs 0;
+  }
+  
+  .shop-view__promo-text {
+    font-size: $font-size-base;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+  }
+  
   // Shop All Button
   .shop-view__shop-all {
     display: flex;
     justify-content: center;
     margin: $spacing-xxl 0;
+    padding: 0 $spacing-md;
   }
   
   .shop-view__shop-all-btn {
@@ -168,18 +460,19 @@
     font-size: $font-size-base;
     font-weight: $font-weight-semibold;
     color: #ffffff;
-    background-color: #26335F; // Dark blue
+    background: linear-gradient(135deg, #26335F 0%, #6CAAE1 100%);
     border: none;
     border-radius: $border-radius-md;
     cursor: pointer;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all $transition-base;
+    box-shadow: 0 4px 16px rgba(38, 51, 95, 0.3);
     
     &:hover {
-      background-color: #1a2447; // Darker blue
+      background: linear-gradient(135deg, #1a2447 0%, #4A90E2 100%);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(38, 51, 95, 0.3);
+      box-shadow: 0 6px 24px rgba(38, 51, 95, 0.4);
     }
     
     svg {
@@ -188,13 +481,15 @@
     }
   }
   
-  // Informational Banner - Vibrant Blue Pop!
+  // Informational Banner - Vibrant Multi-Color!
   .shop-view__banner {
     width: 100%;
     padding: $spacing-lg $spacing-md;
-    background-color: #6CAAE1; // Vibrant blue
+    background: linear-gradient(90deg, #FF6B9D 0%, #6CAAE1 33%, #4ECDC4 66%, #FBD786 100%);
     margin: $spacing-xxl 0;
     text-align: center;
+    border-radius: $border-radius-lg;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
     
     @include respond-to(md) {
       padding: $spacing-xl $spacing-md;
@@ -228,10 +523,17 @@
     }
   }
   
-  // Shop by Collection Section
+  // Shop by Collection Section with Color Background
   .shop-view__collections {
     margin-top: $spacing-xxxl;
+    padding: $spacing-xxl $spacing-md;
+    background: linear-gradient(135deg, #FFF9E6 0%, #F0F8FF 50%, #FFF5F5 100%);
+    border-radius: $border-radius-xl;
     text-align: center;
+    
+    @include respond-to(md) {
+      padding: $spacing-xxxl $spacing-lg;
+    }
   }
   
   .shop-view__collections-title {
