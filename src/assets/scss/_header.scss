@@ -1,51 +1,193 @@
-// Header Component
+// Header Component — three-band layout: promo bar, main header, nav
 @use 'mixins' as *;
 
-header {
-  background-color: $color-background;
-  border-bottom: 1px solid $color-border;
-  padding: $spacing-md 0;
+.site-header {
   position: sticky;
   top: 0;
   z-index: 100;
   box-shadow: $shadow-sm;
-  
-  nav {
-    @include container;
-    @include flex-between;
-    
-    h2 {
-      margin: 0;
-      font-size: $font-size-xl;
-      font-weight: $font-weight-bold;
-      color: $color-primary;
-      
-      @include respond-to(md) {
-        font-size: $font-size-xxl;
-      }
-    }
-    
-    ul {
-      display: flex;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      gap: $spacing-lg;
-      
-      li {
-        margin: 0;
-        
-        a {
-          color: $color-text;
-          text-decoration: none;
-          font-weight: $font-weight-medium;
-          transition: color $transition-base;
-          
-          &:hover {
-            color: $color-primary;
-          }
-        }
-      }
-    }
+}
+
+// Top promotional banner — dark teal, white text, carousel arrows
+.site-header__promo {
+  background-color: $color-promo-bg;
+  color: $color-background;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-md;
+  padding: $spacing-sm $spacing-lg;
+  position: relative;
+}
+
+.site-header__promo-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: $color-background;
+  width: 2rem;
+  height: 2rem;
+  border-radius: $border-radius-sm;
+  cursor: pointer;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background $transition-fast, border-color $transition-fast;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: $color-background;
+  }
+
+  &:first-of-type {
+    left: $spacing-md;
+  }
+
+  &:last-of-type {
+    right: $spacing-md;
+  }
+}
+
+.site-header__promo-text {
+  margin: 0;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  text-align: center;
+
+  @include respond-to(md) {
+    font-size: $font-size-base;
+  }
+}
+
+// Main header — white, logo center, perks left, icons right
+.site-header__main {
+  background-color: $color-background;
+  padding: $spacing-md 0;
+  border-bottom: 1px solid $color-border;
+}
+
+.site-header__main-inner {
+  @include container;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: $spacing-md;
+}
+
+.site-header__perks {
+  flex-shrink: 0;
+  font-size: $font-size-xs;
+  font-weight: $font-weight-semibold;
+  color: $color-text;
+  text-decoration: none;
+  letter-spacing: 0.02em;
+  transition: color $transition-base;
+
+  @include respond-to(md) {
+    font-size: $font-size-sm;
+  }
+
+  &:hover {
+    color: $color-text-light;
+  }
+}
+
+.site-header__logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: $color-text;
+  flex-shrink: 0;
+}
+
+.site-header__logo-top {
+  font-size: 0.65rem;
+  font-weight: $font-weight-normal;
+  letter-spacing: 0.15em;
+  line-height: 1.2;
+
+  @include respond-to(md) {
+    font-size: 0.75rem;
+  }
+}
+
+.site-header__logo-main {
+  font-size: 1.35rem;
+  font-weight: 600;
+  font-family: 'Caveat', cursive;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+
+  @include respond-to(md) {
+    font-size: 1.9rem;
+  }
+}
+
+.site-header__actions {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  flex-shrink: 0;
+}
+
+.site-header__icon {
+  color: $color-text;
+  font-size: 1.25rem;
+  text-decoration: none;
+  transition: color $transition-base;
+
+  &:hover {
+    color: $color-text-light;
+  }
+}
+
+// Bottom nav bar — white, horizontal links, SALE in red
+.site-header__nav {
+  background-color: $color-background;
+  padding: $spacing-sm 0;
+}
+
+.site-header__nav-list {
+  @include container;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-sm $spacing-lg;
+}
+
+.site-header__nav-list li {
+  margin: 0;
+}
+
+.site-header__nav-list a {
+  font-size: $font-size-xs;
+  font-weight: $font-weight-medium;
+  color: $color-text;
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  transition: color $transition-base;
+
+  @include respond-to(md) {
+    font-size: $font-size-sm;
+  }
+
+  &:hover {
+    color: $color-text-light;
+  }
+}
+
+.site-header__nav-sale {
+  color: $color-sale !important;
+
+  &:hover {
+    color: darken($color-sale, 8%) !important;
   }
 }
