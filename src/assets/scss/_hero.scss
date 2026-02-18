@@ -1,44 +1,243 @@
-// Hero Component
+// Hero – fun split layout (visual left, promo right) + Shop by Category
 @use 'mixins' as *;
 
+// Hero-specific colors (vibrant, playful)
+$hero-orange: #e85d04;
+$hero-orange-dark: #dc2f02;
+$hero-yellow: #ffba08;
+$hero-yellow-light: #fff3b0;
+$hero-cream: #fefae0;
+
 .hero {
-  background: linear-gradient(135deg, $color-primary 0%, $color-accent 100%);
-  color: $color-background;
-  padding: $spacing-xxxl $spacing-md;
-  text-align: center;
-  
+  position: relative;
+  min-height: 380px;
+
   @include respond-to(md) {
-    padding: $spacing-xxxl * 1.5 $spacing-md;
+    min-height: 420px;
   }
-  
-  &__container {
+
+  @include respond-to(lg) {
+    min-height: 480px;
+  }
+
+  &__inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    min-height: inherit;
+
+    @include respond-to(lg) {
+      grid-template-columns: 1.1fr 1fr;
+    }
+  }
+
+  // Left: visual (image or placeholder)
+  &__visual {
+    background: linear-gradient(135deg, #e8d5b7 0%, #d4a574 50%, #c4956a 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-xl;
+    order: 2;
+
+    @include respond-to(lg) {
+      order: 1;
+      padding: $spacing-xxl;
+    }
+  }
+
+  &__visual-image-wrap {
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 4/3;
+    border-radius: $border-radius-xl;
+    overflow: hidden;
+    box-shadow: $shadow-lg;
+    position: relative;
+  }
+
+  &__visual-placeholder {
+    width: 100%;
+    height: 100%;
+    @include flex-center;
+    @include flex-column;
+    gap: $spacing-md;
+    background: linear-gradient(145deg, #f5e6d3 0%, #e8d5b7 100%);
+    color: $hero-orange;
+  }
+
+  &__visual-emoji {
+    font-size: 4rem;
+    line-height: 1;
+
+    @include respond-to(md) {
+      font-size: 5rem;
+    }
+  }
+
+  &__visual-hearts {
+    font-size: $font-size-lg;
+    letter-spacing: 0.25em;
+    color: $hero-orange-dark;
+  }
+
+  // Right: promo panel (orange + yellow blob)
+  &__promo {
+    background: $hero-orange;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-xxl $spacing-lg;
+    order: 1;
+
+    @include respond-to(lg) {
+      order: 2;
+      padding: $spacing-xxxl $spacing-xl;
+    }
+  }
+
+  &__promo-blob {
+    position: absolute;
+    top: -20%;
+    left: -15%;
+    width: 70%;
+    height: 80%;
+    background: $hero-yellow;
+    border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
+    opacity: 0.95;
+    pointer-events: none;
+  }
+
+  &__promo-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    color: #fff;
+    max-width: 360px;
+  }
+
+  &__promo-deal {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    margin-bottom: $spacing-md;
+    opacity: 0.98;
+    letter-spacing: 0.02em;
+
+    @include respond-to(md) {
+      font-size: $font-size-base;
+    }
+  }
+
+  &__promo-title {
+    font-family: 'Fredoka', $font-family-primary;
+    font-size: clamp(1.75rem, 5vw, 2.75rem);
+    font-weight: 600;
+    line-height: 1.15;
+    margin-bottom: $spacing-xl;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    @include respond-to(md) {
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+  }
+
+  &__promo-title-line {
+    display: block;
+  }
+
+  &__cta {
+    display: inline-block;
+    padding: $spacing-md $spacing-xxl;
+    background: $hero-yellow;
+    color: #1a1a1a;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-lg;
+    text-decoration: none;
+    border-radius: $border-radius-full;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    transition: transform $transition-fast, box-shadow $transition-fast;
+
+    &:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Shop by Category strip (below hero)
+.hero-categories {
+  background: $color-background;
+  margin-top: -$spacing-lg;
+  border-radius: $border-radius-xl $border-radius-xl 0 0;
+  padding: $spacing-xl $spacing-md $spacing-xxl;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+  position: relative;
+  z-index: 2;
+
+  &__inner {
     @include container;
   }
-  
+
   &__title {
-    font-size: $font-size-h1;
+    font-size: $font-size-h4;
     font-weight: $font-weight-bold;
+    color: $color-text;
     margin-bottom: $spacing-lg;
-    line-height: $line-height-heading;
-    
+    padding-left: $spacing-xs;
+  }
+
+  &__list {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: $spacing-md;
+
     @include respond-to(md) {
-      font-size: 3rem;
+      gap: $spacing-lg;
+      justify-content: flex-start;
     }
   }
-  
-  &__subtitle {
-    font-size: $font-size-xl;
-    margin-bottom: $spacing-xl;
-    opacity: 0.95;
-    
-    @include respond-to(md) {
-      font-size: $font-size-xxl;
+
+  &__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: $spacing-sm;
+    text-decoration: none;
+    color: $color-text;
+    font-weight: $font-weight-medium;
+    font-size: $font-size-sm;
+    min-width: 72px;
+    padding: $spacing-sm;
+    border-radius: $border-radius-lg;
+    transition: background $transition-fast, color $transition-fast;
+
+    &:hover {
+      background: $color-background-alt;
+      color: $hero-orange;
     }
   }
-  
-  &__cta {
-    @include button-secondary;
-    font-size: $font-size-lg;
-    padding: $spacing-md $spacing-xl;
+
+  &__icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: #fff;
+    border: 2px solid $hero-orange;
+    @include flex-center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+    transition: transform $transition-fast, background $transition-fast;
+
+    .hero-categories__item:hover & {
+      background: $hero-yellow-light;
+      transform: scale(1.08);
+    }
   }
 }
