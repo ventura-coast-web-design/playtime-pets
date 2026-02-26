@@ -239,5 +239,15 @@ $hero-cream: #fefae0;
       background: $hero-yellow-light;
       transform: scale(1.08);
     }
+
+    /* Ensure Font Awesome icons render inside the circle (FA5 & FA6) */
+    i[class^="fa-"],
+    i[class*=" fa-"] {
+      display: inline-block;
+      font-style: normal;
+      line-height: 1;
+      font-family: "Font Awesome 6 Free", "Font Awesome 5 Free";
+      font-weight: 900;
+    }
   }
 }
