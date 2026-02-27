@@ -1,17 +1,42 @@
 // Footer Component
 @use 'mixins' as *;
 
-footer {
+.site-footer {
   background-color: $color-background-alt;
   border-top: 1px solid $color-border;
   padding: $spacing-xl 0;
   margin-top: auto;
-  
-  p {
-    @include container;
-    text-align: center;
+}
+
+.site-footer__inner {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $spacing-lg;
+  text-align: center;
+}
+
+.site-footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: $spacing-sm $spacing-lg;
+
+  a {
     color: $color-text-light;
     font-size: $font-size-sm;
-    margin: 0;
+    text-decoration: none;
+    transition: color $transition-base;
+
+    &:hover {
+      color: $color-primary;
+    }
   }
+}
+
+.site-footer__copy {
+  color: $color-text-muted;
+  font-size: $font-size-sm;
+  margin: 0;
 }
