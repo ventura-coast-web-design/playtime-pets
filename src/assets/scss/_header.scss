@@ -149,6 +149,8 @@
 .site-header__nav {
   background-color: $color-background;
   padding: $spacing-sm 0;
+  display: flex;
+  justify-content: center;
 }
 
 .site-header__nav-list {
