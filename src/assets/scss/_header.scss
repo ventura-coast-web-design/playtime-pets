@@ -1,5 +1,6 @@
 // Header Component — three-band layout: promo bar, main header, nav
 @use 'mixins' as *;
+@use "sass:color";
 
 .site-header {
   position: sticky;
@@ -190,6 +191,6 @@
   color: $color-sale !important;
 
   &:hover {
-    color: darken($color-sale, 8%) !important;
+    color: color.adjust($color-sale, $lightness: -8%) !important;
   }
 }
