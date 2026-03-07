@@ -181,6 +181,9 @@ $hero-cream: #fefae0;
 
   &__inner {
     @include container;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
 
   &__title {
@@ -189,6 +192,8 @@ $hero-cream: #fefae0;
     color: $color-text;
     margin-bottom: $spacing-lg;
     padding-left: $spacing-xs;
+    display: flex;
+    justify-self: center;
   }
 
   &__list {
@@ -200,7 +205,6 @@ $hero-cream: #fefae0;
 
     @include respond-to(md) {
       gap: $spacing-lg;
-      justify-content: flex-start;
     }
   }
 

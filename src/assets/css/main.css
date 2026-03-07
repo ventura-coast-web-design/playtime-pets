@@ -399,6 +399,9 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .hero-categories__title {
   font-size: 1.5rem;
@@ -406,6 +409,8 @@
   color: #333333;
   margin-bottom: 1.5rem;
   padding-left: 0.25rem;
+  display: flex;
+  justify-self: center;
 }
 .hero-categories__list {
   list-style: none;
@@ -417,7 +422,6 @@
 @media (min-width: 768px) {
   .hero-categories__list {
     gap: 1.5rem;
-    justify-content: flex-start;
   }
 }
 .hero-categories__item {
