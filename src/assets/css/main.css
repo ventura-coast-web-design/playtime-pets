@@ -197,7 +197,9 @@
   padding: 2rem 0;
   margin-top: auto;
 }
-
+.site-footer .business-details .left-details img {
+  max-width: 50%;
+}
 .site-footer__inner {
   max-width: 1200px;
   margin: 0 auto;
@@ -409,8 +411,6 @@
   color: #333333;
   margin-bottom: 1.5rem;
   padding-left: 0.25rem;
-  display: flex;
-  justify-self: center;
 }
 .hero-categories__list {
   list-style: none;
