@@ -122,9 +122,23 @@
   font-family: 'Caveat', cursive;
   letter-spacing: 0.02em;
   line-height: 1.1;
+  display: block;
+  line-height: 0;
+
+  img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-height: 3.5rem; // ~56px — noticeable but not overwhelming on mobile
+    object-fit: contain;
+  }
 
   @include respond-to(md) {
     font-size: 1.9rem;
+
+    img {
+      max-height: 5rem; // ~80px — prominent on desktop
+    }
   }
 }
 
