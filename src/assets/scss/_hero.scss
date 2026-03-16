@@ -24,6 +24,7 @@ $hero-cream: #fefae0;
     display: grid;
     grid-template-columns: 1fr;
     min-height: inherit;
+    align-items: stretch;
 
     @include respond-to(lg) {
       grid-template-columns: 1.1fr 1fr;
@@ -38,10 +39,21 @@ $hero-cream: #fefae0;
     justify-content: center;
     padding: $spacing-xl;
     order: 2;
+    min-height: 0;
+    overflow: hidden;
 
     @include respond-to(lg) {
       order: 1;
       padding: $spacing-xxl;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
     }
   }
 

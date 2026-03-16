@@ -318,6 +318,7 @@
   display: grid;
   grid-template-columns: 1fr;
   min-height: inherit;
+  align-items: stretch;
 }
 @media (min-width: 992px) {
   .hero__inner {
@@ -331,12 +332,22 @@
   justify-content: center;
   padding: 2rem;
   order: 2;
+  min-height: 0;
+  overflow: hidden;
 }
 @media (min-width: 992px) {
   .hero__visual {
     order: 1;
     padding: 3rem;
   }
+}
+.hero__visual img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
 }
 .hero__visual-image-wrap {
   width: 100%;
