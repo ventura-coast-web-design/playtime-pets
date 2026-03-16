@@ -8,14 +8,68 @@
   margin-top: auto;
 
   .business-details {
+    @include container;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-xl;
+    margin-bottom: $spacing-xl;
+    padding-bottom: $spacing-xl;
+    border-bottom: 1px solid $color-border;
 
     .left-details {
+      flex-shrink: 0;
+
       img {
-        max-width: 50%;
+        max-width: 40%;
+        width: auto;
+        height: auto;
+        display: block;
+        object-fit: contain;
       }
     }
-    .right-details {
 
+    .right-details {
+      flex: 1;
+      min-width: 0; // Allow shrinking so content wraps instead of disappearing
+      text-align: right;
+
+      .business-details__tagline {
+        margin: 0 0 $spacing-xs;
+        font-size: $font-size-base;
+        font-weight: 600;
+        color: $color-text;
+      }
+
+      .business-details__location {
+        margin: 0;
+        font-size: $font-size-sm;
+        color: $color-text-light;
+      }
+    }
+  }
+
+  // Stack logo and business info before viewport gets too narrow (avoids crushing)
+  @media (max-width: ($breakpoint-xl - 1px)) {
+    .business-details {
+      flex-direction: column;
+      text-align: center;
+
+      .left-details {
+        width: 100%;
+      }
+
+      .left-details img {
+        max-width: 280px;
+        margin: 0 auto;
+      }
+
+      .right-details {
+        width: 100%;
+        flex: none; // Prevent collapsing when stacked
+        text-align: center;
+      }
     }
   }
 }
