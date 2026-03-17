@@ -767,6 +767,30 @@
 .home-page__section:nth-child(even) {
   background-color: #f8f9fa;
 }
+.home-page__section--one-stop {
+  position: relative;
+  padding: 4rem 0;
+  background-image: url("/assets/images/one-stop-shop.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #ffffff;
+}
+.home-page__section--one-stop::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+}
+.home-page__section--one-stop .home-page__container {
+  position: relative;
+  z-index: 1;
+}
+.home-page__section--one-stop .home-page__heading,
+.home-page__section--one-stop .home-page__content p {
+  color: #ffffff;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
 .home-page__container {
   max-width: 1200px;
   margin: 0 auto;

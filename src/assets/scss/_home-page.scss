@@ -40,6 +40,35 @@
       background-color: $color-background-alt;
     }
   }
+
+  &__section--one-stop {
+    position: relative;
+    padding: $spacing-xxxl 0;
+    background-image: url("/assets/images/one-stop-shop.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: $color-background;
+
+    &::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      // Dark overlay to improve text contrast on busy image
+      background: rgba(0, 0, 0, 0.45);
+    }
+
+    .home-page__container {
+      position: relative;
+      z-index: 1;
+    }
+
+    .home-page__heading,
+    .home-page__content p {
+      color: #ffffff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    }
+  }
   
   &__container {
     @include container;
