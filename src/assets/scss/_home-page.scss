@@ -43,7 +43,10 @@
 
   &__section--one-stop {
     position: relative;
+    margin: $spacing-xl $spacing-lg;
     padding: $spacing-xxxl 0;
+    border-radius: 1rem;
+    overflow: hidden;
     background-image: url("/assets/images/one-stop-shop.jpg");
     background-size: cover;
     background-position: center;
