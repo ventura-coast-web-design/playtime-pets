@@ -549,6 +549,79 @@
   font-weight: 900;
 }
 
+.why-shop {
+  background-color: #ffffff;
+  padding: 3rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.why-shop__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.why-shop__title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #333333;
+  text-align: center;
+  margin: 0 0 2rem;
+  letter-spacing: 0.02em;
+}
+
+.why-shop__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem 1rem;
+}
+@media (min-width: 768px) {
+  .why-shop__list {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem 1.5rem;
+  }
+}
+
+.why-shop__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.5rem;
+}
+
+.why-shop__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: #1c6d63;
+  font-size: 1.25rem;
+}
+@media (min-width: 768px) {
+  .why-shop__icon {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.35rem;
+  }
+}
+
+.why-shop__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+  line-height: 1.3;
+}
+@media (min-width: 768px) {
+  .why-shop__label {
+    font-size: 16px;
+  }
+}
+
 .shop-card {
   background-color: #ffffff;
   border-radius: 12px;

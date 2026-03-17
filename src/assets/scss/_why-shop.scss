@@ -1,0 +1,70 @@
+// Why shop with us — trust strip on home page
+@use 'mixins' as *;
+
+.why-shop {
+  background-color: $color-background;
+  padding: $spacing-xxl 0;
+  border-bottom: 1px solid $color-border;
+}
+
+.why-shop__inner {
+  @include container;
+}
+
+.why-shop__title {
+  font-size: $font-size-h3;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+  text-align: center;
+  margin: 0 0 $spacing-xl;
+  letter-spacing: 0.02em;
+}
+
+.why-shop__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-lg $spacing-md;
+
+  @include respond-to(md) {
+    grid-template-columns: repeat(4, 1fr);
+    gap: $spacing-xl $spacing-lg;
+  }
+}
+
+.why-shop__item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: $spacing-sm;
+}
+
+.why-shop__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: $color-promo-bg;
+  font-size: 1.25rem;
+
+  @include respond-to(md) {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.35rem;
+  }
+}
+
+.why-shop__label {
+  font-size: $font-size-sm;
+  font-weight: $font-weight-medium;
+  color: $color-text;
+  line-height: 1.3;
+
+  @include respond-to(md) {
+    font-size: $font-size-base;
+  }
+}
