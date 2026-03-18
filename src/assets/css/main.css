@@ -7,8 +7,8 @@
 }
 
 .site-header__promo {
-  background-color: #1c6d63;
-  color: #ffffff;
+  background: linear-gradient(135deg, #6baae4 0%, #4d8cd1 100%);
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -326,7 +326,7 @@
   }
 }
 .hero__visual {
-  background: linear-gradient(135deg, #e8d5b7 0%, #d4a574 50%, #c4956a 100%);
+  background: white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -385,7 +385,7 @@
   color: #dc2f02;
 }
 .hero__promo {
-  background: #e85d04;
+  background: linear-gradient(135deg, #ffd080 0%, #ff9830 100%);
   position: relative;
   overflow: hidden;
   display: flex;
@@ -406,7 +406,7 @@
   left: -15%;
   width: 70%;
   height: 80%;
-  background: #ffba08;
+  background: linear-gradient(135deg, #e96d93 0%, #c84869 100%);
   border-radius: 45% 55% 60% 40%/50% 45% 55% 50%;
   opacity: 0.95;
   pointer-events: none;
@@ -449,8 +449,8 @@
 .hero__cta {
   display: inline-block;
   padding: 1rem 3rem;
-  background: #ffba08;
-  color: #1a1a1a;
+  background: linear-gradient(135deg, #6baae4 0%, #4d8cd1 100%);
+  color: #fff;
   font-weight: 700;
   font-size: 18px;
   text-decoration: none;
@@ -536,17 +536,6 @@
 .hero-categories__item:hover .hero-categories__icon {
   background: #fff3b0;
   transform: scale(1.08);
-}
-.hero-categories__icon {
-  /* Ensure Font Awesome icons render inside the circle (FA5 & FA6) */
-}
-.hero-categories__icon i[class^=fa-],
-.hero-categories__icon i[class*=" fa-"] {
-  display: inline-block;
-  font-style: normal;
-  line-height: 1;
-  font-family: "Font Awesome 6 Free", "Font Awesome 5 Free";
-  font-weight: 900;
 }
 
 .why-shop {

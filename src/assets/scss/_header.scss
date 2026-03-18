@@ -1,5 +1,6 @@
 // Header Component — three-band layout: promo bar, main header, nav
 @use 'mixins' as *;
+@use 'variables' as *;
 @use "sass:color";
 
 .site-header {
@@ -11,8 +12,8 @@
 
 // Top promotional banner — dark teal, white text, carousel arrows
 .site-header__promo {
-  background-color: $color-promo-bg;
-  color: $color-background;
+  background: $vibrant-dark-blue;
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -9,7 +9,17 @@ $color-text-muted: #999999;
 $color-background: #ffffff;
 $color-background-alt: #f8f9fa;
 $color-border: #e0e0e0;
+$vibrant-red: linear-gradient(135deg, #e96d93 0%, #c84869 100%);
+$vibrant-dark-blue: linear-gradient(135deg, #6baae4 0%, #4d8cd1 100%);
+$vibrant-light-blue: linear-gradient(135deg, #59cdbc 0%, #48a896 100%);
+$vibrant-yellow: linear-gradient(135deg, #ffd080 0%, #ff9830 100%);
+$vibrant-yellow-reverse: linear-gradient(135deg, #ff9830 0%, #ffd080 100%);
 
+$hero-orange: #e85d04;
+$hero-orange-dark: #dc2f02;
+$hero-yellow: #ffba08;
+$hero-yellow-light: #fff3b0;
+$hero-cream: #fefae0;
 // Header / brand
 $color-promo-bg: #1c6d63;
 $color-sale: #d13a3a;

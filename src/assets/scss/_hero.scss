@@ -1,12 +1,6 @@
 // Hero – fun split layout (visual left, promo right) + Shop by Category
 @use 'mixins' as *;
-
-// Hero-specific colors (vibrant, playful)
-$hero-orange: #e85d04;
-$hero-orange-dark: #dc2f02;
-$hero-yellow: #ffba08;
-$hero-yellow-light: #fff3b0;
-$hero-cream: #fefae0;
+@use 'variables' as *;
 
 .hero {
   position: relative;
@@ -33,7 +27,7 @@ $hero-cream: #fefae0;
 
   // Left: visual (image or placeholder)
   &__visual {
-    background: linear-gradient(135deg, #e8d5b7 0%, #d4a574 50%, #c4956a 100%);
+    background: white;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,9 +86,9 @@ $hero-cream: #fefae0;
     color: $hero-orange-dark;
   }
 
-  // Right: promo panel (orange + yellow blob)
+  // Right: promo panel (On Sale gradient + pink blob)
   &__promo {
-    background: $hero-orange;
+    background: $vibrant-yellow;
     position: relative;
     overflow: hidden;
     display: flex;
@@ -115,7 +109,7 @@ $hero-cream: #fefae0;
     left: -15%;
     width: 70%;
     height: 80%;
-    background: $hero-yellow;
+    background: $vibrant-red;
     border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
     opacity: 0.95;
     pointer-events: none;
@@ -161,8 +155,8 @@ $hero-cream: #fefae0;
   &__cta {
     display: inline-block;
     padding: $spacing-md $spacing-xxl;
-    background: $hero-yellow;
-    color: #1a1a1a;
+    background: $vibrant-dark-blue;
+    color: #fff;
     font-weight: $font-weight-bold;
     font-size: $font-size-lg;
     text-decoration: none;
@@ -252,16 +246,6 @@ $hero-cream: #fefae0;
     .hero-categories__item:hover & {
       background: $hero-yellow-light;
       transform: scale(1.08);
-    }
-
-    /* Ensure Font Awesome icons render inside the circle (FA5 & FA6) */
-    i[class^="fa-"],
-    i[class*=" fa-"] {
-      display: inline-block;
-      font-style: normal;
-      line-height: 1;
-      font-family: "Font Awesome 6 Free", "Font Awesome 5 Free";
-      font-weight: 900;
     }
   }
 }
