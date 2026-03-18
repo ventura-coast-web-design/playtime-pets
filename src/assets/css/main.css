@@ -758,6 +758,34 @@
   object-fit: cover;
 }
 
+.home-page__story {
+  padding: 3rem 0;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.home-page__story-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333333;
+  text-align: center;
+  margin: 0 0 2rem;
+}
+
+.home-page__story-content {
+  max-width: 42rem;
+  margin: 0 auto;
+}
+.home-page__story-content p {
+  font-size: 16px;
+  color: #666666;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.home-page__story-content p:last-child {
+  margin-bottom: 0;
+}
+
 .home-page {
   min-height: 60vh;
 }

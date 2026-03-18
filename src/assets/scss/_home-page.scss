@@ -30,6 +30,37 @@
   }
 }
 
+// Our story — just below hero
+.home-page__story {
+  padding: $spacing-xxl 0;
+  background-color: $color-background-alt;
+  border-bottom: 1px solid $color-border;
+}
+
+.home-page__story-title {
+  font-size: $font-size-h2;
+  font-weight: $font-weight-bold;
+  color: $color-text;
+  text-align: center;
+  margin: 0 0 $spacing-xl;
+}
+
+.home-page__story-content {
+  max-width: 42rem;
+  margin: 0 auto;
+
+  p {
+    font-size: $font-size-base;
+    color: $color-text-light;
+    line-height: $line-height-base;
+    margin-bottom: $spacing-lg;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 .home-page {
   min-height: 60vh;
   
