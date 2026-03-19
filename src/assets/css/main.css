@@ -1193,11 +1193,187 @@
   margin-bottom: 0;
 }
 
-.shop-view {
+.shop-page {
   background-color: #FDFBF5;
 }
+
+.shop-filters {
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem;
+  border: 1px solid rgba(38, 51, 95, 0.08);
+}
+@media (min-width: 992px) {
+  .shop-filters {
+    position: sticky;
+    top: 1.5rem;
+    padding: 2rem 1.5rem;
+  }
+}
+.shop-filters__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #26335F;
+  margin: 0 0 0.5rem;
+}
+.shop-filters__hint {
+  font-size: 14px;
+  color: #666666;
+  line-height: 1.6;
+  margin: 0 0 1.5rem;
+}
+.shop-filters__form {
+  margin: 0;
+}
+.shop-filters__group {
+  border: none;
+  margin: 0 0 1.5rem;
+  padding: 0 0 1.5rem;
+  border-bottom: 1px solid #e0e0e0;
+}
+.shop-filters__group:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.shop-filters__legend {
+  font-size: 14px;
+  font-weight: 600;
+  color: #26335F;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0;
+  margin: 0 0 0.5rem;
+}
+.shop-filters__select {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 0.5rem;
+  font-family: inherit;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333333;
+  background-color: #ffffff;
+  border: 1px solid rgba(38, 51, 95, 0.2);
+  border-radius: 8px;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+.shop-filters__select:focus {
+  outline: none;
+  border-color: #6CAAE1;
+  box-shadow: 0 0 0 3px rgba(108, 170, 225, 0.35);
+}
+.shop-filters__select option {
+  padding: 0.25rem 0.5rem;
+}
+.shop-filters__select option:checked {
+  background: linear-gradient(135deg, rgba(38, 51, 95, 0.12) 0%, rgba(108, 170, 225, 0.15) 100%);
+  color: #26335F;
+  font-weight: 500;
+}
+.shop-filters__select--single {
+  min-height: 2.75rem;
+  padding: 0.5rem 1rem;
+  appearance: auto;
+}
+.shop-filters__actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #e0e0e0;
+}
+.shop-filters__apply {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.shop-filters__apply:hover {
+  transform: translateY(-2px);
+}
+.shop-filters__apply:active {
+  transform: translateY(0);
+}
+.shop-filters__apply {
+  width: 100%;
+  background: linear-gradient(135deg, #26335F 0%, #6CAAE1 100%);
+  color: #ffffff;
+  font-weight: 600;
+}
+.shop-filters__apply:hover {
+  background: linear-gradient(135deg, #1a2447 0%, #4A90E2 100%);
+}
+.shop-filters__clear {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  text-decoration: none;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.shop-filters__clear:hover {
+  transform: translateY(-2px);
+}
+.shop-filters__clear:active {
+  transform: translateY(0);
+}
+.shop-filters__clear {
+  width: 100%;
+  background-color: transparent;
+  color: #26335F;
+  border: 2px solid rgba(38, 51, 95, 0.25);
+}
+.shop-filters__clear:hover {
+  background-color: rgba(38, 51, 95, 0.06);
+}
+
 .shop-view .shop-view__content {
   padding: 0;
+}
+.shop-view .shop-view__main-layout {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+@media (min-width: 992px) {
+  .shop-view .shop-view__main-layout {
+    grid-template-columns: minmax(240px, 280px) 1fr;
+    gap: 3rem;
+  }
+}
+.shop-view .shop-view__main-column {
+  min-width: 0;
+}
+.shop-view .shop-view__results-count {
+  font-size: 16px;
+  font-weight: 600;
+  color: #26335F;
+  margin: 0 0 1rem;
+}
+.shop-view .shop-view__no-matches {
+  margin-top: 1.5rem;
+  text-align: center;
+  padding: 2rem;
+  color: #666666;
+  font-size: 18px;
+  line-height: 1.6;
 }
 .shop-view .shop-view__category-strip {
   display: flex;

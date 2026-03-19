@@ -3,9 +3,13 @@ layout: base
 title: Shop
 ---
 
+{% assign filter_brands = products | map: "brand" | compact | uniq | sort %}
+{% assign filter_materials = products | map: "material" | compact | uniq | sort %}
+{% assign filter_categories = products | map: "category" | compact | uniq | sort %}
+
 <div class="shop-page">
   <div class="shop-page__container">
-    <div class="shop-view shop-view">
+    <div class="shop-view shop-view--3">
       <div class="shop-view__content">
 
         <!-- Colorful Category Strip -->
@@ -24,111 +28,208 @@ title: Shop
           </div>
         </div>
 
-        <!-- Product Grid -->
-        <div class="shop-view__grid-wrapper">
-          <div class="shop-view__grid">
-            {% for product in products %}
-            {% assign index = forloop.index0 | modulo: 6 %}
-            <div class="shop-view__product-card shop-view__product-card--color-{{ index }}">
-            <a href="/shop/{{ product.id }}" class="shop-view__product-link">
-              <div class="shop-view__product-image">
-                <img src="{{ product.image }}" alt="{{ product.title }}" loading="lazy">
-                {% if product.comparePrice %}
-                <span class="shop-view__sale-badge">Sale</span>
-                {% endif %}
+        <div class="shop-view__main-layout">
+          <!-- Filters: staged until "Apply filters" (no full page reload) -->
+          <aside class="shop-filters" aria-label="Filter products">
+            <h2 class="shop-filters__title">Filters</h2>
+            <p class="shop-filters__hint">For Brand, animal, category, breed size, and material, use <strong>Ctrl</strong> (Windows) or <strong>⌘</strong> (Mac) while clicking to pick multiple options. Price and rating are one choice each. Press <strong>Apply filters</strong> when ready.</p>
+
+            <form id="shop-filters-form" class="shop-filters__form">
+              <fieldset class="shop-filters__group">
+                <legend class="shop-filters__legend">Brand</legend>
+                <select id="filter-brand" name="filter-brand" class="shop-filters__select" multiple size="6" aria-label="Filter by brand">
+                  {% for brand in filter_brands %}
+                  <option value="{{ brand }}">{{ brand }}</option>
+                  {% endfor %}
+                </select>
+              </fieldset>
+
+              <fieldset class="shop-filters__group">
+                <legend class="shop-filters__legend">Animal type</legend>
+                <select id="filter-animal" name="filter-animal" class="shop-filters__select" multiple size="3" aria-label="Filter by animal type">
+                  <option value="dog">Dog</option>
+                  <option value="cat">Cat</option>
+                  <option value="both">Dog &amp; cat</option>
+                </select>
+              </fieldset>
+
+              <fieldset class="shop-filters__group">
+                <legend class="shop-filters__legend">Category</legend>
+                <select id="filter-category" name="filter-category" class="shop-filters__select" multiple size="4" aria-label="Filter by category">
+                  {% for cat in filter_categories %}
+                  <option value="{{ cat }}">{{ cat }}</option>
+                  {% endfor %}
+                </select>
+              </fieldset>
+
+              <fieldset class="shop-filters__group">
+                <legend class="shop-filters__legend">Breed size</legend>
+                <select id="filter-breed" name="filter-breed" class="shop-filters__select" multiple size="4" aria-label="Filter by breed size">
+                  <option value="small">Small</option>
+                  <option value="medium">Medium</option>
+                  <option value="large">Large</option>
+                  <option value="all">All sizes</option>
+                </select>
+              </fieldset>
+
+              <fieldset class="shop-filters__group">
+                <legend class="shop-filters__legend">Material</legend>
+                <select id="filter-material" name="filter-material" class="shop-filters__select" multiple size="6" aria-label="Filter by material">
+                  {% for mat in filter_materials %}
+                  <option value="{{ mat }}">{{ mat }}</option>
+                  {% endfor %}
+                </select>
+              </fieldset>
+
+              <fieldset class="shop-filters__group">
+                <legend class="shop-filters__legend">Price</legend>
+                <select id="filter-price" name="filter-price" class="shop-filters__select shop-filters__select--single" aria-label="Filter by price range">
+                  <option value="" selected>Any price</option>
+                  <option value="0-14.99">Under $15</option>
+                  <option value="15-34.99">$15 – $35</option>
+                  <option value="35-59.99">$35 – $60</option>
+                  <option value="60-99999">$60+</option>
+                </select>
+              </fieldset>
+
+              <fieldset class="shop-filters__group">
+                <legend class="shop-filters__legend">Customer rating</legend>
+                <select id="filter-rating" name="filter-rating" class="shop-filters__select shop-filters__select--single" aria-label="Filter by minimum customer rating">
+                  <option value="" selected>Any rating</option>
+                  <option value="4.5">4.5★ &amp; up</option>
+                  <option value="4">4★ &amp; up</option>
+                  <option value="3">3★ &amp; up</option>
+                </select>
+              </fieldset>
+
+              <div class="shop-filters__actions">
+                <button type="button" class="shop-filters__apply" id="shop-filters-apply">Apply filters</button>
+                <button type="button" class="shop-filters__clear" id="shop-filters-clear">Clear all</button>
               </div>
-            </a>
-            
-            <div class="shop-view__product-info">
-              <div class="shop-view__product-type">TOY</div>
-              <h3 class="shop-view__product-title">{{ product.title }}</h3>
-              
-              <div class="shop-view__product-price">
-                {% if product.comparePrice %}
-                <span class="shop-view__price-original">${{ product.comparePrice }}</span>
-                <span class="shop-view__price-current">${{ product.price }}</span>
-                {% else %}
-                <span class="shop-view__price-current">${{ product.price }}</span>
-                {% endif %}
+            </form>
+          </aside>
+
+          <div class="shop-view__main-column">
+            <p class="shop-view__results-count" id="shop-results-count" aria-live="polite">{{ products | size }} products</p>
+
+            {% if products.size == 0 %}
+            <div class="shop-view__empty">
+              <p>No products found.</p>
+            </div>
+            {% else %}
+            <div class="shop-view__grid-wrapper">
+              <div class="shop-view__grid" id="shop-product-grid">
+                {% for product in products %}
+                {% assign index = forloop.index0 | modulo: 6 %}
+                <article
+                  class="shop-view__product-card shop-view__product-card--color-{{ index }}"
+                  data-shop-product
+                  data-brand="{{ product.brand }}"
+                  data-animal="{{ product.animal }}"
+                  data-category="{{ product.category }}"
+                  data-breed-size="{{ product.breedSize }}"
+                  data-material="{{ product.material }}"
+                  data-price="{{ product.price }}"
+                  data-rating="{{ product.rating }}">
+                  <a href="/shop/{{ product.id }}" class="shop-view__product-link">
+                    <div class="shop-view__product-image">
+                      <img src="{{ product.image }}" alt="{{ product.title }}" loading="lazy">
+                      {% if product.comparePrice %}
+                      <span class="shop-view__sale-badge">Sale</span>
+                      {% endif %}
+                    </div>
+                  </a>
+
+                  <div class="shop-view__product-info">
+                    <div class="shop-view__product-type">{{ product.category | upcase }}</div>
+                    <h3 class="shop-view__product-title">{{ product.title }}</h3>
+
+                    <div class="shop-view__product-price">
+                      {% if product.comparePrice %}
+                      <span class="shop-view__price-original">${{ product.comparePrice }}</span>
+                      <span class="shop-view__price-current">${{ product.price }}</span>
+                      {% else %}
+                      <span class="shop-view__price-current">${{ product.price }}</span>
+                      {% endif %}
+                    </div>
+
+                    <div class="shop-view__variations">
+                      <div class="shop-view__variation-option shop-view__variation-option--active" style="background: linear-gradient(135deg, #87CEEB 0%, #E0F6FF 50%, #FFFFFF 100%); border: 2px solid #26335F;"></div>
+                      <div class="shop-view__variation-option" style="background: radial-gradient(circle, #000000 20%, transparent 20%), radial-gradient(circle, #000000 20%, transparent 20%), #FFFFFF; background-size: 12px 12px; background-position: 0 0, 6px 6px;"></div>
+                      <div class="shop-view__variation-option" style="background: linear-gradient(45deg, #FFB6C1 25%, #FFA500 25%, #FFA500 50%, #FFB6C1 50%, #FFB6C1 75%, #FFA500 75%); background-size: 16px 16px;"></div>
+                      <div class="shop-view__variation-option" style="background: linear-gradient(135deg, #228B22 0%, #40E0D0 100%);"></div>
+                      <div class="shop-view__variation-option" style="background: radial-gradient(circle, #FFFFFF 30%, transparent 30%), #DC143C; background-size: 20px 20px;"></div>
+                      <div class="shop-view__variation-option" style="background: #8B4513;"></div>
+                    </div>
+                  </div>
+                </article>
+                {% endfor %}
               </div>
-              
-              <!-- Color/Pattern Variations -->
-              <div class="shop-view__variations">
-                <div class="shop-view__variation-option shop-view__variation-option--active" style="background: linear-gradient(135deg, #87CEEB 0%, #E0F6FF 50%, #FFFFFF 100%); border: 2px solid #26335F;"></div>
-                <div class="shop-view__variation-option" style="background: radial-gradient(circle, #000000 20%, transparent 20%), radial-gradient(circle, #000000 20%, transparent 20%), #FFFFFF; background-size: 12px 12px; background-position: 0 0, 6px 6px;"></div>
-                <div class="shop-view__variation-option" style="background: linear-gradient(45deg, #FFB6C1 25%, #FFA500 25%, #FFA500 50%, #FFB6C1 50%, #FFB6C1 75%, #FFA500 75%); background-size: 16px 16px;"></div>
-                <div class="shop-view__variation-option" style="background: linear-gradient(135deg, #228B22 0%, #40E0D0 100%);"></div>
-                <div class="shop-view__variation-option" style="background: radial-gradient(circle, #FFFFFF 30%, transparent 30%), #DC143C; background-size: 20px 20px;"></div>
-                <div class="shop-view__variation-option" style="background: #8B4513;"></div>
+
+              <p class="shop-view__no-matches" id="shop-no-matches" role="status" hidden>No products match your filters. Try clearing some options and apply again.</p>
+            </div>
+            {% endif %}
+
+            <!-- Colorful Promo Section -->
+            <div class="shop-view__promo-section">
+              <div class="shop-view__promo-card shop-view__promo-card--purple">
+                <h3 class="shop-view__promo-title">Free Shipping</h3>
+                <p class="shop-view__promo-text">On orders over $50</p>
+              </div>
+              <div class="shop-view__promo-card shop-view__promo-card--orange">
+                <h3 class="shop-view__promo-title">30-Day Returns</h3>
+                <p class="shop-view__promo-text">Hassle-free returns</p>
+              </div>
+              <div class="shop-view__promo-card shop-view__promo-card--teal">
+                <h3 class="shop-view__promo-title">Happy Pets</h3>
+                <p class="shop-view__promo-text">100% satisfaction</p>
+              </div>
+            </div>
+
+            <div class="shop-view__shop-all">
+              <button type="button" class="shop-view__shop-all-btn">
+                <span>SHOP ALL</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="shop-view__banner">
+              <div class="shop-view__banner-content">
+                <span>PLAY TIME</span>
+                <span class="shop-view__banner-separator">✦</span>
+                <span>FUN TIME</span>
+                <span class="shop-view__banner-separator">✦</span>
+                <span>HAPPY PETS</span>
+              </div>
+            </div>
+
+            <div class="shop-view__collections">
+              <h2 class="shop-view__collections-title">Shop by Collection</h2>
+              <div class="shop-view__collections-grid">
+                <div class="shop-view__collection-item">
+                  <div class="shop-view__collection-image" style="background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);"></div>
+                  <h3 class="shop-view__collection-name">Interactive Toys</h3>
+                </div>
+                <div class="shop-view__collection-item">
+                  <div class="shop-view__collection-image" style="background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);"></div>
+                  <h3 class="shop-view__collection-name">Plush Friends</h3>
+                </div>
+                <div class="shop-view__collection-item">
+                  <div class="shop-view__collection-image" style="background: linear-gradient(135deg, #FBD786 0%, #F7971E 100%);"></div>
+                  <h3 class="shop-view__collection-name">Outdoor Fun</h3>
+                </div>
               </div>
             </div>
           </div>
-          {% endfor %}
         </div>
 
-        <!-- Colorful Promo Section -->
-        <div class="shop-view__promo-section">
-          <div class="shop-view__promo-card shop-view__promo-card--purple">
-            <h3 class="shop-view__promo-title">Free Shipping</h3>
-            <p class="shop-view__promo-text">On orders over $50</p>
-          </div>
-          <div class="shop-view__promo-card shop-view__promo-card--orange">
-            <h3 class="shop-view__promo-title">30-Day Returns</h3>
-            <p class="shop-view__promo-text">Hassle-free returns</p>
-          </div>
-          <div class="shop-view__promo-card shop-view__promo-card--teal">
-            <h3 class="shop-view__promo-title">Happy Pets</h3>
-            <p class="shop-view__promo-text">100% satisfaction</p>
-          </div>
-        </div>
-
-        <!-- Shop All Button -->
-        <div class="shop-view__shop-all">
-          <button class="shop-view__shop-all-btn">
-            <span>SHOP ALL</span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M12 2L15.09 8.26L22 9.27L17 14.14L18.18 21.02L12 17.77L5.82 21.02L7 14.14L2 9.27L8.91 8.26L12 2Z" fill="currentColor"/>
-            </svg>
-          </button>
-        </div>
-
-        <!-- Informational Banner -->
-        <div class="shop-view__banner">
-          <div class="shop-view__banner-content">
-            <span>PLAY TIME</span>
-            <span class="shop-view__banner-separator">✦</span>
-            <span>FUN TIME</span>
-            <span class="shop-view__banner-separator">✦</span>
-            <span>HAPPY PETS</span>
-          </div>
-        </div>
-
-        <!-- Shop by Collection Section -->
-        <div class="shop-view__collections">
-          <h2 class="shop-view__collections-title">Shop by Collection</h2>
-          <div class="shop-view__collections-grid">
-            <div class="shop-view__collection-item">
-              <div class="shop-view__collection-image" style="background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);"></div>
-              <h3 class="shop-view__collection-name">Interactive Toys</h3>
-            </div>
-            <div class="shop-view__collection-item">
-              <div class="shop-view__collection-image" style="background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);"></div>
-              <h3 class="shop-view__collection-name">Plush Friends</h3>
-            </div>
-            <div class="shop-view__collection-item">
-              <div class="shop-view__collection-image" style="background: linear-gradient(135deg, #FBD786 0%, #F7971E 100%);"></div>
-              <h3 class="shop-view__collection-name">Outdoor Fun</h3>
-            </div>
-          </div>
-        </div>
-
-        <!-- Empty State -->
-        {% if products.size == 0 %}
-        <div class="shop-view__empty">
-          <p>No products found.</p>
-        </div>
-        {% endif %}
       </div>
     </div>
   </div>
 </div>
+
+{% if products.size > 0 %}
+<script src="/assets/js/shop-filters.js" defer></script>
+{% endif %}

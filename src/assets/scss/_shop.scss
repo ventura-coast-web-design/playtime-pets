@@ -1,11 +1,173 @@
 // Shop View 3 Styles - Fun Pops of Color Design
 @use 'mixins' as *;
 
-.shop-view {
+.shop-page {
   background-color: #FDFBF5; // Warm cream background
-  
+}
+
+// Left sidebar filters (Apply = client-side show/hide, no full page reload)
+.shop-filters {
+  background-color: #ffffff;
+  border-radius: $border-radius-lg;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  padding: $spacing-lg;
+  border: 1px solid rgba(38, 51, 95, 0.08);
+
+  @include respond-to(lg) {
+    position: sticky;
+    top: $spacing-lg;
+    padding: $spacing-xl $spacing-lg;
+  }
+
+  &__title {
+    font-size: $font-size-h5;
+    font-weight: $font-weight-bold;
+    color: #26335F;
+    margin: 0 0 $spacing-sm;
+  }
+
+  &__hint {
+    font-size: $font-size-sm;
+    color: $color-text-light;
+    line-height: $line-height-base;
+    margin: 0 0 $spacing-lg;
+  }
+
+  &__form {
+    margin: 0;
+  }
+
+  &__group {
+    border: none;
+    margin: 0 0 $spacing-lg;
+    padding: 0 0 $spacing-lg;
+    border-bottom: 1px solid $color-border;
+
+    &:last-of-type {
+      border-bottom: none;
+      padding-bottom: 0;
+      margin-bottom: 0;
+    }
+  }
+
+  &__legend {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: #26335F;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0;
+    margin: 0 0 $spacing-sm;
+  }
+
+  &__select {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: $spacing-sm;
+    font-family: inherit;
+    font-size: $font-size-sm;
+    line-height: $line-height-base;
+    color: $color-text;
+    background-color: #ffffff;
+    border: 1px solid rgba(38, 51, 95, 0.2);
+    border-radius: $border-radius-md;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    &:focus {
+      outline: none;
+      border-color: #6CAAE1;
+      box-shadow: 0 0 0 3px rgba(108, 170, 225, 0.35);
+    }
+
+    option {
+      padding: $spacing-xs $spacing-sm;
+    }
+
+    option:checked {
+      background: linear-gradient(135deg, rgba(38, 51, 95, 0.12) 0%, rgba(108, 170, 225, 0.15) 100%);
+      color: #26335F;
+      font-weight: $font-weight-medium;
+    }
+
+    // Single-line dropdown (price, rating)
+    &--single {
+      min-height: 2.75rem;
+      padding: $spacing-sm $spacing-md;
+      appearance: auto;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    margin-top: $spacing-lg;
+    padding-top: $spacing-md;
+    border-top: 1px solid $color-border;
+  }
+
+  &__apply {
+    @include button-base;
+    width: 100%;
+    background: linear-gradient(135deg, #26335F 0%, #6CAAE1 100%);
+    color: #ffffff;
+    font-weight: $font-weight-semibold;
+
+    &:hover {
+      background: linear-gradient(135deg, #1a2447 0%, #4A90E2 100%);
+    }
+  }
+
+  &__clear {
+    @include button-base;
+    width: 100%;
+    background-color: transparent;
+    color: #26335F;
+    border: 2px solid rgba(38, 51, 95, 0.25);
+
+    &:hover {
+      background-color: rgba(38, 51, 95, 0.06);
+    }
+  }
+}
+
+.shop-view {
   .shop-view__content {
     padding: 0;
+  }
+
+  // Filters sidebar + product column
+  .shop-view__main-layout {
+    display: grid;
+    gap: $spacing-xl;
+    align-items: start;
+
+    @include respond-to(lg) {
+      grid-template-columns: minmax(240px, 280px) 1fr;
+      gap: $spacing-xxl;
+    }
+  }
+
+  .shop-view__main-column {
+    min-width: 0;
+  }
+
+  .shop-view__results-count {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: #26335F;
+    margin: 0 0 $spacing-md;
+  }
+
+  .shop-view__no-matches {
+    margin-top: $spacing-lg;
+    text-align: center;
+    padding: $spacing-xl;
+    color: #666666;
+    font-size: $font-size-lg;
+    line-height: $line-height-base;
   }
   
   // Colorful Category Strip
