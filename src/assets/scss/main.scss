@@ -18,10 +18,8 @@
 @use 'shop-page';
 @use 'shop-item-show';
 
-// 6. Shop View Styles (separate files for easy deletion)
-@use 'shop1';
-@use 'shop2';
-@use 'shop3';
+@use 'shop';
+
 // Import order matters - variables and mixins first, then components
 
 
