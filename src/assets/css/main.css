@@ -1207,7 +1207,13 @@
 @media (min-width: 992px) {
   .shop-filters {
     position: sticky;
-    top: 1.5rem;
+    top: 6.75rem;
+    align-self: start;
+    max-height: calc(100dvh - 6.75rem - 1rem);
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     padding: 2rem 1.5rem;
   }
 }

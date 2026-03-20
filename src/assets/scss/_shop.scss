@@ -1,6 +1,9 @@
 // Shop View 3 Styles - Fun Pops of Color Design
 @use 'mixins' as *;
 
+// Sticky site header (promo + main + nav) — keep filters below it and within the viewport
+$shop-filters-sticky-top: 6.75rem;
+
 .shop-page {
   background-color: #FDFBF5; // Warm cream background
 }
@@ -15,7 +18,14 @@
 
   @include respond-to(lg) {
     position: sticky;
-    top: $spacing-lg;
+    top: $shop-filters-sticky-top;
+    align-self: start;
+    // Tall filter form: scroll inside the panel instead of forcing page scroll past the whole gallery
+    max-height: calc(100dvh - #{$shop-filters-sticky-top} - #{$spacing-md});
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     padding: $spacing-xl $spacing-lg;
   }
 
