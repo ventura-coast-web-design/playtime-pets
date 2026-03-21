@@ -1,0 +1,123 @@
+---
+pagination:
+  data: products
+  size: 1
+  alias: product
+permalink: "shop/{{ product.id }}/index.html"
+layout: base
+title: Shop
+---
+
+{% comment %} Map animal code to friendly label (matches shop filter language) {% endcomment %}
+{% if product.animal == 'both' %}
+  {% assign animal_label = 'Dogs & cats' %}
+{% elsif product.animal == 'dog' %}
+  {% assign animal_label = 'Dog' %}
+{% else %}
+  {% assign animal_label = 'Cat' %}
+{% endif %}
+
+{% if product.breedSize == 'all' %}
+  {% assign breed_label = 'All sizes' %}
+{% elsif product.breedSize %}
+  {% assign breed_label = product.breedSize | capitalize %}
+{% else %}
+  {% assign breed_label = '—' %}
+{% endif %}
+
+<div class="shop-item-show">
+  <div class="shop-item-show__container">
+    <nav class="shop-item-show__breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="shop-item-show__breadcrumb-sep" aria-hidden="true">/</span>
+      <a href="/shop/">Shop</a>
+      <span class="shop-item-show__breadcrumb-sep" aria-hidden="true">/</span>
+      <span class="shop-item-show__breadcrumb-current">{{ product.title }}</span>
+    </nav>
+
+    <div class="shop-item-show__layout">
+      <div class="shop-item-show__gallery">
+        <div class="shop-item-show__image-frame">
+          <img
+            class="shop-item-show__image"
+            src="{{ product.image }}"
+            alt="{{ product.title }}"
+            width="800"
+            height="800"
+            loading="eager"
+            decoding="async"
+          >
+          {% if product.comparePrice %}
+          <span class="shop-item-show__sale-badge">Sale</span>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="shop-item-show__details">
+        <p class="shop-item-show__eyebrow">{{ product.category | upcase }}</p>
+        <h1 class="shop-item-show__title">{{ product.title }}</h1>
+
+        <div class="shop-item-show__rating-row">
+          <span class="shop-item-show__rating" aria-label="Customer rating {{ product.rating }} out of 5">
+            <i class="fa-solid fa-star shop-item-show__rating-icon" aria-hidden="true"></i>
+            <span class="shop-item-show__rating-value">{{ product.rating }}</span>
+            <span class="shop-item-show__rating-max">/ 5</span>
+          </span>
+          {% if product.inStock %}
+          <span class="shop-item-show__stock shop-item-show__stock--in">In stock</span>
+          {% else %}
+          <span class="shop-item-show__stock shop-item-show__stock--out">Out of stock</span>
+          {% endif %}
+        </div>
+
+        <div class="shop-item-show__price-block">
+          {% if product.comparePrice %}
+          <span class="shop-item-show__price-compare">${{ product.comparePrice }}</span>
+          {% endif %}
+          <span class="shop-item-show__price">${{ product.price }}</span>
+        </div>
+
+        <div class="shop-item-show__description">
+          <p>{{ product.description }}</p>
+        </div>
+
+        <dl class="shop-item-show__specs">
+          <div class="shop-item-show__spec">
+            <dt>Brand</dt>
+            <dd>{{ product.brand }}</dd>
+          </div>
+          <div class="shop-item-show__spec">
+            <dt>Pet</dt>
+            <dd>{{ animal_label }}</dd>
+          </div>
+          <div class="shop-item-show__spec">
+            <dt>Breed size</dt>
+            <dd>{{ breed_label }}</dd>
+          </div>
+          <div class="shop-item-show__spec">
+            <dt>Material</dt>
+            <dd>{{ product.material }}</dd>
+          </div>
+        </dl>
+
+        {% assign tag_count = product.tags | size %}
+        {% if tag_count > 0 %}
+        <div class="shop-item-show__tags">
+          {% for tag in product.tags %}
+          <span class="shop-item-show__tag">{{ tag }}</span>
+          {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="shop-item-show__actions">
+          <button type="button" class="shop-item-show__btn shop-item-show__btn--primary">
+            Add to cart
+          </button>
+          <a class="shop-item-show__btn shop-item-show__btn--secondary" href="/shop/">Continue shopping</a>
+        </div>
+
+        <p class="shop-item-show__note">Free shipping on orders over $50 · 30-day returns</p>
+      </div>
+    </div>
+  </div>
+</div>
