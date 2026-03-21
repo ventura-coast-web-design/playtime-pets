@@ -8,6 +8,16 @@ $shop-filters-sticky-top: 6.75rem;
   background-color: #FDFBF5; // Warm cream background
 }
 
+// For the shop page, let the layout stretch wider and anchor the filters to the
+// viewport's far left (instead of using the centered global container max-width).
+@include respond-to(lg) {
+  .shop-page__container {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
 // Left sidebar filters (Apply = client-side show/hide, no full page reload)
 .shop-filters {
   background-color: #ffffff;
@@ -148,15 +158,15 @@ $shop-filters-sticky-top: 6.75rem;
     padding: 0;
   }
 
-  // Filters sidebar + product column
+  // Filters sidebar + product column (narrower sidebar → more room for product grid)
   .shop-view__main-layout {
     display: grid;
     gap: $spacing-xl;
     align-items: start;
 
     @include respond-to(lg) {
-      grid-template-columns: minmax(240px, 280px) 1fr;
-      gap: $spacing-xxl;
+      grid-template-columns: minmax(220px, 260px) 1fr;
+      gap: $spacing-xl;
     }
   }
 
@@ -232,30 +242,33 @@ $shop-filters-sticky-top: 6.75rem;
   // Product Grid Wrapper with Color Background
   .shop-view__grid-wrapper {
     background: linear-gradient(180deg, #FFF9E6 0%, #FDFBF5 50%, #F0F8FF 100%);
-    padding: $spacing-xl $spacing-md;
+    padding: $spacing-xl $spacing-sm;
     
     @include respond-to(md) {
-      padding: $spacing-xxl $spacing-lg;
+      padding: $spacing-xxl $spacing-md;
     }
   }
   
-  // Product Grid
+  // Product grid — smaller min columns so ~4+ fit beside the filter sidebar
   .shop-view__grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: $spacing-xl;
-    
-    @include respond-to(sm) {
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    }
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: $spacing-lg;
     
     @include respond-to(md) {
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: $spacing-xxl;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: $spacing-lg;
     }
     
+    // ~696px main column at 992px viewport → min 160px allows 4 columns with gaps
     @include respond-to(lg) {
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      // slightly wider cards, still aiming for 4 columns beside the sidebar
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: $spacing-md;
+    }
+    
+    @include respond-to(xl) {
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
     }
   }
   
@@ -269,32 +282,32 @@ $shop-filters-sticky-top: 6.75rem;
     // Color variations
     &--color-0 {
       background: linear-gradient(135deg, #FFF5F5 0%, #ffffff 100%);
-      border: 6px solid #FF6B9D;
+      border: 4px solid #FF6B9D;
     }
     
     &--color-1 {
       background: linear-gradient(135deg, #F0F8FF 0%, #ffffff 100%);
-      border: 6px solid #6CAAE1;
+      border: 4px solid #6CAAE1;
     }
     
     &--color-2 {
       background: linear-gradient(135deg, #FFF9E6 0%, #ffffff 100%);
-      border: 6px solid #FBD786;
+      border: 4px solid #FBD786;
     }
     
     &--color-3 {
       background: linear-gradient(135deg, #F0FFF0 0%, #ffffff 100%);
-      border: 6px solid #4ECDC4;
+      border: 4px solid #4ECDC4;
     }
     
     &--color-4 {
       background: linear-gradient(135deg, #FFF0F5 0%, #ffffff 100%);
-      border: 6px solid #C44569;
+      border: 4px solid #C44569;
     }
     
     &--color-5 {
       background: linear-gradient(135deg, #E6F3FF 0%, #ffffff 100%);
-      border: 6px solid #4A90E2;
+      border: 4px solid #4A90E2;
     }
     
     &:hover {
@@ -345,6 +358,10 @@ $shop-filters-sticky-top: 6.75rem;
   
   .shop-view__product-info {
     padding: $spacing-md;
+
+    @include respond-to(lg) {
+      padding: $spacing-sm;
+    }
   }
   
   .shop-view__product-type {
@@ -361,7 +378,11 @@ $shop-filters-sticky-top: 6.75rem;
     font-weight: $font-weight-normal;
     color: #26335F; // Dark blue
     margin: 0 0 $spacing-sm 0;
-    line-height: 1.4;
+    line-height: 1.35;
+
+    @include respond-to(lg) {
+      font-size: $font-size-base;
+    }
   }
   
   .shop-view__product-price {
@@ -369,12 +390,20 @@ $shop-filters-sticky-top: 6.75rem;
     align-items: baseline;
     gap: $spacing-sm;
     margin-bottom: $spacing-md;
+
+    @include respond-to(lg) {
+      margin-bottom: $spacing-sm;
+    }
   }
   
   .shop-view__price-current {
     font-size: $font-size-lg;
     font-weight: $font-weight-semibold;
     color: #26335F; // Dark blue
+
+    @include respond-to(lg) {
+      font-size: $font-size-base;
+    }
   }
   
   .shop-view__price-original {
@@ -399,6 +428,11 @@ $shop-filters-sticky-top: 6.75rem;
     cursor: pointer;
     transition: all $transition-fast;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+    @include respond-to(lg) {
+      width: 26px;
+      height: 26px;
+    }
     
     &:hover {
       transform: scale(1.1);

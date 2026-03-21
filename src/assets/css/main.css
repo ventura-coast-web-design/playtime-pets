@@ -1197,6 +1197,13 @@
   background-color: #FDFBF5;
 }
 
+@media (min-width: 992px) {
+  .shop-page__container {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 .shop-filters {
   background-color: #ffffff;
   border-radius: 12px;
@@ -1360,8 +1367,8 @@
 }
 @media (min-width: 992px) {
   .shop-view .shop-view__main-layout {
-    grid-template-columns: minmax(240px, 280px) 1fr;
-    gap: 3rem;
+    grid-template-columns: minmax(220px, 260px) 1fr;
+    gap: 2rem;
   }
 }
 .shop-view .shop-view__main-column {
@@ -1425,32 +1432,33 @@
 }
 .shop-view .shop-view__grid-wrapper {
   background: linear-gradient(180deg, #FFF9E6 0%, #FDFBF5 50%, #F0F8FF 100%);
-  padding: 2rem 1rem;
+  padding: 2rem 0.5rem;
 }
 @media (min-width: 768px) {
   .shop-view .shop-view__grid-wrapper {
-    padding: 3rem 1.5rem;
+    padding: 3rem 1rem;
   }
 }
 .shop-view .shop-view__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 2rem;
-}
-@media (min-width: 576px) {
-  .shop-view .shop-view__grid {
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  }
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
 }
 @media (min-width: 768px) {
   .shop-view .shop-view__grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 3rem;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1.5rem;
   }
 }
 @media (min-width: 992px) {
   .shop-view .shop-view__grid {
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 1rem;
+  }
+}
+@media (min-width: 1200px) {
+  .shop-view .shop-view__grid {
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
   }
 }
 .shop-view .shop-view__product-card {
@@ -1461,27 +1469,27 @@
 }
 .shop-view .shop-view__product-card--color-0 {
   background: linear-gradient(135deg, #FFF5F5 0%, #ffffff 100%);
-  border: 6px solid #FF6B9D;
+  border: 4px solid #FF6B9D;
 }
 .shop-view .shop-view__product-card--color-1 {
   background: linear-gradient(135deg, #F0F8FF 0%, #ffffff 100%);
-  border: 6px solid #6CAAE1;
+  border: 4px solid #6CAAE1;
 }
 .shop-view .shop-view__product-card--color-2 {
   background: linear-gradient(135deg, #FFF9E6 0%, #ffffff 100%);
-  border: 6px solid #FBD786;
+  border: 4px solid #FBD786;
 }
 .shop-view .shop-view__product-card--color-3 {
   background: linear-gradient(135deg, #F0FFF0 0%, #ffffff 100%);
-  border: 6px solid #4ECDC4;
+  border: 4px solid #4ECDC4;
 }
 .shop-view .shop-view__product-card--color-4 {
   background: linear-gradient(135deg, #FFF0F5 0%, #ffffff 100%);
-  border: 6px solid #C44569;
+  border: 4px solid #C44569;
 }
 .shop-view .shop-view__product-card--color-5 {
   background: linear-gradient(135deg, #E6F3FF 0%, #ffffff 100%);
-  border: 6px solid #4A90E2;
+  border: 4px solid #4A90E2;
 }
 .shop-view .shop-view__product-card:hover {
   transform: translateY(-6px);
@@ -1525,6 +1533,11 @@
 .shop-view .shop-view__product-info {
   padding: 1rem;
 }
+@media (min-width: 992px) {
+  .shop-view .shop-view__product-info {
+    padding: 0.5rem;
+  }
+}
 .shop-view .shop-view__product-type {
   font-size: 12px;
   font-weight: 600;
@@ -1538,7 +1551,12 @@
   font-weight: 400;
   color: #26335F;
   margin: 0 0 0.5rem 0;
-  line-height: 1.4;
+  line-height: 1.35;
+}
+@media (min-width: 992px) {
+  .shop-view .shop-view__product-title {
+    font-size: 16px;
+  }
 }
 .shop-view .shop-view__product-price {
   display: flex;
@@ -1546,10 +1564,20 @@
   gap: 0.5rem;
   margin-bottom: 1rem;
 }
+@media (min-width: 992px) {
+  .shop-view .shop-view__product-price {
+    margin-bottom: 0.5rem;
+  }
+}
 .shop-view .shop-view__price-current {
   font-size: 18px;
   font-weight: 600;
   color: #26335F;
+}
+@media (min-width: 992px) {
+  .shop-view .shop-view__price-current {
+    font-size: 16px;
+  }
 }
 .shop-view .shop-view__price-original {
   font-size: 14px;
@@ -1570,6 +1598,12 @@
   cursor: pointer;
   transition: all 0.15s ease;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+@media (min-width: 992px) {
+  .shop-view .shop-view__variation-option {
+    width: 26px;
+    height: 26px;
+  }
 }
 .shop-view .shop-view__variation-option:hover {
   transform: scale(1.1);
