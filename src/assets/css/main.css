@@ -1505,12 +1505,12 @@
   width: 100%;
   aspect-ratio: 1/1;
   overflow: hidden;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 .shop-view .shop-view__product-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
   transition: transform 0.5s ease;
 }
 .shop-view .shop-view__product-image:hover img {
