@@ -637,7 +637,7 @@
   overflow: hidden;
   border-radius: 8px;
   margin-bottom: 1rem;
-  background-color: #f8f9fa;
+  background-color: #ffffff;
 }
 .shop-card__image-wrapper img {
   width: 100%;
@@ -1553,33 +1553,28 @@
   }
 }
 .shop-view .shop-view__product-card {
+  background-color: #ffffff;
   border-radius: 12px;
   overflow: hidden;
   transition: all 0.3s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 .shop-view .shop-view__product-card--color-0 {
-  background: linear-gradient(135deg, #FFF5F5 0%, #ffffff 100%);
   border: 4px solid #FF6B9D;
 }
 .shop-view .shop-view__product-card--color-1 {
-  background: linear-gradient(135deg, #F0F8FF 0%, #ffffff 100%);
   border: 4px solid #6CAAE1;
 }
 .shop-view .shop-view__product-card--color-2 {
-  background: linear-gradient(135deg, #FFF9E6 0%, #ffffff 100%);
   border: 4px solid #FBD786;
 }
 .shop-view .shop-view__product-card--color-3 {
-  background: linear-gradient(135deg, #F0FFF0 0%, #ffffff 100%);
   border: 4px solid #4ECDC4;
 }
 .shop-view .shop-view__product-card--color-4 {
-  background: linear-gradient(135deg, #FFF0F5 0%, #ffffff 100%);
   border: 4px solid #C44569;
 }
 .shop-view .shop-view__product-card--color-5 {
-  background: linear-gradient(135deg, #E6F3FF 0%, #ffffff 100%);
   border: 4px solid #4A90E2;
 }
 .shop-view .shop-view__product-card:hover {
@@ -1596,6 +1591,7 @@
   width: 100%;
   aspect-ratio: 1/1;
   overflow: hidden;
+  background-color: #ffffff;
 }
 .shop-view .shop-view__product-image img {
   width: 100%;
