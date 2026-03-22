@@ -78,9 +78,9 @@ $shop-pink: #ff6b9d;
     aspect-ratio: 1 / 1;
     border-radius: $border-radius-lg;
     overflow: hidden;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    background-color: #ffffff;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-    border: 4px solid rgba(38, 51, 95, 0.12);
+    border: 4px solid rgba(38, 51, 95, 0.12); // default; overridden by --accent-* on parent
   }
 
   &__image {
@@ -307,6 +307,7 @@ $shop-pink: #ff6b9d;
       flex: 1;
       min-width: 12rem;
       color: #ffffff;
+      // Default gradient if no accent wrapper (should not happen on PDP)
       background: linear-gradient(135deg, $shop-navy 0%, $shop-blue 100%);
       box-shadow: 0 4px 16px rgba(38, 51, 95, 0.3);
 
@@ -334,5 +335,103 @@ $shop-pink: #ff6b9d;
     font-size: $font-size-sm;
     color: $color-text-light;
     line-height: $line-height-base;
+  }
+}
+
+// Same 6 border accents as shop listing (shop-view__product-card--color-0 … 5)
+.shop-item-show--accent-0 {
+  .shop-item-show__image-frame {
+    border-color: #ff6b9d;
+  }
+
+  .shop-item-show__btn--primary.shop-item-show__btn--accent {
+    background: #ff6b9d;
+    box-shadow: 0 4px 16px rgba(255, 107, 157, 0.35);
+
+    &:hover {
+      background: #e85d8a;
+      box-shadow: 0 6px 20px rgba(255, 107, 157, 0.45);
+    }
+  }
+}
+
+.shop-item-show--accent-1 {
+  .shop-item-show__image-frame {
+    border-color: #6caae1;
+  }
+
+  .shop-item-show__btn--primary.shop-item-show__btn--accent {
+    background: #6caae1;
+    box-shadow: 0 4px 16px rgba(108, 170, 225, 0.35);
+
+    &:hover {
+      background: #5a9ad6;
+      box-shadow: 0 6px 20px rgba(108, 170, 225, 0.45);
+    }
+  }
+}
+
+.shop-item-show--accent-2 {
+  .shop-item-show__image-frame {
+    border-color: #fbd786;
+  }
+
+  .shop-item-show__btn--primary.shop-item-show__btn--accent {
+    background: #fbd786;
+    color: #26335f;
+    box-shadow: 0 4px 16px rgba(251, 215, 134, 0.45);
+
+    &:hover {
+      background: #e8c46a;
+      box-shadow: 0 6px 20px rgba(251, 215, 134, 0.5);
+    }
+  }
+}
+
+.shop-item-show--accent-3 {
+  .shop-item-show__image-frame {
+    border-color: #4ecdc4;
+  }
+
+  .shop-item-show__btn--primary.shop-item-show__btn--accent {
+    background: #4ecdc4;
+    box-shadow: 0 4px 16px rgba(78, 205, 196, 0.35);
+
+    &:hover {
+      background: #3db8af;
+      box-shadow: 0 6px 20px rgba(78, 205, 196, 0.45);
+    }
+  }
+}
+
+.shop-item-show--accent-4 {
+  .shop-item-show__image-frame {
+    border-color: #c44569;
+  }
+
+  .shop-item-show__btn--primary.shop-item-show__btn--accent {
+    background: #c44569;
+    box-shadow: 0 4px 16px rgba(196, 69, 105, 0.35);
+
+    &:hover {
+      background: #b03a5e;
+      box-shadow: 0 6px 20px rgba(196, 69, 105, 0.45);
+    }
+  }
+}
+
+.shop-item-show--accent-5 {
+  .shop-item-show__image-frame {
+    border-color: #4a90e2;
+  }
+
+  .shop-item-show__btn--primary.shop-item-show__btn--accent {
+    background: #4a90e2;
+    box-shadow: 0 4px 16px rgba(74, 144, 226, 0.35);
+
+    &:hover {
+      background: #3b7dcc;
+      box-shadow: 0 6px 20px rgba(74, 144, 226, 0.45);
+    }
   }
 }

@@ -25,7 +25,10 @@ title: Shop
   {% assign breed_label = '—' %}
 {% endif %}
 
-<div class="shop-item-show">
+{% comment %} Same 6 accent colors as shop grid cards (shop-view__product-card--color-*) {% endcomment %}
+{% assign accent_index = product.id | modulo: 6 %}
+
+<div class="shop-item-show shop-item-show--accent-{{ accent_index }}">
   <div class="shop-item-show__container">
     <nav class="shop-item-show__breadcrumb" aria-label="Breadcrumb">
       <a href="/">Home</a>
@@ -110,7 +113,7 @@ title: Shop
         {% endif %}
 
         <div class="shop-item-show__actions">
-          <button type="button" class="shop-item-show__btn shop-item-show__btn--primary">
+          <button type="button" class="shop-item-show__btn shop-item-show__btn--primary shop-item-show__btn--accent">
             Add to cart
           </button>
           <a class="shop-item-show__btn shop-item-show__btn--secondary" href="/shop/">Continue shopping</a>
