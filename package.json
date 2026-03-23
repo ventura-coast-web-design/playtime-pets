@@ -15,5 +15,8 @@
   "devDependencies": {
     "@11ty/eleventy": "^2.0.1",
     "sass": "^1.77.0"
+  },
+  "dependencies": {
+    "@shopify/storefront-api-client": "^1.0.10"
   }
 }
