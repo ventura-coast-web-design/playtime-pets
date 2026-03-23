@@ -209,3 +209,31 @@
     color: color.adjust($color-sale, $lightness: -8%) !important;
   }
 }
+
+.site-header__cart-link {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.site-header__cart-badge {
+  position: absolute;
+  top: -0.35rem;
+  right: -0.5rem;
+  min-width: 1.125rem;
+  height: 1.125rem;
+  padding: 0 0.25rem;
+  font-size: 0.65rem;
+  font-weight: $font-weight-bold;
+  line-height: 1.125rem;
+  text-align: center;
+  color: #ffffff;
+  background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+  border-radius: $border-radius-full;
+  box-shadow: 0 2px 6px rgba(196, 69, 105, 0.45);
+
+  &[hidden] {
+    display: none;
+  }
+}

@@ -113,7 +113,15 @@ title: Shop
         {% endif %}
 
         <div class="shop-item-show__actions">
-          <button type="button" class="shop-item-show__btn shop-item-show__btn--primary shop-item-show__btn--accent">
+          <button
+            type="button"
+            class="shop-item-show__btn shop-item-show__btn--primary shop-item-show__btn--accent js-add-to-cart"
+            data-product-id="{{ product.id }}"
+            data-product-title="{{ product.title | escape }}"
+            data-product-price="{{ product.price }}"
+            data-product-image="{{ product.image }}"
+            {% if product.comparePrice %}data-product-compare-price="{{ product.comparePrice }}"{% endif %}
+          >
             Add to cart
           </button>
           <a class="shop-item-show__btn shop-item-show__btn--secondary" href="/shop/">Continue shopping</a>

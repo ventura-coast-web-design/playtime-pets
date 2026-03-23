@@ -1,0 +1,63 @@
+---
+layout: base
+title: Cart
+---
+
+<div class="cart-page" id="cart-page" data-cart-page>
+  <div class="cart-page__container">
+    <nav class="cart-page__breadcrumb" aria-label="Breadcrumb">
+      <a href="/">Home</a>
+      <span class="cart-page__breadcrumb-sep" aria-hidden="true">/</span>
+      <a href="/shop/">Shop</a>
+      <span class="cart-page__breadcrumb-sep" aria-hidden="true">/</span>
+      <span class="cart-page__breadcrumb-current">Cart</span>
+    </nav>
+
+    <header class="cart-page__head">
+      <h1 class="cart-page__title">Your cart</h1>
+      <p class="cart-page__subtitle">Treats, toys, and tail wags — review your picks before checkout.</p>
+    </header>
+
+    <div class="cart-page__strip" aria-hidden="true">
+      <div class="cart-page__strip-block cart-page__strip-block--pink">Free gift bag $50+</div>
+      <div class="cart-page__strip-block cart-page__strip-block--blue">Free shipping $50+</div>
+      <div class="cart-page__strip-block cart-page__strip-block--teal">30-day returns</div>
+    </div>
+
+    <div class="cart-page__empty" id="cart-empty-state">
+      <p class="cart-page__empty-icon" aria-hidden="true"><i class="fa-solid fa-basket-shopping"></i></p>
+      <h2 class="cart-page__empty-title">Your cart is waiting</h2>
+      <p class="cart-page__empty-text">Add something fun from the shop — your pet will thank you.</p>
+      <a href="/shop/" class="cart-page__empty-cta">
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+        Browse the shop
+      </a>
+    </div>
+
+    <div class="cart-page__layout is-hidden" id="cart-filled-state" hidden>
+      <div class="cart-page__lines">
+        <h2 class="cart-page__lines-title">Items</h2>
+        <ul class="cart-page__line-list" id="cart-line-items" aria-live="polite"></ul>
+      </div>
+
+      <aside class="cart-page__summary" aria-label="Order summary">
+        <h2 class="cart-page__summary-title">Order summary</h2>
+        <div class="cart-page__summary-row">
+          <span>Subtotal</span>
+          <span id="cart-subtotal">$0.00</span>
+        </div>
+        <p class="cart-page__summary-note" id="cart-shipping-msg"></p>
+        <div class="cart-page__summary-row cart-page__summary-row--emphasis">
+          <span>Estimated total</span>
+          <span id="cart-total">$0.00</span>
+        </div>
+        <button type="button" class="cart-page__checkout" id="cart-checkout-btn">Checkout</button>
+        <a href="/shop/" class="cart-page__continue">Continue shopping</a>
+        <p class="cart-page__trust">
+          <i class="fa-solid fa-lock" aria-hidden="true"></i>
+          Secure checkout — same happy-pet guarantee as the rest of the shop.
+        </p>
+      </aside>
+    </div>
+  </div>
+</div>

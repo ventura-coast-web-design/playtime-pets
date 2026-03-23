@@ -1,0 +1,478 @@
+// Cart page — matches shop (View 3): cream, navy, colorful accents
+@use 'mixins' as *;
+
+$shop-navy: #26335f;
+$shop-blue: #6caae1;
+$shop-cream: #fdfbf5;
+$shop-pink: #ff6b9d;
+
+.cart-page {
+  flex: 1;
+  width: 100%;
+  background-color: $shop-cream;
+  padding: $spacing-xl 0 $spacing-xxl;
+
+  @include respond-to(md) {
+    padding: $spacing-xxl 0 $spacing-xxxl;
+  }
+
+  &__container {
+    @include container;
+  }
+
+  &__breadcrumb {
+    margin-bottom: $spacing-xl;
+    font-size: $font-size-sm;
+    color: $color-text-light;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $spacing-xs;
+
+    a {
+      color: $shop-navy;
+      font-weight: $font-weight-medium;
+      text-decoration: none;
+      transition: color $transition-fast;
+
+      &:hover {
+        color: $shop-blue;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__breadcrumb-sep {
+    color: $color-text-muted;
+    user-select: none;
+  }
+
+  &__breadcrumb-current {
+    color: $color-text-muted;
+  }
+
+  &__head {
+    margin-bottom: $spacing-xl;
+  }
+
+  &__title {
+    font-size: $font-size-h2;
+    font-weight: $font-weight-bold;
+    color: $shop-navy;
+    margin: 0 0 $spacing-sm;
+    letter-spacing: -0.02em;
+  }
+
+  &__subtitle {
+    margin: 0;
+    font-size: $font-size-lg;
+    color: $color-text-light;
+    line-height: $line-height-base;
+  }
+
+  // Mini strip — same energy as shop category blocks
+  &__strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    margin-bottom: $spacing-xxl;
+  }
+
+  &__strip-block {
+    flex: 1;
+    min-width: 140px;
+    padding: $spacing-md $spacing-lg;
+    border-radius: $border-radius-lg;
+    text-align: center;
+    font-size: $font-size-sm;
+    font-weight: $font-weight-semibold;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+
+    &--pink {
+      background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+    }
+
+    &--blue {
+      background: linear-gradient(135deg, #6caae1 0%, #4a90e2 100%);
+    }
+
+    &--teal {
+      background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+    }
+  }
+
+  &__layout {
+    display: grid;
+    gap: $spacing-xl;
+    align-items: start;
+
+    @include respond-to(lg) {
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+      gap: $spacing-xxl;
+    }
+  }
+
+  &__lines {
+    min-width: 0;
+  }
+
+  &__lines-title {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: $shop-navy;
+    margin: 0 0 $spacing-md;
+  }
+
+  &__line-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  &__line {
+    display: grid;
+    grid-template-columns: 5.5rem 1fr;
+    gap: $spacing-md;
+    padding: $spacing-md;
+    background-color: #ffffff;
+    border-radius: $border-radius-lg;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(38, 51, 95, 0.08);
+    align-items: start;
+
+    @include respond-to(sm) {
+      grid-template-columns: 6.5rem 1fr auto;
+      align-items: center;
+    }
+
+    &--accent-0 {
+      border-left: 4px solid #ff6b9d;
+    }
+    &--accent-1 {
+      border-left: 4px solid #6caae1;
+    }
+    &--accent-2 {
+      border-left: 4px solid #fbd786;
+    }
+    &--accent-3 {
+      border-left: 4px solid #4ecdc4;
+    }
+    &--accent-4 {
+      border-left: 4px solid #c44569;
+    }
+    &--accent-5 {
+      border-left: 4px solid #4a90e2;
+    }
+  }
+
+  &__line-thumb {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: $border-radius-md;
+    overflow: hidden;
+    background-color: #ffffff;
+    border: 1px solid rgba(38, 51, 95, 0.08);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+
+  &__line-body {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+  }
+
+  &__line-title {
+    margin: 0;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $shop-navy;
+    line-height: 1.3;
+
+    a {
+      color: inherit;
+      text-decoration: none;
+
+      &:hover {
+        color: $shop-blue;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &__line-meta {
+    font-size: $font-size-sm;
+    color: $color-text-light;
+  }
+
+  &__line-price-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: $spacing-sm;
+  }
+
+  &__line-unit {
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $shop-navy;
+  }
+
+  &__line-compare {
+    font-size: $font-size-sm;
+    color: $color-text-muted;
+    text-decoration: line-through;
+  }
+
+  &__line-controls {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: $spacing-md;
+    margin-top: $spacing-xs;
+
+    @include respond-to(sm) {
+      grid-column: 3;
+      grid-row: 1 / 2;
+      flex-direction: column;
+      align-items: flex-end;
+      margin-top: 0;
+      justify-self: end;
+    }
+  }
+
+  &__qty {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid rgba(38, 51, 95, 0.2);
+    border-radius: $border-radius-md;
+    overflow: hidden;
+    background: #ffffff;
+  }
+
+  &__qty-btn {
+    @include button-base;
+    border-radius: 0;
+    padding: $spacing-sm $spacing-md;
+    min-width: 2.5rem;
+    background: rgba(38, 51, 95, 0.06);
+    color: $shop-navy;
+    font-weight: $font-weight-bold;
+    border: none;
+
+    &:hover {
+      background: rgba(108, 170, 225, 0.25);
+    }
+  }
+
+  &__qty-input {
+    width: 2.75rem;
+    padding: $spacing-sm;
+    border: none;
+    text-align: center;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    font-family: inherit;
+    color: $shop-navy;
+    background: transparent;
+
+    /* Hide spinners */
+    appearance: textfield;
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      appearance: none;
+      margin: 0;
+    }
+  }
+
+  &__remove {
+    @include button-base;
+    padding: $spacing-xs $spacing-sm;
+    font-size: $font-size-sm;
+    background: transparent;
+    color: $color-text-light;
+    border: none;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: $shop-pink;
+      background: transparent;
+      transform: none;
+    }
+  }
+
+  &__line-total {
+    font-size: $font-size-lg;
+    font-weight: $font-weight-bold;
+    color: $shop-navy;
+    margin-left: auto;
+
+    @include respond-to(sm) {
+      margin-left: 0;
+    }
+  }
+
+  &__summary {
+    padding: $spacing-xl;
+    background-color: #ffffff;
+    border-radius: $border-radius-lg;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(38, 51, 95, 0.1);
+    position: sticky;
+    top: 7rem;
+  }
+
+  &__summary-title {
+    font-size: $font-size-h5;
+    font-weight: $font-weight-bold;
+    color: $shop-navy;
+    margin: 0 0 $spacing-lg;
+    padding-bottom: $spacing-md;
+    border-bottom: 1px solid $color-border;
+  }
+
+  &__summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: $spacing-md;
+    margin-bottom: $spacing-md;
+    font-size: $font-size-base;
+    color: $color-text;
+
+    &--emphasis {
+      font-size: $font-size-xl;
+      font-weight: $font-weight-bold;
+      color: $shop-navy;
+      margin-top: $spacing-md;
+      padding-top: $spacing-md;
+      border-top: 2px dashed rgba(38, 51, 95, 0.15);
+    }
+  }
+
+  &__summary-note {
+    margin: $spacing-md 0 0;
+    font-size: $font-size-sm;
+    color: $color-text-light;
+    line-height: $line-height-base;
+
+    &--highlight {
+      color: #2d8a5e;
+      font-weight: $font-weight-medium;
+    }
+  }
+
+  &__checkout {
+    @include button-base;
+    width: 100%;
+    margin-top: $spacing-lg;
+    padding: $spacing-md $spacing-xl;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: #ffffff;
+    background: linear-gradient(135deg, $shop-navy 0%, $shop-blue 100%);
+    box-shadow: 0 4px 16px rgba(38, 51, 95, 0.3);
+
+    &:hover {
+      background: linear-gradient(135deg, #1a2447 0%, #4a90e2 100%);
+    }
+  }
+
+  &__continue {
+    display: block;
+    width: 100%;
+    margin-top: $spacing-md;
+    text-align: center;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $shop-navy;
+    text-decoration: none;
+    padding: $spacing-sm;
+    border: 2px solid rgba(38, 51, 95, 0.25);
+    border-radius: $border-radius-md;
+    transition: background $transition-base;
+
+    &:hover {
+      background: rgba(38, 51, 95, 0.06);
+    }
+  }
+
+  &__trust {
+    margin-top: $spacing-lg;
+    padding-top: $spacing-lg;
+    border-top: 1px solid $color-border;
+    font-size: $font-size-xs;
+    color: $color-text-muted;
+    line-height: 1.5;
+
+    i {
+      color: $shop-blue;
+      margin-right: $spacing-xs;
+    }
+  }
+
+  &__empty {
+    text-align: center;
+    padding: $spacing-xxl $spacing-md;
+    background: linear-gradient(180deg, #fff9e6 0%, #fdfbf5 45%, #f0f8ff 100%);
+    border-radius: $border-radius-lg;
+    border: 1px solid rgba(38, 51, 95, 0.08);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  }
+
+  &__empty-icon {
+    font-size: 3.5rem;
+    color: $shop-blue;
+    margin-bottom: $spacing-lg;
+    filter: drop-shadow(0 4px 8px rgba(38, 51, 95, 0.15));
+  }
+
+  &__empty-title {
+    font-size: $font-size-h3;
+    font-weight: $font-weight-bold;
+    color: $shop-navy;
+    margin: 0 0 $spacing-md;
+  }
+
+  &__empty-text {
+    margin: 0 auto $spacing-xl;
+    max-width: 28rem;
+    font-size: $font-size-lg;
+    color: $color-text-light;
+    line-height: $line-height-base;
+  }
+
+  &__empty-cta {
+    @include button-base;
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-sm;
+    padding: $spacing-md $spacing-xxl;
+    font-weight: $font-weight-semibold;
+    color: #ffffff;
+    background: linear-gradient(135deg, $shop-navy 0%, $shop-blue 100%);
+    box-shadow: 0 4px 16px rgba(38, 51, 95, 0.3);
+
+    &:hover {
+      background: linear-gradient(135deg, #1a2447 0%, #4a90e2 100%);
+    }
+  }
+
+  .is-hidden {
+    display: none !important;
+  }
+}
