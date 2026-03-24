@@ -1191,6 +1191,24 @@
 .shop-item-show__description p {
   margin: 0;
 }
+.shop-item-show__description--rte p {
+  margin: 0 0 1rem;
+}
+.shop-item-show__description--rte p:last-child {
+  margin-bottom: 0;
+}
+.shop-item-show__description--rte ul,
+.shop-item-show__description--rte ol {
+  margin: 0 0 1rem;
+  padding-left: 1.25rem;
+}
+.shop-item-show__description--rte a {
+  color: #6caae1;
+  font-weight: 500;
+}
+.shop-item-show__description--rte a:hover {
+  text-decoration: underline;
+}
 .shop-item-show__specs {
   display: grid;
   grid-template-columns: 1fr;

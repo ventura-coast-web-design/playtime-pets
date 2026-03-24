@@ -145,7 +145,7 @@ title: Shop
                   data-material="{{ product.material }}"
                   data-price="{{ product.price }}"
                   data-rating="{{ product.rating }}">
-                  <a href="/shop/{{ product.id }}" class="shop-view__product-link">
+                  <a href="/shop/{{ product.handle }}/" class="shop-view__product-link">
                     <div class="shop-view__product-image">
                       <img src="{{ product.image }}" alt="{{ product.title }}" loading="lazy">
                       {% if product.comparePrice %}

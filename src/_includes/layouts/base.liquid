@@ -18,6 +18,11 @@
     </main>
     
     {% include "footer.liquid" %}
+    {% if shopify.configured %}
+    <script>
+      window.__SHOPIFY__ = {{ shopify | json }};
+    </script>
+    {% endif %}
     <script src="/assets/js/cart.js" defer></script>
 </body>
 </html>
