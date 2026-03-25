@@ -106,16 +106,6 @@
   flex-shrink: 0;
 }
 
-.site-header__logo-top {
-  font-size: 0.65rem;
-  font-weight: $font-weight-normal;
-  letter-spacing: 0.15em;
-  line-height: 1.2;
-
-  @include respond-to(md) {
-    font-size: 0.75rem;
-  }
-}
 
 .site-header__logo-main {
   font-size: 1.35rem;
@@ -130,7 +120,7 @@
     display: block;
     width: auto;
     height: auto;
-    max-height: 3.5rem; // ~56px — noticeable but not overwhelming on mobile
+    max-height: 6rem;
     object-fit: contain;
   }
 
@@ -138,7 +128,7 @@
     font-size: 1.9rem;
 
     img {
-      max-height: 5rem; // ~80px — prominent on desktop
+      max-height: 8.5rem;
     }
   }
 }
