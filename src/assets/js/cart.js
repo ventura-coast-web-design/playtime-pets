@@ -49,23 +49,35 @@
   }
 
   var CART_QUERY =
-    'query CartQuery($id: ID!) { cart(id: $id) { id checkoutUrl totalQuantity cost { subtotalAmount { amount currencyCode } totalAmount { amount currencyCode } } lines(first: 100) { edges { node { id quantity cost { totalAmount { amount currencyCode } } merchandise { ... on ProductVariant { id title image { url } price { amount } compareAtPrice { amount } product { title handle } } } } } } } } }';
+    'query CartQuery($id: ID!) { cart(id: $id) { id checkoutUrl totalQuantity cost { subtotalAmount { amount currencyCode } totalAmount { amount currencyCode } } lines(first: 100) { edges { node { id quantity cost { totalAmount { amount currencyCode } } merchandise { ... on ProductVariant { id title image { url } price { amount } compareAtPrice { amount } product { title handle } } } } } } } }';
 
   var CART_CREATE =
-    'mutation cartCreate($input: CartInput!) { cartCreate(input: $input) { cart { id checkoutUrl totalQuantity cost { subtotalAmount { amount currencyCode } } lines(first: 100) { edges { node { id quantity cost { totalAmount { amount currencyCode } } merchandise { ... on ProductVariant { id title image { url } price { amount } compareAtPrice { amount } product { title handle } } } } } } } } userErrors { field message } } }';
+    'mutation cartCreate($input: CartInput!) { cartCreate(input: $input) { cart { id checkoutUrl totalQuantity cost { subtotalAmount { amount currencyCode } } lines(first: 100) { edges { node { id quantity cost { totalAmount { amount currencyCode } } merchandise { ... on ProductVariant { id title image { url } price { amount } compareAtPrice { amount } product { title handle } } } } } } } userErrors { field message } } }';
 
   var CART_LINES_ADD =
-    'mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) { cartLinesAdd(cartId: $cartId, lines: $lines) { cart { id checkoutUrl totalQuantity cost { subtotalAmount { amount currencyCode } totalAmount { amount currencyCode } } lines(first: 100) { edges { node { id quantity cost { totalAmount { amount currencyCode } } merchandise { ... on ProductVariant { id title image { url } price { amount } compareAtPrice { amount } product { title handle } } } } } } } } userErrors { field message } } }';
+    'mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) { cartLinesAdd(cartId: $cartId, lines: $lines) { cart { id checkoutUrl totalQuantity cost { subtotalAmount { amount currencyCode } totalAmount { amount currencyCode } } lines(first: 100) { edges { node { id quantity cost { totalAmount { amount currencyCode } } merchandise { ... on ProductVariant { id title image { url } price { amount } compareAtPrice { amount } product { title handle } } } } } } } userErrors { field message } } }';
 
   var CART_LINES_UPDATE =
-    'mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) { cartLinesUpdate(cartId: $cartId, lines: $lines) { cart { id checkoutUrl totalQuantity cost { subtotalAmount { amount currencyCode } totalAmount { amount currencyCode } } lines(first: 100) { edges { node { id quantity cost { totalAmount { amount currencyCode } } merchandise { ... on ProductVariant { id title image { url } price { amount } compareAtPrice { amount } product { title handle } } } } } } } } userErrors { field message } } }';
+    'mutation cartLinesUpdate($cartId: ID!, $lines: [CartLineUpdateInput!]!) { cartLinesUpdate(cartId: $cartId, lines: $lines) { cart { id checkoutUrl totalQuantity cost { subtotalAmount { amount currencyCode } totalAmount { amount currencyCode } } lines(first: 100) { edges { node { id quantity cost { totalAmount { amount currencyCode } } merchandise { ... on ProductVariant { id title image { url } price { amount } compareAtPrice { amount } product { title handle } } } } } } } userErrors { field message } } }';
 
   var CART_LINES_REMOVE =
-    'mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) { cartLinesRemove(cartId: $cartId, lineIds: $lineIds) { cart { id checkoutUrl totalQuantity cost { subtotalAmount { amount currencyCode } totalAmount { amount currencyCode } } lines(first: 100) { edges { node { id quantity cost { totalAmount { amount currencyCode } } merchandise { ... on ProductVariant { id title image { url } price { amount } compareAtPrice { amount } product { title handle } } } } } } } } userErrors { field message } } }';
+    'mutation cartLinesRemove($cartId: ID!, $lineIds: [ID!]!) { cartLinesRemove(cartId: $cartId, lineIds: $lineIds) { cart { id checkoutUrl totalQuantity cost { subtotalAmount { amount currencyCode } totalAmount { amount currencyCode } } lines(first: 100) { edges { node { id quantity cost { totalAmount { amount currencyCode } } merchandise { ... on ProductVariant { id title image { url } price { amount } compareAtPrice { amount } product { title handle } } } } } } } userErrors { field message } } }';
 
   function parseCartPayload(body) {
+    if (!body || typeof body !== 'object') {
+      console.error('[Shopify] Invalid response', body);
+      return null;
+    }
     if (body.errors && body.errors.length) {
       console.error('[Shopify]', body.errors);
+      // Top-level GraphQL errors often omit `data` — returning undefined caused
+      // "Cannot read properties of undefined (reading 'cartCreate')".
+      if (body.data == null) {
+        throw new Error((body.errors[0] && body.errors[0].message) || 'Shopify request failed');
+      }
+    }
+    if (body.data === undefined) {
+      throw new Error('Invalid response from store');
     }
     return body.data;
   }
@@ -74,7 +86,13 @@
     var id = getStoredCartId();
     if (!id) return Promise.resolve(null);
     return shopifyGraphql(CART_QUERY, { id: id }).then(function (body) {
-      var data = parseCartPayload(body);
+      var data;
+      try {
+        data = parseCartPayload(body);
+      } catch (e) {
+        setStoredCartId('');
+        return null;
+      }
       if (!data || !data.cart) {
         setStoredCartId('');
         return null;
@@ -207,7 +225,10 @@
         }
       }).then(function (body) {
         var data = parseCartPayload(body);
-        var err = data && data.cartCreate && data.cartCreate.userErrors;
+        if (!data || !data.cartCreate) {
+          throw new Error('Could not create cart');
+        }
+        var err = data.cartCreate.userErrors;
         if (err && err.length) {
           console.error('[cartCreate]', err);
           throw new Error(err[0].message || 'Cart error');
@@ -224,7 +245,10 @@
       lines: [{ merchandiseId: variantId, quantity: q }]
     }).then(function (body) {
       var data = parseCartPayload(body);
-      var err = data && data.cartLinesAdd && data.cartLinesAdd.userErrors;
+      if (!data || !data.cartLinesAdd) {
+        throw new Error('Could not update cart');
+      }
+      var err = data.cartLinesAdd.userErrors;
       if (err && err.length) {
         console.error('[cartLinesAdd]', err);
         throw new Error(err[0].message || 'Cart error');
@@ -248,7 +272,10 @@
       lines: [{ id: lineId, quantity: qty }]
     }).then(function (body) {
       var data = parseCartPayload(body);
-      var err = data && data.cartLinesUpdate && data.cartLinesUpdate.userErrors;
+      if (!data || !data.cartLinesUpdate) {
+        throw new Error('Could not update cart');
+      }
+      var err = data.cartLinesUpdate.userErrors;
       if (err && err.length) {
         console.error('[cartLinesUpdate]', err);
         throw new Error(err[0].message || 'Update error');
@@ -265,7 +292,10 @@
       lineIds: [lineId]
     }).then(function (body) {
       var data = parseCartPayload(body);
-      var err = data && data.cartLinesRemove && data.cartLinesRemove.userErrors;
+      if (!data || !data.cartLinesRemove) {
+        throw new Error('Could not update cart');
+      }
+      var err = data.cartLinesRemove.userErrors;
       if (err && err.length) {
         console.error('[cartLinesRemove]', err);
         throw new Error(err[0].message || 'Remove error');
