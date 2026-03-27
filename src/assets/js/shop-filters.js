@@ -113,7 +113,62 @@
     applyFilters();
   }
 
+  function bindMobileFiltersDrawer() {
+    var panel = document.querySelector('.shop-filters-panel');
+    var toggle = document.getElementById('shop-filters-toggle');
+    if (!panel || !toggle) return;
+
+    var mq = window.matchMedia('(min-width: 992px)');
+
+    function setDrawerOpen(open) {
+      if (mq.matches) {
+        panel.classList.remove('shop-filters-panel--open');
+        toggle.setAttribute('aria-expanded', 'true');
+        return;
+      }
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) panel.classList.add('shop-filters-panel--open');
+      else panel.classList.remove('shop-filters-panel--open');
+    }
+
+    toggle.addEventListener('click', function () {
+      if (mq.matches) return;
+      setDrawerOpen(!panel.classList.contains('shop-filters-panel--open'));
+    });
+
+    mq.addEventListener('change', function () {
+      if (mq.matches) {
+        panel.classList.remove('shop-filters-panel--open');
+        toggle.setAttribute('aria-expanded', 'true');
+      } else {
+        toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    if (mq.matches) {
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      if (mq.matches) return;
+      if (!panel.classList.contains('shop-filters-panel--open')) return;
+      setDrawerOpen(false);
+      toggle.focus();
+    });
+
+    var applyBtn = document.getElementById('shop-filters-apply');
+    if (applyBtn) {
+      applyBtn.addEventListener('click', function () {
+        if (mq.matches) return;
+        setDrawerOpen(false);
+      });
+    }
+  }
+
   document.addEventListener('DOMContentLoaded', function () {
+    bindMobileFiltersDrawer();
+
     var applyBtn = document.getElementById('shop-filters-apply');
     var clearBtn = document.getElementById('shop-filters-clear');
     if (applyBtn) applyBtn.addEventListener('click', applyFilters);

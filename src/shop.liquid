@@ -29,11 +29,25 @@ title: Shop
         </div>
 
         <div class="shop-view__main-layout">
-          <!-- Filters: staged until "Apply filters" (no full page reload) -->
-          <aside class="shop-filters" aria-label="Filter products">
-            <h2 class="shop-filters__title">Filter by:</h2>
+          <!-- Filters: collapsed on small screens behind a toggle; full sidebar on lg+ -->
+          <div class="shop-filters-panel">
+            <button
+              type="button"
+              class="shop-filters__toggle"
+              id="shop-filters-toggle"
+              aria-expanded="false"
+              aria-controls="shop-filters-drawer"
+            >
+              <span class="shop-filters__toggle-text">Filters</span>
+              <span class="shop-filters__toggle-icons" aria-hidden="true">
+                <i class="fa-solid fa-bars shop-filters__icon-bars"></i>
+                <i class="fa-solid fa-xmark shop-filters__icon-close"></i>
+              </span>
+            </button>
+            <aside class="shop-filters" id="shop-filters-drawer" aria-label="Filter products">
+              <h2 class="shop-filters__title">Filter by:</h2>
 
-            <form id="shop-filters-form" class="shop-filters__form">
+              <form id="shop-filters-form" class="shop-filters__form">
               <fieldset class="shop-filters__group">
                 <legend class="shop-filters__legend">Brand</legend>
                 <select id="filter-brand" name="filter-brand" class="shop-filters__select" multiple size="6" aria-label="Filter by brand">
@@ -105,8 +119,9 @@ title: Shop
                 <button type="button" class="shop-filters__apply" id="shop-filters-apply">Apply filters</button>
                 <button type="button" class="shop-filters__clear" id="shop-filters-clear">Clear all</button>
               </div>
-            </form>
-          </aside>
+              </form>
+            </aside>
+          </div>
 
           <div class="shop-view__main-column">
             <p class="shop-view__results-count" id="shop-results-count" aria-live="polite">{{ products | size }} products</p>
