@@ -3,7 +3,7 @@ pagination:
   data: products
   size: 1
   alias: product
-permalink: "shop/{{ product.id }}/index.html"
+permalink: "shop/{{ product.handle }}/index.html"
 layout: base
 title: Shop
 ---
@@ -26,7 +26,7 @@ title: Shop
 {% endif %}
 
 {% comment %} Same 6 accent colors as shop grid cards (shop-view__product-card--color-*) {% endcomment %}
-{% assign accent_index = product.id | modulo: 6 %}
+{% assign accent_index = product.accentIndex | default: 0 %}
 
 <div class="shop-item-show shop-item-show--accent-{{ accent_index }}">
   <div class="shop-item-show__container">
@@ -80,8 +80,8 @@ title: Shop
           <span class="shop-item-show__price">${{ product.price }}</span>
         </div>
 
-        <div class="shop-item-show__description">
-          <p>{{ product.description }}</p>
+        <div class="shop-item-show__description shop-item-show__description--rte">
+          {{ product.descriptionHtml }}
         </div>
 
         <dl class="shop-item-show__specs">
@@ -116,6 +116,8 @@ title: Shop
           <button
             type="button"
             class="shop-item-show__btn shop-item-show__btn--primary shop-item-show__btn--accent js-add-to-cart"
+            data-product-handle="{{ product.handle }}"
+            {% if product.variantId %}data-variant-id="{{ product.variantId }}"{% endif %}
             data-product-id="{{ product.id }}"
             data-product-title="{{ product.title | escape }}"
             data-product-price="{{ product.price }}"

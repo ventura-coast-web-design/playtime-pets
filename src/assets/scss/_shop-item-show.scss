@@ -214,6 +214,31 @@ $shop-pink: #ff6b9d;
     }
   }
 
+  &__description--rte {
+    p {
+      margin: 0 0 $spacing-md;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    ul,
+    ol {
+      margin: 0 0 $spacing-md;
+      padding-left: 1.25rem;
+    }
+
+    a {
+      color: $shop-blue;
+      font-weight: $font-weight-medium;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
   &__specs {
     display: grid;
     grid-template-columns: 1fr;
