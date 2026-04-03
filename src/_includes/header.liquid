@@ -16,14 +16,76 @@
       </div>
     </div>
   </div>
-  <nav class="site-header__nav">
-    <ul class="site-header__nav-list">
-      <li><a href="/collections/new">NEW</a></li>
-      <li><a href="/collections/walk">WALK</a></li>
-      <li><a href="/collections/wear">WEAR</a></li>
-      <li><a href="/collections/sleep">SLEEP</a></li>
-      <li><a href="/collections/play">PLAY</a></li>
-      <li><a href="/sale" class="site-header__nav-sale">SALE</a></li>
-    </ul>
+  {% if home %}
+  <nav class="site-header__nav site-header__nav--cascade" aria-label="Shop by category">
+    <div class="site-header__nav-inner">
+      <ul class="site-header__nav-root">
+        <li class="site-header__nav-branch site-header__nav-branch--sub">
+          <button
+            type="button"
+            class="site-header__nav-trigger"
+            id="nav-dog-trigger"
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-controls="nav-dog-panel"
+          >
+            Dog
+            <i class="fa-solid fa-chevron-down site-header__nav-chevron" aria-hidden="true"></i>
+          </button>
+          <div class="site-header__nav-panel" id="nav-dog-panel" role="region" aria-labelledby="nav-dog-trigger">
+            <ul class="site-header__nav-sub">
+              <li><a href="/shop/">All dog</a></li>
+              <li><a href="/collections/walk">Walk</a></li>
+              <li><a href="/collections/wear">Wear</a></li>
+              <li><a href="/collections/play">Play</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="site-header__nav-branch site-header__nav-branch--sub">
+          <button
+            type="button"
+            class="site-header__nav-trigger"
+            id="nav-cat-trigger"
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-controls="nav-cat-panel"
+          >
+            Cat
+            <i class="fa-solid fa-chevron-down site-header__nav-chevron" aria-hidden="true"></i>
+          </button>
+          <div class="site-header__nav-panel" id="nav-cat-panel" role="region" aria-labelledby="nav-cat-trigger">
+            <ul class="site-header__nav-sub">
+              <li><a href="/shop/">All cat</a></li>
+              <li><a href="/collections/sleep">Sleep</a></li>
+              <li><a href="/collections/wear">Wear</a></li>
+              <li><a href="/collections/play">Play</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="site-header__nav-branch site-header__nav-branch--sub">
+          <button
+            type="button"
+            class="site-header__nav-trigger"
+            id="nav-seasonal-trigger"
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-controls="nav-seasonal-panel"
+          >
+            Seasonal
+            <i class="fa-solid fa-chevron-down site-header__nav-chevron" aria-hidden="true"></i>
+          </button>
+          <div class="site-header__nav-panel" id="nav-seasonal-panel" role="region" aria-labelledby="nav-seasonal-trigger">
+            <ul class="site-header__nav-sub">
+              <li><a href="/collections/new">New arrivals</a></li>
+              <li><a href="/shop/">Gift ideas</a></li>
+            </ul>
+          </div>
+        </li>
+        <li class="site-header__nav-branch site-header__nav-branch--sale">
+          <a href="/sale" class="site-header__nav-sale-link">Sale</a>
+        </li>
+      </ul>
+    </div>
   </nav>
+  {% endif %}
 </header>

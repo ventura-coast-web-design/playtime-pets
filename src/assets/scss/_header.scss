@@ -200,6 +200,195 @@
   }
 }
 
+// Homepage-only cascading nav (Dog / Cat / Seasonal / Sale)
+.site-header__nav--cascade {
+  .site-header__nav-inner {
+    @include container;
+    width: 100%;
+  }
+
+  .site-header__nav-root {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+    justify-content: center;
+    gap: 0;
+  }
+
+  .site-header__nav-branch {
+    margin: 0;
+    position: relative;
+
+    &--sub {
+      border-right: 1px solid rgba(38, 51, 95, 0.08);
+    }
+
+    &--sale {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .site-header__nav-trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: $spacing-xs;
+    padding: $spacing-sm $spacing-lg;
+    font-family: inherit;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $color-text;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: color $transition-base, background $transition-base;
+
+    @include respond-to(md) {
+      font-size: $font-size-sm;
+      padding: $spacing-sm $spacing-xl;
+    }
+
+    &:hover,
+    &:focus-visible {
+      color: $color-text-light;
+      background: rgba(38, 51, 95, 0.04);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #6caae1;
+      outline-offset: -2px;
+    }
+  }
+
+  .site-header__nav-chevron {
+    font-size: 0.65rem;
+    opacity: 0.75;
+    transition: transform $transition-fast;
+  }
+
+  .site-header__nav-branch--sub.is-open .site-header__nav-chevron {
+    transform: rotate(180deg);
+  }
+
+  .site-header__nav-panel {
+    display: none;
+    background: $color-background;
+    border-top: 1px solid $color-border;
+    box-shadow: 0 8px 24px rgba(38, 51, 95, 0.12);
+  }
+
+  .site-header__nav-sub {
+    list-style: none;
+    margin: 0;
+    padding: $spacing-sm 0;
+
+    a {
+      display: block;
+      padding: $spacing-sm $spacing-lg;
+      font-size: $font-size-sm;
+      font-weight: $font-weight-medium;
+      color: $color-text;
+      text-decoration: none;
+      transition: background $transition-fast, color $transition-fast;
+
+      &:hover,
+      &:focus-visible {
+        background: rgba(108, 170, 225, 0.12);
+        color: #26335f;
+      }
+    }
+  }
+
+  .site-header__nav-sale-link {
+    display: inline-flex;
+    align-items: center;
+    padding: $spacing-sm $spacing-lg;
+    font-size: $font-size-xs;
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: $color-sale !important;
+
+    @include respond-to(md) {
+      font-size: $font-size-sm;
+      padding: $spacing-sm $spacing-xl;
+    }
+
+    &:hover {
+      color: color.adjust($color-sale, $lightness: -8%) !important;
+    }
+  }
+
+  // Desktop / fine pointer: flyout under trigger
+  @media (hover: hover) and (pointer: fine) {
+    @include respond-to(md) {
+      .site-header__nav-panel {
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        min-width: 12rem;
+        z-index: 120;
+        border: 1px solid rgba(38, 51, 95, 0.1);
+        border-radius: $border-radius-md;
+        margin-top: 0;
+      }
+
+      .site-header__nav-branch--sub:hover .site-header__nav-panel,
+      .site-header__nav-branch--sub:focus-within .site-header__nav-panel {
+        display: block;
+      }
+
+      .site-header__nav-branch--sub .site-header__nav-chevron {
+        transform: none;
+      }
+
+      .site-header__nav-branch--sub:hover .site-header__nav-chevron,
+      .site-header__nav-branch--sub:focus-within .site-header__nav-chevron {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  // Narrow / coarse: accordion (JS toggles .is-open)
+  @media (max-width: ($breakpoint-md - 1px)) {
+    .site-header__nav-root {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .site-header__nav-branch--sub {
+      border-right: none;
+      border-bottom: 1px solid rgba(38, 51, 95, 0.08);
+    }
+
+    .site-header__nav-branch--sale {
+      justify-content: center;
+      padding: $spacing-xs 0;
+    }
+
+    .site-header__nav-trigger {
+      width: 100%;
+      justify-content: space-between;
+      text-align: left;
+    }
+
+    .site-header__nav-branch--sub.is-open .site-header__nav-panel {
+      display: block;
+    }
+
+    .site-header__nav-sub a {
+      padding-left: $spacing-xl;
+    }
+  }
+}
+
 .site-header__cart-link {
   position: relative;
   display: inline-flex;
