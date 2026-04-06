@@ -145,18 +145,42 @@ title: Shop
                   data-material="{{ product.material }}"
                   data-price="{{ product.price }}"
                   data-rating="{{ product.rating }}">
-                  <a href="/shop/{{ product.handle }}/" class="shop-view__product-link">
+                  <div class="shop-view__product-media">
                     <div class="shop-view__product-image">
-                      <img src="{{ product.image }}" alt="{{ product.title }}" loading="lazy">
+                      <a href="/shop/{{ product.handle }}/" class="shop-view__product-link-fill" aria-label="View {{ product.title | escape }}"></a>
+                      {% if product.images.size > 0 %}
+                      {% for url in product.images %}
+                      <img
+                        class="shop-view__card-slide{% if forloop.first %} is-active{% endif %}"
+                        src="{{ url }}"
+                        alt="{% if forloop.first %}{{ product.title }}{% endif %}"
+                        loading="lazy"
+                        decoding="async"
+                        width="400"
+                        height="400"
+                      >
+                      {% endfor %}
+                      {% elsif product.image %}
+                      <img class="shop-view__card-slide is-active" src="{{ product.image }}" alt="{{ product.title }}" loading="lazy" decoding="async" width="400" height="400">
+                      {% endif %}
                       {% if product.comparePrice %}
                       <span class="shop-view__sale-badge">Sale</span>
                       {% endif %}
                     </div>
-                  </a>
+                    {% if product.images.size > 1 %}
+                    <button type="button" class="shop-view__card-nav shop-view__card-nav--prev" aria-label="Previous product image">
+                      <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+                    </button>
+                    <button type="button" class="shop-view__card-nav shop-view__card-nav--next" aria-label="Next product image">
+                      <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+                    </button>
+                    {% endif %}
+                  </div>
 
                   <div class="shop-view__product-info">
-                    <div class="shop-view__product-type">{{ product.category | upcase }}</div>
-                    <h3 class="shop-view__product-title">{{ product.title }}</h3>
+                    <a href="/shop/{{ product.handle }}/" class="shop-view__product-link-title">
+                      <h3 class="shop-view__product-title">{{ product.title }}</h3>
+                    </a>
 
                     <div class="shop-view__product-price">
                       {% if product.comparePrice %}
@@ -227,4 +251,5 @@ title: Shop
 
 {% if products.size > 0 %}
 <script src="/assets/js/shop-filters.js" defer></script>
+<script src="/assets/js/shop-card-gallery.js" defer></script>
 {% endif %}
