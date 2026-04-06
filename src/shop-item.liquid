@@ -39,21 +39,50 @@ title: Shop
     </nav>
 
     <div class="shop-item-show__layout">
-      <div class="shop-item-show__gallery">
+      <div
+        class="shop-item-show__gallery js-product-gallery"
+        {% if product.images.size > 1 %}tabindex="0"{% endif %}
+        aria-label="{% if product.images.size > 1 %}Product photos. Use arrow keys or buttons to change image.{% else %}{{ product.title }} photo{% endif %}"
+      >
         <div class="shop-item-show__image-frame">
+          {% if product.images.size > 1 %}
+          <button type="button" class="shop-item-show__gallery-nav shop-item-show__gallery-nav--prev" aria-label="Previous image">
+            <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+          </button>
+          <button type="button" class="shop-item-show__gallery-nav shop-item-show__gallery-nav--next" aria-label="Next image">
+            <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+          </button>
+          {% endif %}
           <img
-            class="shop-item-show__image"
+            class="shop-item-show__image js-product-gallery-main"
             src="{{ product.image }}"
             alt="{{ product.title }}"
             width="800"
             height="800"
             loading="eager"
             decoding="async"
+            fetchpriority="high"
           >
           {% if product.comparePrice %}
           <span class="shop-item-show__sale-badge">Sale</span>
           {% endif %}
         </div>
+        {% if product.images.size > 1 %}
+        <div class="shop-item-show__thumbs" role="tablist" aria-label="Product thumbnails">
+          {% for url in product.images %}
+          <button
+            type="button"
+            class="shop-item-show__thumb{% if forloop.first %} is-active{% endif %}"
+            role="tab"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            aria-label="Image {{ forloop.index }} of {{ product.images.size }}"
+            data-gallery-index="{{ forloop.index0 }}"
+          >
+            <img src="{{ url }}" alt="" width="88" height="88" loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" decoding="async">
+          </button>
+          {% endfor %}
+        </div>
+        {% endif %}
       </div>
 
       <div class="shop-item-show__details">
@@ -134,3 +163,7 @@ title: Shop
     </div>
   </div>
 </div>
+
+{% if product.images.size > 1 %}
+<script src="/assets/js/shop-item-gallery.js" defer></script>
+{% endif %}
