@@ -6,6 +6,11 @@ const path = require("path");
 
 const API_VERSION = process.env.SHOPIFY_STOREFRONT_API_VERSION || "2024-10";
 
+function shopifyDebugEnabled() {
+  const v = process.env.SHOPIFY_DEBUG;
+  return v === "1" || v === "true" || String(v).toLowerCase() === "yes";
+}
+
 const PRODUCTS_QUERY = `
   query Products($first: Int!, $after: String) {
     products(first: $first, after: $after) {
@@ -25,6 +30,13 @@ const PRODUCTS_QUERY = `
           availableForSale
           featuredImage {
             url(transform: { maxWidth: 800, maxHeight: 800 })
+          }
+          images(first: 1) {
+            edges {
+              node {
+                url(transform: { maxWidth: 800, maxHeight: 800 })
+              }
+            }
           }
           variants(first: 100) {
             edges {
@@ -96,9 +108,24 @@ function formatMoney(amountStr) {
   return n.toFixed(2);
 }
 
+function productImageUrl(node) {
+  if (node.featuredImage && node.featuredImage.url) {
+    return node.featuredImage.url;
+  }
+  const imgEdges = (node.images && node.images.edges) || [];
+  const first = imgEdges[0] && imgEdges[0].node;
+  if (first && first.url) return first.url;
+  return null;
+}
+
 function mapShopifyNode(node) {
   const variant = pickVariant(node.variants);
   if (!variant) return null;
+
+  const imageUrl = productImageUrl(node);
+  if (!imageUrl) {
+    return null;
+  }
 
   const price = formatMoney(variant.price && variant.price.amount);
   let comparePrice = null;
@@ -118,7 +145,7 @@ function mapShopifyNode(node) {
     descriptionHtml: node.descriptionHtml || "",
     price: price,
     comparePrice: comparePrice,
-    image: (node.featuredImage && node.featuredImage.url) || "",
+    image: imageUrl,
     category: node.productType || "Products",
     brand: node.vendor || "—",
     animal: tagParsed.animal,
@@ -215,6 +242,21 @@ async function fetchAllShopifyProducts() {
     }
 
     const data = result.data;
+    if (shopifyDebugEnabled()) {
+      const edgesPreview = (data && data.products && data.products.edges) || [];
+      console.log("[Shopify DEBUG] products query response:", {
+        httpStatus: result.httpStatus,
+        graphqlErrors: result.errors,
+        pageInfo: data && data.products ? data.products.pageInfo : null,
+        edgesThisPage: edgesPreview.length,
+        sampleTitles: edgesPreview.slice(0, 5).map(function (e) {
+          return e.node && e.node.title;
+        })
+      });
+      if (process.env.SHOPIFY_DEBUG_FULL === "1" && data) {
+        console.log("[Shopify DEBUG] full data JSON:\n" + JSON.stringify(data, null, 2));
+      }
+    }
     if (!data || !data.products) break;
     const edges = data.products.edges || [];
     for (const edge of edges) {
