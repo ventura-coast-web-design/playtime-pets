@@ -4,12 +4,22 @@
   var LEGACY_KEY = 'playtimePetsCart';
   var SHOPIFY_CART_KEY = 'playtimePetsShopifyCartId';
 
+  function shopifyStorefrontToken() {
+    var s = window.__SHOPIFY__;
+    if (!s) return '';
+    if (s.storefrontToken) return s.storefrontToken;
+    if (s.storefrontTokenParts && s.storefrontTokenParts.length) {
+      return s.storefrontTokenParts.join('');
+    }
+    return '';
+  }
+
   function shopifyMode() {
     return Boolean(
       window.__SHOPIFY__ &&
         window.__SHOPIFY__.configured &&
         window.__SHOPIFY__.domain &&
-        window.__SHOPIFY__.storefrontToken
+        shopifyStorefrontToken()
     );
   }
 
@@ -23,7 +33,7 @@
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': window.__SHOPIFY__.storefrontToken
+        'X-Shopify-Storefront-Access-Token': shopifyStorefrontToken()
       },
       body: JSON.stringify({ query: query, variables: variables || {} })
     }).then(function (res) {
