@@ -31,10 +31,10 @@ const PRODUCTS_QUERY = `
           featuredImage {
             url(transform: { maxWidth: 800, maxHeight: 800 })
           }
-          images(first: 1) {
+          images(first: 20) {
             edges {
               node {
-                url(transform: { maxWidth: 800, maxHeight: 800 })
+                url(transform: { maxWidth: 1200, maxHeight: 1200 })
               }
             }
           }
@@ -108,24 +108,40 @@ function formatMoney(amountStr) {
   return n.toFixed(2);
 }
 
-function productImageUrl(node) {
-  if (node.featuredImage && node.featuredImage.url) {
-    return node.featuredImage.url;
+/** All unique image URLs in stable order (gallery order, then featured if still empty). */
+function collectProductImageUrls(node) {
+  const out = [];
+  const seen = new Set();
+  function add(u) {
+    if (u && typeof u === "string" && !seen.has(u)) {
+      seen.add(u);
+      out.push(u);
+    }
   }
   const imgEdges = (node.images && node.images.edges) || [];
-  const first = imgEdges[0] && imgEdges[0].node;
-  if (first && first.url) return first.url;
-  return null;
+  for (const e of imgEdges) {
+    add(e.node && e.node.url);
+  }
+  if (out.length === 0 && node.featuredImage && node.featuredImage.url) {
+    add(node.featuredImage.url);
+  }
+  return out;
+}
+
+function productImageUrl(node) {
+  const urls = collectProductImageUrls(node);
+  return urls.length ? urls[0] : null;
 }
 
 function mapShopifyNode(node) {
   const variant = pickVariant(node.variants);
   if (!variant) return null;
 
-  const imageUrl = productImageUrl(node);
-  if (!imageUrl) {
+  const imageUrls = collectProductImageUrls(node);
+  if (!imageUrls.length) {
     return null;
   }
+  const imageUrl = imageUrls[0];
 
   const price = formatMoney(variant.price && variant.price.amount);
   let comparePrice = null;
@@ -146,6 +162,7 @@ function mapShopifyNode(node) {
     price: price,
     comparePrice: comparePrice,
     image: imageUrl,
+    images: imageUrls,
     category: node.productType || "Products",
     brand: node.vendor || "—",
     animal: tagParsed.animal,
@@ -171,13 +188,22 @@ function loadFallback() {
   if (!Array.isArray(raw)) return [];
   return raw.map(function (p) {
     const id = p.id;
+    const images =
+      Array.isArray(p.images) && p.images.length
+        ? p.images.slice()
+        : p.image
+          ? [p.image]
+          : [];
+    const primary = images.length ? images[0] : p.image || "";
     return Object.assign({}, p, {
       handle: p.handle != null ? String(p.handle) : String(id),
       descriptionHtml:
         p.descriptionHtml ||
         (p.description ? "<p>" + escapeHtml(String(p.description)) + "</p>" : ""),
       variantId: p.variantId != null ? p.variantId : null,
-      accentIndex: typeof id === "number" ? Math.abs(id) % 6 : 0
+      accentIndex: typeof id === "number" ? Math.abs(id) % 6 : 0,
+      images: images,
+      image: primary
     });
   });
 }
