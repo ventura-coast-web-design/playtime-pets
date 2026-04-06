@@ -181,14 +181,50 @@ title: Shop
                     <a href="/shop/{{ product.handle }}/" class="shop-view__product-link-title">
                       <h3 class="shop-view__product-title">{{ product.title }}</h3>
                     </a>
+                    
 
-                    <div class="shop-view__product-price">
-                      {% if product.comparePrice %}
-                      <span class="shop-view__price-original">${{ product.comparePrice }}</span>
-                      <span class="shop-view__price-current">${{ product.price }}</span>
-                      {% else %}
-                      <span class="shop-view__price-current">${{ product.price }}</span>
-                      {% endif %}
+                    <div class="shop-view__product-price-row">
+                      <div class="shop-view__product-price">
+                        {% if product.comparePrice %}
+                        <span class="shop-view__price-original">${{ product.comparePrice }}</span>
+                        <span class="shop-view__price-current">${{ product.price }}</span>
+                        {% else %}
+                        <span class="shop-view__price-current">${{ product.price }}</span>
+                        {% endif %}
+                      </div>
+                      <div class="shop-view__card-cart" data-shop-card-cart>
+                        <div class="shop-view__qty">
+                          <button type="button" class="shop-view__qty-btn shop-view__qty-dec" aria-label="Decrease quantity" {% unless product.inStock %}disabled{% endunless %}>−</button>
+                          <label class="shop-view__qty-label" for="shop-qty-{{ product.id }}">Quantity</label>
+                          <input
+                            id="shop-qty-{{ product.id }}"
+                            class="shop-view__qty-input"
+                            type="number"
+                            name="quantity"
+                            value="1"
+                            min="1"
+                            max="99"
+                            inputmode="numeric"
+                            aria-label="Quantity for {{ product.title | escape }}"
+                            {% unless product.inStock %}disabled{% endunless %}
+                          >
+                          <button type="button" class="shop-view__qty-btn shop-view__qty-inc" aria-label="Increase quantity" {% unless product.inStock %}disabled{% endunless %}>+</button>
+                        </div>
+                        <button
+                          type="button"
+                          class="shop-view__add-btn js-add-to-cart"
+                          data-product-handle="{{ product.handle }}"
+                          {% if product.variantId %}data-variant-id="{{ product.variantId }}"{% endif %}
+                          data-product-id="{{ product.id }}"
+                          data-product-title="{{ product.title | escape }}"
+                          data-product-price="{{ product.price }}"
+                          data-product-image="{{ product.image }}"
+                          {% if product.comparePrice %}data-product-compare-price="{{ product.comparePrice }}"{% endif %}
+                          {% unless product.inStock %}disabled{% endunless %}
+                        >
+                          {% if product.inStock %}Add to cart{% else %}Out of stock{% endif %}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </article>
