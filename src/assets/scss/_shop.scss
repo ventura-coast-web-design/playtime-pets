@@ -339,6 +339,8 @@ $shop-filters-sticky-top: 6.75rem;
     gap: $spacing-lg;
 
     @media (max-width: $breakpoint-sm - 0.02px) {
+      // Phones: always 2 columns (auto-fill + 200px min only fits one column)
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: $spacing-sm;
     }
     
