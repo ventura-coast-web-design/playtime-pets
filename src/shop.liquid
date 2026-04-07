@@ -178,7 +178,7 @@ title: Shop
                   </div>
 
                   <div class="shop-view__product-info">
-                    <a href="/shop/{{ product.handle }}/" class="shop-view__product-link-title">
+                    <a href="/shop/{{ product.handle }}/" class="shop-view__product-link-title" title="{{ product.title | escape }}">
                       <h3 class="shop-view__product-title">{{ product.title }}</h3>
                     </a>
                     

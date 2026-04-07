@@ -322,6 +322,10 @@ $shop-filters-sticky-top: 6.75rem;
   .shop-view__grid-wrapper {
     background: linear-gradient(180deg, #FFF9E6 0%, #FDFBF5 50%, #F0F8FF 100%);
     padding: $spacing-xl $spacing-sm;
+
+    @media (max-width: $breakpoint-sm - 0.02px) {
+      padding: $spacing-md $spacing-xs;
+    }
     
     @include respond-to(md) {
       padding: $spacing-xxl $spacing-md;
@@ -333,6 +337,10 @@ $shop-filters-sticky-top: 6.75rem;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: $spacing-lg;
+
+    @media (max-width: $breakpoint-sm - 0.02px) {
+      gap: $spacing-sm;
+    }
     
     @include respond-to(md) {
       grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
@@ -386,6 +394,16 @@ $shop-filters-sticky-top: 6.75rem;
     &:hover {
       transform: translateY(-6px);
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    @media (max-width: $breakpoint-sm - 0.02px) {
+      &[class*='--color-'] {
+        border-width: 3px;
+      }
+
+      &:hover {
+        transform: translateY(-3px);
+      }
     }
   }
   
@@ -529,6 +547,10 @@ $shop-filters-sticky-top: 6.75rem;
   .shop-view__product-info {
     padding: $spacing-md;
 
+    @media (max-width: $breakpoint-sm - 0.02px) {
+      padding: $spacing-sm $spacing-sm $spacing-xs;
+    }
+
     @include respond-to(lg) {
       padding: $spacing-sm;
     }
@@ -550,25 +572,88 @@ $shop-filters-sticky-top: 6.75rem;
     margin: 0 0 $spacing-sm 0;
     line-height: 1.35;
 
+    // Narrow shop grid: cap title height (full name on link title + product page)
+    @media (max-width: $breakpoint-sm - 0.02px) {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 1;
+      overflow: hidden;
+      font-size: $font-size-base;
+      line-height: 1.25;
+      margin-bottom: $spacing-xs;
+    }
+
     @include respond-to(lg) {
       font-size: $font-size-base;
     }
   }
   
   .shop-view__product-price-row {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-md;
     margin-top: $spacing-sm;
     padding-top: $spacing-md;
     border-top: 1px solid rgba(38, 51, 95, 0.08);
 
+    // Mobile: price + qty on one row; add-to-cart full width below (card-cart uses display: contents)
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-rows: auto auto;
+    gap: $spacing-sm;
+    align-items: center;
+
+    @media (max-width: $breakpoint-sm - 0.02px) {
+      margin-top: $spacing-xs;
+      padding-top: $spacing-sm;
+      gap: $spacing-xs;
+    }
+
+    .shop-view__product-price {
+      grid-column: 1;
+      grid-row: 1;
+      min-width: 0;
+    }
+
+    .shop-view__card-cart {
+      display: contents;
+    }
+
+    .shop-view__qty {
+      grid-column: 2;
+      grid-row: 1;
+      align-self: center;
+    }
+
+    .shop-view__add-btn {
+      grid-column: 1 / -1;
+      grid-row: 2;
+    }
+
     @include respond-to(sm) {
+      display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       align-items: flex-end;
       justify-content: space-between;
       gap: $spacing-sm $spacing-md;
+
+      .shop-view__card-cart {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+        min-width: 0;
+        flex: 1 1 auto;
+        gap: $spacing-sm;
+      }
+
+      .shop-view__qty {
+        align-self: center;
+      }
+
+      .shop-view__add-btn {
+        grid-column: unset;
+        grid-row: unset;
+      }
     }
   }
 
@@ -578,22 +663,15 @@ $shop-filters-sticky-top: 6.75rem;
     gap: $spacing-sm;
     margin-bottom: 0;
     flex-shrink: 0;
+
+    @media (max-width: $breakpoint-sm - 0.02px) {
+      gap: $spacing-xs;
+    }
   }
 
   .shop-view__card-cart {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: $spacing-sm;
     min-width: 0;
     flex: 1 1 auto;
-
-    @include respond-to(sm) {
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-end;
-      flex-wrap: wrap;
-    }
   }
 
   .shop-view__qty {
@@ -604,7 +682,7 @@ $shop-filters-sticky-top: 6.75rem;
     border-radius: $border-radius-md;
     overflow: hidden;
     background: #ffffff;
-    align-self: flex-start;
+    flex-shrink: 0;
 
     @include respond-to(sm) {
       align-self: center;
@@ -627,6 +705,12 @@ $shop-filters-sticky-top: 6.75rem;
     line-height: 1;
     cursor: pointer;
     transition: background $transition-fast, color $transition-fast;
+
+    @media (max-width: $breakpoint-sm - 0.02px) {
+      width: 1.625rem;
+      height: 1.875rem;
+      font-size: 0.9rem;
+    }
 
     &:hover:not(:disabled) {
       background: rgba(108, 170, 225, 0.25);
@@ -660,6 +744,13 @@ $shop-filters-sticky-top: 6.75rem;
     -moz-appearance: textfield;
     appearance: textfield;
 
+    @media (max-width: $breakpoint-sm - 0.02px) {
+      width: 2.125rem;
+      height: 1.875rem;
+      font-size: $font-size-xs;
+      padding: 0 0.125rem;
+    }
+
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
       -webkit-appearance: none;
@@ -688,6 +779,12 @@ $shop-filters-sticky-top: 6.75rem;
     border: none;
     white-space: nowrap;
 
+    @media (max-width: $breakpoint-sm - 0.02px) {
+      padding: $spacing-xs $spacing-sm;
+      font-size: $font-size-xs;
+      border-radius: $border-radius-sm;
+    }
+
     @include respond-to(sm) {
       width: auto;
       min-width: 7.5rem;
@@ -710,6 +807,10 @@ $shop-filters-sticky-top: 6.75rem;
     font-weight: $font-weight-semibold;
     color: #26335F; // Dark blue
 
+    @media (max-width: $breakpoint-sm - 0.02px) {
+      font-size: $font-size-sm;
+    }
+
     @include respond-to(lg) {
       font-size: $font-size-base;
     }
@@ -720,6 +821,10 @@ $shop-filters-sticky-top: 6.75rem;
     font-weight: $font-weight-normal;
     color: #999999;
     text-decoration: line-through;
+
+    @media (max-width: $breakpoint-sm - 0.02px) {
+      font-size: 0.6875rem;
+    }
   }
   
   // Color/Pattern Variations - Fun Pops of Color!
