@@ -213,9 +213,8 @@
 .site-header__nav--cascade .site-header__nav-branch--sub {
   border-right: 1px solid rgba(38, 51, 95, 0.08);
 }
-.site-header__nav--cascade .site-header__nav-branch--sale {
-  display: flex;
-  align-items: center;
+.site-header__nav--cascade .site-header__nav-branch--sale-dropdown {
+  border-right: none;
 }
 .site-header__nav--cascade .site-header__nav-trigger {
   display: inline-flex;
@@ -246,6 +245,13 @@
 .site-header__nav--cascade .site-header__nav-trigger:focus-visible {
   outline: 2px solid #6caae1;
   outline-offset: -2px;
+}
+.site-header__nav--cascade .site-header__nav-trigger--sale {
+  color: #d13a3a !important;
+}
+.site-header__nav--cascade .site-header__nav-trigger--sale:hover, .site-header__nav--cascade .site-header__nav-trigger--sale:focus-visible {
+  color: rgb(183.3802469136, 42.8197530864, 42.8197530864) !important;
+  background: rgba(209, 58, 58, 0.06);
 }
 .site-header__nav--cascade .site-header__nav-chevron {
   font-size: 0.65rem;
@@ -279,26 +285,6 @@
   background: rgba(108, 170, 225, 0.12);
   color: #26335f;
 }
-.site-header__nav--cascade .site-header__nav-sale-link {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.5rem 1.5rem;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  text-decoration: none;
-  color: #d13a3a !important;
-}
-@media (min-width: 768px) {
-  .site-header__nav--cascade .site-header__nav-sale-link {
-    font-size: 14px;
-    padding: 0.5rem 2rem;
-  }
-}
-.site-header__nav--cascade .site-header__nav-sale-link:hover {
-  color: rgb(183.3802469136, 42.8197530864, 42.8197530864) !important;
-}
 @media (hover: hover) and (pointer: fine) and (min-width: 768px) {
   .site-header__nav--cascade .site-header__nav-panel {
     position: absolute;
@@ -310,6 +296,10 @@
     border: 1px solid rgba(38, 51, 95, 0.1);
     border-radius: 8px;
     margin-top: 0;
+  }
+  .site-header__nav--cascade .site-header__nav-panel--rich {
+    min-width: min(36rem, 100vw - 2rem);
+    padding: 1rem 1.5rem;
   }
   .site-header__nav--cascade .site-header__nav-branch--sub:hover .site-header__nav-panel,
   .site-header__nav--cascade .site-header__nav-branch--sub:focus-within .site-header__nav-panel {
@@ -332,10 +322,6 @@
     border-right: none;
     border-bottom: 1px solid rgba(38, 51, 95, 0.08);
   }
-  .site-header__nav--cascade .site-header__nav-branch--sale {
-    justify-content: center;
-    padding: 0.25rem 0;
-  }
   .site-header__nav--cascade .site-header__nav-trigger {
     width: 100%;
     justify-content: space-between;
@@ -347,6 +333,82 @@
   .site-header__nav--cascade .site-header__nav-sub a {
     padding-left: 2rem;
   }
+  .site-header__nav--cascade .nav-dropdown {
+    grid-template-columns: 1fr;
+  }
+}
+
+.nav-dropdown {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 768px) {
+  .nav-dropdown {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem 2rem;
+    align-items: start;
+  }
+}
+@media (min-width: 768px) {
+  .nav-dropdown--seasonal {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.nav-dropdown__group {
+  margin: 0;
+  min-width: 0;
+}
+.nav-dropdown__group--footer {
+  grid-column: 1/-1;
+  padding-top: 0.5rem;
+  border-top: 1px solid #e0e0e0;
+  margin-top: 0.25rem;
+}
+
+@media (min-width: 768px) {
+  .nav-dropdown--seasonal .nav-dropdown__group--footer {
+    grid-column: 1/-1;
+  }
+}
+
+.nav-dropdown__label {
+  margin: 0 0 0.5rem;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #333333;
+}
+
+.nav-dropdown__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-dropdown__list li {
+  margin: 0 0 0.25rem;
+}
+.nav-dropdown__list a {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.nav-dropdown__list a:hover, .nav-dropdown__list a:focus-visible {
+  color: #26335f;
+}
+
+.nav-dropdown__all {
+  font-size: 14px;
+  font-weight: 700;
+  color: #333333;
+  text-decoration: none;
+}
+.nav-dropdown__all:hover {
+  color: #4a90e2;
 }
 
 .site-header__cart-link {

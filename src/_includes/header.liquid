@@ -32,13 +32,38 @@
             Dog
             <i class="fa-solid fa-chevron-down site-header__nav-chevron" aria-hidden="true"></i>
           </button>
-          <div class="site-header__nav-panel" id="nav-dog-panel" role="region" aria-labelledby="nav-dog-trigger">
-            <ul class="site-header__nav-sub">
-              <li><a href="/shop/">All dog</a></li>
-              <li><a href="/collections/walk">Walk</a></li>
-              <li><a href="/collections/wear">Wear</a></li>
-              <li><a href="/collections/play">Play</a></li>
-            </ul>
+          <div class="site-header__nav-panel site-header__nav-panel--rich" id="nav-dog-panel" role="region" aria-labelledby="nav-dog-trigger">
+            <div class="nav-dropdown">
+              <div class="nav-dropdown__group">
+                <p class="nav-dropdown__label">Toys &amp; play</p>
+                <ul class="nav-dropdown__list">
+                  <li><a href="/collections/play">Chew &amp; durable toys</a></li>
+                  <li><a href="/collections/play">Plush &amp; squeaky</a></li>
+                  <li><a href="/collections/play">Fetch, balls &amp; tug</a></li>
+                  <li><a href="/collections/play">Puzzle &amp; treat toys</a></li>
+                  <li><a href="/collections/play">Puppy toys</a></li>
+                </ul>
+              </div>
+              <div class="nav-dropdown__group">
+                <p class="nav-dropdown__label">Out &amp; about</p>
+                <ul class="nav-dropdown__list">
+                  <li><a href="/collections/walk">Walk — leads &amp; harnesses</a></li>
+                  <li><a href="/collections/wear">Wear — coats &amp; gear</a></li>
+                  <li><a href="/collections/walk">Travel &amp; safety</a></li>
+                </ul>
+              </div>
+              <div class="nav-dropdown__group">
+                <p class="nav-dropdown__label">Cozy at home</p>
+                <ul class="nav-dropdown__list">
+                  <li><a href="/collections/sleep">Beds &amp; crates</a></li>
+                  <li><a href="/shop/">Bowls &amp; feeders</a></li>
+                  <li><a href="/shop/">Grooming</a></li>
+                </ul>
+              </div>
+              <div class="nav-dropdown__group nav-dropdown__group--footer">
+                <a href="/shop/" class="nav-dropdown__all">Shop all dog</a>
+              </div>
+            </div>
           </div>
         </li>
         <li class="site-header__nav-branch site-header__nav-branch--sub">
@@ -53,13 +78,39 @@
             Cat
             <i class="fa-solid fa-chevron-down site-header__nav-chevron" aria-hidden="true"></i>
           </button>
-          <div class="site-header__nav-panel" id="nav-cat-panel" role="region" aria-labelledby="nav-cat-trigger">
-            <ul class="site-header__nav-sub">
-              <li><a href="/shop/">All cat</a></li>
-              <li><a href="/collections/sleep">Sleep</a></li>
-              <li><a href="/collections/wear">Wear</a></li>
-              <li><a href="/collections/play">Play</a></li>
-            </ul>
+          <div class="site-header__nav-panel site-header__nav-panel--rich" id="nav-cat-panel" role="region" aria-labelledby="nav-cat-trigger">
+            <div class="nav-dropdown">
+              <div class="nav-dropdown__group">
+                <p class="nav-dropdown__label">Toys &amp; play</p>
+                <ul class="nav-dropdown__list">
+                  <li><a href="/collections/play">Wands &amp; teasers</a></li>
+                  <li><a href="/collections/play">Catnip &amp; chase toys</a></li>
+                  <li><a href="/collections/play">Scratchers &amp; posts</a></li>
+                  <li><a href="/collections/play">Puzzle &amp; treat toys</a></li>
+                  <li><a href="/collections/play">Kitten toys</a></li>
+                </ul>
+              </div>
+              <div class="nav-dropdown__group">
+                <p class="nav-dropdown__label">Roam &amp; relax</p>
+                <ul class="nav-dropdown__list">
+                  <li><a href="/collections/walk">Collars &amp; harnesses</a></li>
+                  <li><a href="/collections/wear">Apparel</a></li>
+                  <li><a href="/collections/sleep">Beds &amp; hideaways</a></li>
+                  <li><a href="/shop/">Carriers &amp; travel</a></li>
+                </ul>
+              </div>
+              <div class="nav-dropdown__group">
+                <p class="nav-dropdown__label">Everyday care</p>
+                <ul class="nav-dropdown__list">
+                  <li><a href="/shop/">Bowls &amp; fountains</a></li>
+                  <li><a href="/shop/">Litter &amp; trays</a></li>
+                  <li><a href="/shop/">Grooming</a></li>
+                </ul>
+              </div>
+              <div class="nav-dropdown__group nav-dropdown__group--footer">
+                <a href="/shop/" class="nav-dropdown__all">Shop all cat</a>
+              </div>
+            </div>
           </div>
         </li>
         <li class="site-header__nav-branch site-header__nav-branch--sub">
@@ -74,15 +125,48 @@
             Seasonal
             <i class="fa-solid fa-chevron-down site-header__nav-chevron" aria-hidden="true"></i>
           </button>
-          <div class="site-header__nav-panel" id="nav-seasonal-panel" role="region" aria-labelledby="nav-seasonal-trigger">
-            <ul class="site-header__nav-sub">
-              <li><a href="/collections/new">New arrivals</a></li>
-              <li><a href="/shop/">Gift ideas</a></li>
-            </ul>
+          <div class="site-header__nav-panel site-header__nav-panel--rich" id="nav-seasonal-panel" role="region" aria-labelledby="nav-seasonal-trigger">
+            <div class="nav-dropdown nav-dropdown--seasonal">
+              <div class="nav-dropdown__group">
+                <p class="nav-dropdown__label">This season</p>
+                <ul class="nav-dropdown__list">
+                  <li><a href="/collections/new">New arrivals</a></li>
+                  <li><a href="/collections/bundles">Gift bundles</a></li>
+                  <li><a href="/shop/">Holiday picks</a></li>
+                </ul>
+              </div>
+              <div class="nav-dropdown__group">
+                <p class="nav-dropdown__label">By pet</p>
+                <ul class="nav-dropdown__list">
+                  <li><a href="/collections/new">For dogs</a></li>
+                  <li><a href="/collections/new">For cats</a></li>
+                </ul>
+              </div>
+              <div class="nav-dropdown__group nav-dropdown__group--footer">
+                <a href="/shop/" class="nav-dropdown__all">Browse seasonal shop</a>
+              </div>
+            </div>
           </div>
         </li>
-        <li class="site-header__nav-branch site-header__nav-branch--sale">
-          <a href="/sale" class="site-header__nav-sale-link">Sale</a>
+        <li class="site-header__nav-branch site-header__nav-branch--sub site-header__nav-branch--sale-dropdown">
+          <button
+            type="button"
+            class="site-header__nav-trigger site-header__nav-trigger--sale"
+            id="nav-sale-trigger"
+            aria-expanded="false"
+            aria-haspopup="true"
+            aria-controls="nav-sale-panel"
+          >
+            Sale
+            <i class="fa-solid fa-chevron-down site-header__nav-chevron" aria-hidden="true"></i>
+          </button>
+          <div class="site-header__nav-panel site-header__nav-panel--rich" id="nav-sale-panel" role="region" aria-labelledby="nav-sale-trigger">
+            <ul class="site-header__nav-sub">
+              <li><a href="/sale">All sale items</a></li>
+              <li><a href="/collections/bundles">Bundles on sale</a></li>
+              <li><a href="/collections/new">Recently marked down</a></li>
+            </ul>
+          </div>
         </li>
       </ul>
     </div>
