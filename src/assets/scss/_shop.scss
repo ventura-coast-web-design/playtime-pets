@@ -363,6 +363,10 @@ $shop-filters-sticky-top: 6.75rem;
   
   // Product Card with Color Variations (white card body — border only for accent)
   .shop-view__product-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
     background-color: #ffffff;
     border-radius: $border-radius-lg;
     overflow: hidden;
@@ -411,6 +415,7 @@ $shop-filters-sticky-top: 6.75rem;
   
   .shop-view__product-media {
     position: relative;
+    flex-shrink: 0;
   }
 
   .shop-view__product-image {
@@ -547,6 +552,10 @@ $shop-filters-sticky-top: 6.75rem;
   }
   
   .shop-view__product-info {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
     padding: $spacing-md;
 
     @media (max-width: ($breakpoint-sm - 0.02px)) {
@@ -591,7 +600,7 @@ $shop-filters-sticky-top: 6.75rem;
   }
   
   .shop-view__product-price-row {
-    margin-top: $spacing-sm;
+    margin-top: auto;
     padding-top: $spacing-md;
     border-top: 1px solid rgba(38, 51, 95, 0.08);
 
@@ -603,7 +612,6 @@ $shop-filters-sticky-top: 6.75rem;
     align-items: center;
 
     @media (max-width: ($breakpoint-sm - 0.02px)) {
-      margin-top: $spacing-xs;
       padding-top: $spacing-sm;
       gap: $spacing-xs;
     }
