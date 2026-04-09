@@ -276,6 +276,13 @@ $shop-filters-sticky-top: 6.75rem;
     gap: $spacing-md;
     padding: $spacing-lg $spacing-md;
     margin-bottom: $spacing-xl;
+
+    // One horizontal row on small screens — equal-width tiles, compact type
+    @media (max-width: ($breakpoint-md - 0.02px)) {
+      flex-wrap: nowrap;
+      gap: $spacing-xs;
+      padding: $spacing-md $spacing-sm;
+    }
     
     @include respond-to(md) {
       padding: $spacing-xl $spacing-lg;
@@ -295,6 +302,27 @@ $shop-filters-sticky-top: 6.75rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: all $transition-base;
     cursor: pointer;
+
+    @media (max-width: ($breakpoint-md - 0.02px)) {
+      flex: 1 1 0;
+      min-width: 0;
+      padding: $spacing-sm $spacing-xs;
+      font-size: $font-size-xs;
+      line-height: 1.2;
+
+      span {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.2rem;
+        text-wrap: balance;
+      }
+
+      i {
+        font-size: 0.95rem;
+      }
+    }
     
     &:hover {
       transform: translateY(-4px);
