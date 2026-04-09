@@ -323,7 +323,7 @@ $shop-filters-sticky-top: 6.75rem;
     background: linear-gradient(180deg, #FFF9E6 0%, #FDFBF5 50%, #F0F8FF 100%);
     padding: $spacing-xl $spacing-sm;
 
-    @media (max-width: $breakpoint-sm - 0.02px) {
+    @media (max-width: ($breakpoint-sm - 0.02px)) {
       padding: $spacing-md $spacing-xs;
     }
     
@@ -338,7 +338,7 @@ $shop-filters-sticky-top: 6.75rem;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: $spacing-lg;
 
-    @media (max-width: $breakpoint-sm - 0.02px) {
+    @media (max-width: ($breakpoint-sm - 0.02px)) {
       // Phones: always 2 columns (auto-fill + 200px min only fits one column)
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: $spacing-sm;
@@ -398,7 +398,7 @@ $shop-filters-sticky-top: 6.75rem;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
     }
 
-    @media (max-width: $breakpoint-sm - 0.02px) {
+    @media (max-width: ($breakpoint-sm - 0.02px)) {
       &[class*='--color-'] {
         border-width: 3px;
       }
@@ -549,7 +549,7 @@ $shop-filters-sticky-top: 6.75rem;
   .shop-view__product-info {
     padding: $spacing-md;
 
-    @media (max-width: $breakpoint-sm - 0.02px) {
+    @media (max-width: ($breakpoint-sm - 0.02px)) {
       padding: $spacing-sm $spacing-sm $spacing-xs;
     }
 
@@ -575,7 +575,7 @@ $shop-filters-sticky-top: 6.75rem;
     line-height: 1.35;
 
     // Narrow shop grid: cap title height (full name on link title + product page)
-    @media (max-width: $breakpoint-sm - 0.02px) {
+    @media (max-width: ($breakpoint-sm - 0.02px)) {
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 1;
@@ -602,7 +602,7 @@ $shop-filters-sticky-top: 6.75rem;
     gap: $spacing-sm;
     align-items: center;
 
-    @media (max-width: $breakpoint-sm - 0.02px) {
+    @media (max-width: ($breakpoint-sm - 0.02px)) {
       margin-top: $spacing-xs;
       padding-top: $spacing-sm;
       gap: $spacing-xs;
@@ -666,7 +666,7 @@ $shop-filters-sticky-top: 6.75rem;
     margin-bottom: 0;
     flex-shrink: 0;
 
-    @media (max-width: $breakpoint-sm - 0.02px) {
+    @media (max-width: ($breakpoint-sm - 0.02px)) {
       gap: $spacing-xs;
     }
   }
@@ -708,7 +708,7 @@ $shop-filters-sticky-top: 6.75rem;
     cursor: pointer;
     transition: background $transition-fast, color $transition-fast;
 
-    @media (max-width: $breakpoint-sm - 0.02px) {
+    @media (max-width: ($breakpoint-sm - 0.02px)) {
       width: 1.625rem;
       height: 1.875rem;
       font-size: 0.9rem;
@@ -746,7 +746,7 @@ $shop-filters-sticky-top: 6.75rem;
     -moz-appearance: textfield;
     appearance: textfield;
 
-    @media (max-width: $breakpoint-sm - 0.02px) {
+    @media (max-width: ($breakpoint-sm - 0.02px)) {
       width: 2.125rem;
       height: 1.875rem;
       font-size: $font-size-xs;
@@ -781,7 +781,7 @@ $shop-filters-sticky-top: 6.75rem;
     border: none;
     white-space: nowrap;
 
-    @media (max-width: $breakpoint-sm - 0.02px) {
+    @media (max-width: ($breakpoint-sm - 0.02px)) {
       padding: $spacing-xs $spacing-sm;
       font-size: $font-size-xs;
       border-radius: $border-radius-sm;
@@ -809,7 +809,7 @@ $shop-filters-sticky-top: 6.75rem;
     font-weight: $font-weight-semibold;
     color: #26335F; // Dark blue
 
-    @media (max-width: $breakpoint-sm - 0.02px) {
+    @media (max-width: ($breakpoint-sm - 0.02px)) {
       font-size: $font-size-sm;
     }
 
@@ -824,7 +824,7 @@ $shop-filters-sticky-top: 6.75rem;
     color: #999999;
     text-decoration: line-through;
 
-    @media (max-width: $breakpoint-sm - 0.02px) {
+    @media (max-width: ($breakpoint-sm - 0.02px)) {
       font-size: 0.6875rem;
     }
   }
