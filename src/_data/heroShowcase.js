@@ -35,13 +35,13 @@ module.exports = async function () {
 
   const categoryTiles = [
     {
-      label: "Dog",
-      href: "/collections/walk",
+      label: "For Dogs",
+      href: "/collections/dog",
       image: "/assets/images/dog_hero.png"
     },
     {
-      label: "Cat",
-      href: "/collections/sleep",
+      label: "For Cats",
+      href: "/collections/cat",
       image: "/assets/images/cat_hero.png"
     }
   ];
