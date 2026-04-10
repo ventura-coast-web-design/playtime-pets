@@ -1,176 +1,370 @@
-// Hero – fun split layout (visual left, promo right) + Shop by Category
+// Hero – storefront-driven grid (main banner + promos + categories) + Shop by Category strip
 @use 'mixins' as *;
 @use 'variables' as *;
+@use 'sass:color';
 
-.hero {
-  position: relative;
-  min-height: 380px;
+// Align with shop accents: navy, blue, pink, teal, mint tile wash
+$hero-grid-navy: #26335f;
+$hero-grid-green: #1b4332;
+$hero-grid-mint: #e8f5f0;
+
+.hero-grid {
+  padding: $spacing-md 0 $spacing-lg;
 
   @include respond-to(md) {
-    min-height: 420px;
+    padding: $spacing-lg 0 $spacing-xl;
   }
 
-  @include respond-to(lg) {
-    min-height: 480px;
+  &__container {
+    @include container;
   }
 
-  &__inner {
+  &__layout {
     display: grid;
-    grid-template-columns: 1fr;
-    min-height: inherit;
+    gap: $spacing-md;
     align-items: stretch;
 
     @include respond-to(lg) {
-      grid-template-columns: 1.1fr 1fr;
+      grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr) minmax(200px, 0.72fr);
+      gap: $spacing-md;
     }
   }
 
-  // Left: visual (image or placeholder)
-  &__visual {
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: $spacing-xl;
-    order: 2;
-    min-height: 0;
-    overflow: hidden;
-
-    @include respond-to(lg) {
-      order: 1;
-      padding: $spacing-xxl;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-      max-height: 100%;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-    }
-  }
-
-  &__visual-image-wrap {
-    width: 100%;
-    max-width: 420px;
-    aspect-ratio: 4/3;
-    border-radius: $border-radius-xl;
-    overflow: hidden;
-    box-shadow: $shadow-lg;
+  // —— Main banner (left)
+  &__main {
     position: relative;
-  }
-
-  &__visual-placeholder {
-    width: 100%;
-    height: 100%;
-    @include flex-center;
-    @include flex-column;
-    gap: $spacing-md;
-    background: linear-gradient(145deg, #f5e6d3 0%, #e8d5b7 100%);
-    color: $hero-orange;
-  }
-
-  &__visual-emoji {
-    font-size: 4rem;
-    line-height: 1;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    border-radius: $border-radius-lg;
+    overflow: hidden;
+    min-height: 280px;
+    box-shadow: 0 8px 28px rgba(38, 51, 95, 0.12);
 
     @include respond-to(md) {
-      font-size: 5rem;
+      min-height: 320px;
     }
-  }
-
-  &__visual-hearts {
-    font-size: $font-size-lg;
-    letter-spacing: 0.25em;
-    color: $hero-orange-dark;
-  }
-
-  // Right: promo panel (On Sale gradient + pink blob)
-  &__promo {
-    background: $vibrant-yellow;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: $spacing-xxl $spacing-lg;
-    order: 1;
 
     @include respond-to(lg) {
-      order: 2;
-      padding: $spacing-xxxl $spacing-xl;
+      min-height: 100%;
+      min-height: min(420px, 1fr);
+    }
+
+    &:hover .hero-grid__main-cta {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(38, 51, 95, 0.28);
+    }
+
+    &:focus-visible {
+      outline: 3px solid #6caae1;
+      outline-offset: 3px;
     }
   }
 
-  &__promo-blob {
+  &__main-bg {
     position: absolute;
-    top: -20%;
-    left: -15%;
-    width: 70%;
-    height: 80%;
-    background: $vibrant-red;
-    border-radius: 45% 55% 60% 40% / 50% 45% 55% 50%;
-    opacity: 0.95;
+    inset: 0;
+    background:
+      radial-gradient(circle at 18% 22%, rgba(108, 170, 225, 0.35) 0%, transparent 42%),
+      radial-gradient(circle at 82% 12%, rgba(255, 107, 157, 0.2) 0%, transparent 38%),
+      linear-gradient(165deg, #eef6ff 0%, #ffffff 48%, #f0fbff 100%);
     pointer-events: none;
   }
 
-  &__promo-content {
+  &__main-inner {
     position: relative;
     z-index: 1;
-    text-align: center;
-    color: #fff;
-    max-width: 360px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: $spacing-md;
+    padding: $spacing-xl $spacing-lg;
+    height: 100%;
+    align-items: end;
+
+    @include respond-to(md) {
+      grid-template-columns: minmax(0, 1fr) minmax(140px, 42%);
+      align-items: center;
+      padding: $spacing-xl $spacing-xl;
+    }
   }
 
-  &__promo-deal {
-    font-size: $font-size-sm;
-    font-weight: $font-weight-semibold;
-    margin-bottom: $spacing-md;
-    opacity: 0.98;
+  &__main-copy {
+    text-align: center;
+
+    @include respond-to(md) {
+      text-align: left;
+    }
+  }
+
+  &__main-title {
+    font-family: 'Fredoka', $font-family-primary;
+    font-size: clamp(1.5rem, 4.5vw, 2.35rem);
+    font-weight: 700;
+    line-height: 1.12;
+    color: $hero-grid-navy;
+    margin: 0 0 $spacing-sm;
     letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  &__main-lede {
+    margin: 0 0 $spacing-lg;
+    font-size: $font-size-sm;
+    line-height: 1.5;
+    color: color.adjust($hero-grid-navy, $lightness: -5%);
+    max-width: 22rem;
 
     @include respond-to(md) {
       font-size: $font-size-base;
     }
   }
 
-  &__promo-title {
-    font-family: 'Fredoka', $font-family-primary;
-    font-size: clamp(1.75rem, 5vw, 2.75rem);
-    font-weight: 600;
-    line-height: 1.15;
-    margin-bottom: $spacing-xl;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  &__main-cta {
+    display: inline-block;
+    padding: $spacing-sm $spacing-xl;
+    background: linear-gradient(135deg, #26335f 0%, #6caae1 100%);
+    color: #fff;
+    font-weight: $font-weight-bold;
+    font-size: $font-size-sm;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-radius: $border-radius-md;
+    box-shadow: 0 4px 14px rgba(38, 51, 95, 0.22);
+    transition: transform $transition-fast, box-shadow $transition-fast;
+  }
 
-    @include respond-to(md) {
-      font-size: clamp(2rem, 4vw, 3rem);
+  &__main-visual {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    min-height: 0;
+
+    img {
+      display: block;
+      width: 100%;
+      max-width: 220px;
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 24px rgba(38, 51, 95, 0.18));
+
+      @include respond-to(md) {
+        max-width: 260px;
+      }
+
+      @include respond-to(lg) {
+        max-width: 280px;
+      }
     }
   }
 
-  &__promo-title-line {
-    display: block;
+  // —— 2×2 promo tiles (center)
+  &__promos {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-sm;
+    min-height: 0;
   }
 
-  &__cta {
-    display: inline-block;
-    padding: $spacing-md $spacing-xxl;
-    background: $vibrant-dark-blue;
-    color: #fff;
-    font-weight: $font-weight-bold;
-    font-size: $font-size-lg;
+  &__promo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
-    border-radius: $border-radius-full;
-    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+    color: inherit;
+    background: $hero-grid-mint;
+    border-radius: $border-radius-lg;
+    padding: $spacing-sm $spacing-sm $spacing-md;
+    box-shadow: 0 4px 14px rgba(27, 67, 50, 0.08);
+    border: 1px solid rgba(78, 205, 196, 0.25);
+    transition: transform $transition-fast, box-shadow $transition-fast;
+    min-height: 0;
+    overflow: hidden;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 22px rgba(27, 67, 50, 0.12);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #6caae1;
+      outline-offset: 2px;
+    }
+
+    &--empty {
+      .hero-grid__promo-img-wrap--placeholder {
+        min-height: 5rem;
+        background: linear-gradient(135deg, rgba(108, 170, 225, 0.2) 0%, rgba(255, 107, 157, 0.15) 100%);
+      }
+    }
+  }
+
+  &__promo-top {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    margin-bottom: $spacing-xs;
+    min-height: 2.5rem;
+  }
+
+  &__promo-brand {
+    font-size: $font-size-xs;
+    font-weight: $font-weight-bold;
+    color: $hero-grid-green;
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  &__promo-offer {
+    font-size: 0.7rem;
+    font-weight: $font-weight-semibold;
+    color: $hero-grid-green;
+    line-height: 1.3;
+  }
+
+  &__promo-was {
+    text-decoration: line-through;
+    opacity: 0.75;
+    margin-right: 0.25rem;
+  }
+
+  &__promo-now {
+    font-weight: $font-weight-bold;
+  }
+
+  &__promo-img-wrap {
+    position: relative;
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 4.5rem;
+    margin-bottom: $spacing-sm;
+
+    img {
+      max-width: 100%;
+      max-height: 88px;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+
+  &__promo-badge {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    background: #e53935;
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: $font-weight-bold;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0.45rem;
+    border-radius: $border-radius-sm;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  }
+
+  &__promo-loyalty {
+    margin-top: auto;
+    align-self: flex-end;
+    font-size: 0.65rem;
+    font-weight: $font-weight-semibold;
+    color: $hero-grid-green;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    opacity: 0.9;
+
+    i {
+      color: #ffba08;
+      font-size: 0.75rem;
+    }
+  }
+
+  // —— Category stack (right)
+  &__categories {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: $spacing-sm;
+
+    @include respond-to(lg) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__category {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: $spacing-sm;
+    text-decoration: none;
+    color: inherit;
+    background: $hero-grid-mint;
+    border-radius: $border-radius-md;
+    padding: $spacing-sm $spacing-md $spacing-sm $spacing-md;
+    min-height: 5.5rem;
+
+    @include respond-to(md) {
+      min-height: 6.25rem;
+    }
+    border: 1px solid rgba(78, 205, 196, 0.25);
+    box-shadow: 0 2px 10px rgba(27, 67, 50, 0.06);
     transition: transform $transition-fast, box-shadow $transition-fast;
 
     &:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(27, 67, 50, 0.1);
     }
 
-    &:active {
-      transform: translateY(0);
+    &:focus-visible {
+      outline: 2px solid #6caae1;
+      outline-offset: 2px;
+    }
+  }
+
+  &__category-label {
+    font-size: $font-size-sm;
+    font-weight: $font-weight-bold;
+    color: $hero-grid-green;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  &__category-img-wrap {
+    flex-shrink: 0;
+    width: 6rem;
+    height: 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+
+    @include respond-to(md) {
+      width: 6.75rem;
+      height: 6.75rem;
+    }
+
+    @include respond-to(lg) {
+      width: 7.25rem;
+      height: 7.25rem;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center bottom;
     }
   }
 }

@@ -321,7 +321,10 @@ function logUnauthorizedHelp() {
   console.warn("");
 }
 
-module.exports = async function () {
+/** Single fetch per build (also used by heroShowcase.js). */
+let productsLoadPromise = null;
+
+async function loadProductsInternal() {
   if (process.env.SHOPIFY_STORE_DOMAIN && process.env.SHOPIFY_STOREFRONT_TOKEN) {
     try {
       const products = await fetchAllShopifyProducts();
@@ -342,4 +345,11 @@ module.exports = async function () {
 
   console.warn("[products] SHOPIFY_STORE_DOMAIN / SHOPIFY_STOREFRONT_TOKEN not set — using products.fallback.json.");
   return loadFallback();
+}
+
+module.exports = async function () {
+  if (!productsLoadPromise) {
+    productsLoadPromise = loadProductsInternal();
+  }
+  return productsLoadPromise;
 };
