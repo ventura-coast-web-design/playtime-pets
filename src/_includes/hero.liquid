@@ -10,18 +10,12 @@
             <span class="hero-grid__main-cta">Shop now</span>
           </div>
           <div class="hero-grid__main-visual">
-            {% if heroShowcase.main and heroShowcase.main.image %}
               <img
-                src="{{ heroShowcase.main.image }}"
-                alt="{{ heroShowcase.main.title | escape }}"
+                src="assets/images/tug-of-war.png"
+                alt="Tug of War"
                 width="480"
                 height="480"
-                loading="eager"
-                decoding="async"
               />
-            {% else %}
-              <img src="/assets/images/hero-image.jpeg" alt="Happy pet with products" width="480" height="480" loading="eager" decoding="async" />
-            {% endif %}
           </div>
         </div>
       </a>
