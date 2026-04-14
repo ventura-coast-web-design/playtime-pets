@@ -122,7 +122,6 @@
     }
 
     @include respond-to(md) {
-      text-align: left;
       padding: $spacing-xl $spacing-xl;
       align-self: center;
     }
@@ -140,11 +139,12 @@
   }
 
   &__main-lede {
-    margin: 0 0 $spacing-lg;
+    margin: 0 auto $spacing-lg;
     font-size: $font-size-sm;
     line-height: 1.5;
     color: color.adjust($hero-grid-navy, $lightness: -5%);
     max-width: 22rem;
+    text-align: center;
 
     @include respond-to(md) {
       font-size: $font-size-base;
