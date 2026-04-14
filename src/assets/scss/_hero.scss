@@ -6,12 +6,24 @@
 .hero-grid {
   padding: $spacing-md 0 $spacing-lg;
 
+  @media (max-width: ($breakpoint-md - 0.02px)) {
+    // Let the hero card go edge-to-edge on small screens (image reads full-width)
+    padding-left: 0;
+    padding-right: 0;
+  }
+
   @include respond-to(md) {
     padding: $spacing-lg 0 $spacing-xl;
   }
 
   &__container {
     @include container;
+
+    @media (max-width: ($breakpoint-md - 0.02px)) {
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 
   &__layout {
@@ -78,6 +90,14 @@
     min-height: 0;
     align-items: stretch;
 
+    @media (max-width: ($breakpoint-md - 0.02px)) {
+      padding-left: 0;
+      padding-right: 0;
+      padding-bottom: 0;
+      // Copy on top; bottom row = full-width banner strip (no side padding)
+      grid-template-rows: auto clamp(11rem, 38vw, 16rem);
+    }
+
     @include respond-to(md) {
       grid-template-columns: minmax(0, 1fr) minmax(9rem, 42%);
       // One row fills the flex area so the image column matches full card height
@@ -95,6 +115,11 @@
 
   &__main-copy {
     text-align: center;
+
+    @media (max-width: ($breakpoint-md - 0.02px)) {
+      padding-left: $spacing-lg;
+      padding-right: $spacing-lg;
+    }
 
     @include respond-to(md) {
       text-align: left;
@@ -145,9 +170,19 @@
     min-height: 0;
     overflow: hidden;
 
+    @media (max-width: ($breakpoint-md - 0.02px)) {
+      // Size container for cqw/cqh so rotated image scales to true full-width banner
+      container-type: size;
+      align-self: stretch;
+      width: 100%;
+      min-height: 0;
+      border-radius: 0 0 $border-radius-lg $border-radius-lg;
+    }
+
     @include respond-to(md) {
       align-self: stretch;
       min-height: 100%;
+      border-radius: 0;
     }
 
     img {
@@ -157,12 +192,26 @@
       width: 100%;
       height: 100%;
       margin: 0;
-      // Fills top + bottom of the card; may crop left/right of wide artwork
       object-fit: cover;
       object-position: 88% 85%;
 
+      @media (max-width: ($breakpoint-md - 0.02px)) {
+        // Portrait asset → -90° for a left-to-right banner. Swap w/h with cqh/cqw so the
+        // rotated box matches the strip exactly — no scale() (avoids ratio bugs / overflow).
+        inset: auto;
+        left: 50%;
+        top: 50%;
+        width: 100cqh;
+        height: 100cqw;
+        max-width: none;
+        transform: translate(-50%, -50%) rotate(-90deg);
+        transform-origin: center center;
+        object-fit: cover;
+        object-position: 88% 85%;
+      }
+
       @include respond-to(md) {
-        // Anchor artwork to the bottom edge of the panel (reduces orange gap under paws)
+        transform: none;
         object-position: 82% 100%;
       }
     }

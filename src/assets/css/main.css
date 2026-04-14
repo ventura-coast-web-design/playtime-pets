@@ -540,6 +540,12 @@
 .hero-grid {
   padding: 1rem 0 1.5rem;
 }
+@media (max-width: 767.98px) {
+  .hero-grid {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
 @media (min-width: 768px) {
   .hero-grid {
     padding: 1.5rem 0 2rem;
@@ -549,6 +555,13 @@
   max-width: 1200px;
   margin: 0 auto;
   padding: 0 1rem;
+}
+@media (max-width: 767.98px) {
+  .hero-grid__container {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
 .hero-grid__layout {
   display: grid;
@@ -609,6 +622,14 @@
   min-height: 0;
   align-items: stretch;
 }
+@media (max-width: 767.98px) {
+  .hero-grid__main-inner {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    grid-template-rows: auto clamp(11rem, 38vw, 16rem);
+  }
+}
 @media (min-width: 768px) {
   .hero-grid__main-inner {
     grid-template-columns: minmax(0, 1fr) minmax(9rem, 42%);
@@ -625,6 +646,12 @@
 }
 .hero-grid__main-copy {
   text-align: center;
+}
+@media (max-width: 767.98px) {
+  .hero-grid__main-copy {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
 }
 @media (min-width: 768px) {
   .hero-grid__main-copy {
@@ -673,10 +700,20 @@
   min-height: 0;
   overflow: hidden;
 }
+@media (max-width: 767.98px) {
+  .hero-grid__main-visual {
+    container-type: size;
+    align-self: stretch;
+    width: 100%;
+    min-height: 0;
+    border-radius: 0 0 12px 12px;
+  }
+}
 @media (min-width: 768px) {
   .hero-grid__main-visual {
     align-self: stretch;
     min-height: 100%;
+    border-radius: 0;
   }
 }
 .hero-grid__main-visual img {
@@ -689,8 +726,23 @@
   object-fit: cover;
   object-position: 88% 85%;
 }
+@media (max-width: 767.98px) {
+  .hero-grid__main-visual img {
+    inset: auto;
+    left: 50%;
+    top: 50%;
+    width: 100cqh;
+    height: 100cqw;
+    max-width: none;
+    transform: translate(-50%, -50%) rotate(-90deg);
+    transform-origin: center center;
+    object-fit: cover;
+    object-position: 88% 85%;
+  }
+}
 @media (min-width: 768px) {
   .hero-grid__main-visual img {
+    transform: none;
     object-position: 82% 100%;
   }
 }
