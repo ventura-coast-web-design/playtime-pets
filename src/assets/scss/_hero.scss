@@ -3,11 +3,6 @@
 @use 'variables' as *;
 @use 'sass:color';
 
-// Align with shop accents: navy, blue, pink, teal, mint tile wash
-$hero-grid-navy: #26335f;
-$hero-grid-green: #1b4332;
-$hero-grid-mint: #e8f5f0;
-
 .hero-grid {
   padding: $spacing-md 0 $spacing-lg;
 
@@ -33,21 +28,29 @@ $hero-grid-mint: #e8f5f0;
   // —— Main banner (left)
   &__main {
     position: relative;
-    display: block;
+    display: flex;
+    flex-direction: column;
     text-decoration: none;
     color: inherit;
     border-radius: $border-radius-lg;
     overflow: hidden;
     min-height: 280px;
+    // Card height is layout-driven, not image-intrinsic (large PNGs must not stretch this)
+    max-height: min(70vh, 26rem);
+    background: $vibrant-yellow;
     box-shadow: 0 8px 28px rgba(38, 51, 95, 0.12);
 
     @include respond-to(md) {
-      min-height: 320px;
+      // Definite height so the inner grid’s 1fr row fills the card (no orange strip under the image)
+      min-height: 300px;
+      height: min(28rem, 65vh);
+      max-height: min(65vh, 28rem);
     }
 
     @include respond-to(lg) {
-      min-height: 100%;
-      min-height: min(420px, 1fr);
+      min-height: 380px;
+      height: min(32rem, 55vh);
+      max-height: min(32rem, 55vh);
     }
 
     &:hover .hero-grid__main-cta {
@@ -61,30 +64,32 @@ $hero-grid-mint: #e8f5f0;
     }
   }
 
-  &__main-bg {
-    position: absolute;
-    inset: 0;
-    background:
-      radial-gradient(circle at 18% 22%, rgba(108, 170, 225, 0.35) 0%, transparent 42%),
-      radial-gradient(circle at 82% 12%, rgba(255, 107, 157, 0.2) 0%, transparent 38%),
-      linear-gradient(165deg, #eef6ff 0%, #ffffff 48%, #f0fbff 100%);
-    pointer-events: none;
-  }
-
   &__main-inner {
     position: relative;
     z-index: 1;
+    flex: 1 1 auto;
+    min-height: 0;
     display: grid;
     grid-template-columns: 1fr;
+    // Cap image row on small screens so huge assets don’t dictate page height
+    grid-template-rows: auto minmax(10rem, min(40vw, 14rem));
     gap: $spacing-md;
     padding: $spacing-xl $spacing-lg;
-    height: 100%;
-    align-items: end;
+    min-height: 0;
+    align-items: stretch;
 
     @include respond-to(md) {
-      grid-template-columns: minmax(0, 1fr) minmax(140px, 42%);
-      align-items: center;
-      padding: $spacing-xl $spacing-xl;
+      grid-template-columns: minmax(0, 1fr) minmax(9rem, 42%);
+      // One row fills the flex area so the image column matches full card height
+      grid-template-rows: minmax(0, 1fr);
+      gap: 0;
+      padding: 0;
+      align-items: stretch;
+      align-content: stretch;
+      flex: 1 1 auto;
+      min-height: 100%;
+      height: 100%;
+      max-height: inherit;
     }
   }
 
@@ -93,6 +98,8 @@ $hero-grid-mint: #e8f5f0;
 
     @include respond-to(md) {
       text-align: left;
+      padding: $spacing-xl $spacing-xl;
+      align-self: center;
     }
   }
 
@@ -134,25 +141,29 @@ $hero-grid-mint: #e8f5f0;
   }
 
   &__main-visual {
-    display: flex;
-    align-items: flex-end;
-    justify-content: center;
+    position: relative;
     min-height: 0;
+    overflow: hidden;
+
+    @include respond-to(md) {
+      align-self: stretch;
+      min-height: 100%;
+    }
 
     img {
       display: block;
+      position: absolute;
+      inset: 0;
       width: 100%;
-      max-width: 220px;
-      height: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 12px 24px rgba(38, 51, 95, 0.18));
+      height: 100%;
+      margin: 0;
+      // Fills top + bottom of the card; may crop left/right of wide artwork
+      object-fit: cover;
+      object-position: 88% 85%;
 
       @include respond-to(md) {
-        max-width: 260px;
-      }
-
-      @include respond-to(lg) {
-        max-width: 280px;
+        // Anchor artwork to the bottom edge of the panel (reduces orange gap under paws)
+        object-position: 82% 100%;
       }
     }
   }
@@ -342,12 +353,11 @@ $hero-grid-mint: #e8f5f0;
   }
 
   &__category-img-wrap {
+    position: relative;
     flex-shrink: 0;
-    width: 10rem;
-    height: 10rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    width: 5.5rem;
+    height: 5.5rem;
+    overflow: hidden;
     background: transparent;
 
     @include respond-to(md) {
@@ -361,9 +371,12 @@ $hero-grid-mint: #e8f5f0;
     }
 
     img {
+      position: absolute;
+      inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      margin: 0;
+      object-fit: cover;
       object-position: center bottom;
     }
   }
