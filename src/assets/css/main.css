@@ -195,6 +195,7 @@
   margin: 0 auto;
   padding: 0 1rem;
   width: 100%;
+  position: relative;
 }
 .site-header__nav--cascade .site-header__nav-root {
   list-style: none;
@@ -315,20 +316,40 @@
 }
 @media (max-width: 767px) {
   .site-header__nav--cascade .site-header__nav-root {
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: nowrap;
     align-items: stretch;
+    justify-content: stretch;
+  }
+  .site-header__nav--cascade .site-header__nav-branch {
+    position: static;
+    flex: 1 1 0;
+    min-width: 0;
   }
   .site-header__nav--cascade .site-header__nav-branch--sub {
-    border-right: none;
-    border-bottom: 1px solid rgba(38, 51, 95, 0.08);
+    border-bottom: none;
   }
   .site-header__nav--cascade .site-header__nav-trigger {
     width: 100%;
-    justify-content: space-between;
-    text-align: left;
+    min-width: 0;
+    justify-content: center;
+    gap: 0.125rem;
+    padding: 0.5rem 0.25rem;
+    font-size: clamp(0.625rem, 2.4vw, 12px);
+    letter-spacing: 0.04em;
+    white-space: nowrap;
+  }
+  .site-header__nav--cascade .site-header__nav-chevron {
+    font-size: 0.5rem;
+    flex-shrink: 0;
   }
   .site-header__nav--cascade .site-header__nav-branch--sub.is-open .site-header__nav-panel {
     display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%;
+    z-index: 120;
   }
   .site-header__nav--cascade .site-header__nav-sub a {
     padding-left: 2rem;
