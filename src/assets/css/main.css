@@ -2535,6 +2535,51 @@
   background-color: #FDFBF5;
 }
 
+.shop-view__pagination {
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.shop-view__pagination-pages {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.shop-view__pagination-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.25rem;
+  padding: 0.45rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid rgba(38, 51, 95, 0.2);
+  background: #ffffff;
+  color: #26335f;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+  transition: border-color 0.15s ease, background 0.15s ease, color 0.15s ease;
+}
+.shop-view__pagination-link:hover, .shop-view__pagination-link:focus-visible {
+  border-color: #6caae1;
+  background: rgba(108, 170, 225, 0.12);
+  color: #1f2c50;
+}
+.shop-view__pagination-link.is-current {
+  border-color: #26335f;
+  background: #26335f;
+  color: #ffffff;
+  pointer-events: none;
+}
+
 @media (min-width: 992px) {
   .shop-page__container {
     max-width: none;

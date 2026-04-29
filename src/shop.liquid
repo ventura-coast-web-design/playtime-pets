@@ -1,6 +1,11 @@
 ---
 layout: base
 title: Shop
+pagination:
+  data: products
+  size: 20
+  alias: pagedProducts
+permalink: "{% if pagination.pageNumber == 0 %}shop/index.html{% else %}shop/page/{{ pagination.pageNumber | plus: 1 }}/index.html{% endif %}"
 ---
 
 {% assign filter_brands = products | map: "brand" | compact | uniq | sort %}
@@ -124,16 +129,16 @@ title: Shop
           </div>
 
           <div class="shop-view__main-column">
-            <p class="shop-view__results-count" id="shop-results-count" aria-live="polite">{{ products | size }} products</p>
+            <p class="shop-view__results-count" id="shop-results-count" aria-live="polite">Showing {{ pagedProducts | size }} of {{ products | size }} products</p>
 
-            {% if products.size == 0 %}
+            {% if pagedProducts.size == 0 %}
             <div class="shop-view__empty">
               <p>No products found.</p>
             </div>
             {% else %}
             <div class="shop-view__grid-wrapper">
               <div class="shop-view__grid" id="shop-product-grid">
-                {% for product in products %}
+                {% for product in pagedProducts %}
                 {% assign index = forloop.index0 | modulo: 6 %}
                 <article
                   class="shop-view__product-card shop-view__product-card--color-{{ index }}"
@@ -233,6 +238,34 @@ title: Shop
 
               <p class="shop-view__no-matches" id="shop-no-matches" role="status" hidden>No products match your filters. Try clearing some options and apply again.</p>
             </div>
+
+            {% assign total_pages = pagination.hrefs | size %}
+            {% if total_pages > 1 %}
+            <nav class="shop-view__pagination" aria-label="Shop pages">
+              {% assign current_index = pagination.pageNumber %}
+              {% assign prev_index = current_index | minus: 1 %}
+              {% assign next_index = current_index | plus: 1 %}
+
+              {% if current_index > 0 %}
+              <a class="shop-view__pagination-link shop-view__pagination-link--prev" href="{{ pagination.hrefs[prev_index] }}">Previous</a>
+              {% endif %}
+
+              <div class="shop-view__pagination-pages">
+                {% for href in pagination.hrefs %}
+                {% assign page_number = forloop.index %}
+                {% if forloop.index0 == current_index %}
+                <span class="shop-view__pagination-link is-current" aria-current="page">{{ page_number }}</span>
+                {% else %}
+                <a class="shop-view__pagination-link" href="{{ href }}">{{ page_number }}</a>
+                {% endif %}
+                {% endfor %}
+              </div>
+
+              {% if next_index < total_pages %}
+              <a class="shop-view__pagination-link shop-view__pagination-link--next" href="{{ pagination.hrefs[next_index] }}">Next</a>
+              {% endif %}
+            </nav>
+            {% endif %}
             {% endif %}
 
             <!-- Colorful Promo Section -->
@@ -285,7 +318,7 @@ title: Shop
   </div>
 </div>
 
-{% if products.size > 0 %}
+{% if pagedProducts.size > 0 %}
 <script src="/assets/js/shop-filters.js" defer></script>
 <script src="/assets/js/shop-card-gallery.js" defer></script>
 {% endif %}
