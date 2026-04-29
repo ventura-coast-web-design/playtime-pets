@@ -133,6 +133,67 @@ function productImageUrl(node) {
   return urls.length ? urls[0] : null;
 }
 
+/**
+ * Single display label per brand so filters don't list BARK BOX / Bark Box / BarkBox separately.
+ */
+function normalizeBrandLabel(raw) {
+  if (!raw || typeof raw !== "string") return "—";
+  const s = raw.trim();
+  if (!s) return "—";
+
+  const key = s.toLowerCase().replace(/-/g, " ").replace(/\s+/g, " ").trim();
+  const compact = key.replace(/\s/g, "");
+
+  if (key === "bark box" || compact === "barkbox") {
+    return "BarkBox";
+  }
+  if (key === "kong") {
+    return "KONG";
+  }
+
+  // Other brands: stable title case, but keep intentional all-caps acronyms (e.g. ORIJEN, ZIWI).
+  const tokens = s.split(/[\s-]+/).filter(Boolean);
+  return tokens
+    .map(function (tok) {
+      const lower = tok.toLowerCase();
+      if (tok.length >= 4 && tok === tok.toUpperCase() && /^[A-Z]+$/.test(tok)) {
+        return tok;
+      }
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    })
+    .join(" ");
+}
+
+/**
+ * Shopify vendor often isn't useful for this catalog; titles usually lead with the brand
+ * (e.g. "KONG …", "Bark Box …"). Derive a filter/display label from the title.
+ */
+function deriveBrandFromTitle(title) {
+  if (!title || typeof title !== "string") return "—";
+  const t = title.trim();
+  if (!t) return "—";
+  const rawParts = t.split(/\s+/);
+  const parts = [];
+  for (let i = 0; i < rawParts.length; i++) {
+    let w = rawParts[i].replace(/^[\[(]+/, "").replace(/[,;:.!?)\]]+$/g, "");
+    if (w) parts.push(w);
+  }
+  if (!parts.length) return "—";
+  const first = parts[0];
+  const second = parts[1] || "";
+  const fl = first.toLowerCase();
+  const sl = second.toLowerCase();
+  let raw;
+  if (fl === "bark" && sl === "box") {
+    raw = first + " " + second;
+  } else if (fl === "barkbox" || fl === "bark-box") {
+    raw = "BarkBox";
+  } else {
+    raw = first;
+  }
+  return normalizeBrandLabel(raw);
+}
+
 function mapShopifyNode(node) {
   const variant = pickVariant(node.variants);
   if (!variant) return null;
@@ -164,7 +225,7 @@ function mapShopifyNode(node) {
     image: imageUrl,
     images: imageUrls,
     category: node.productType || "Products",
-    brand: node.vendor || "—",
+    brand: deriveBrandFromTitle(node.title),
     animal: tagParsed.animal,
     breedSize: tagParsed.breedSize,
     material: tagParsed.material,
@@ -195,6 +256,7 @@ function loadFallback() {
           ? [p.image]
           : [];
     const primary = images.length ? images[0] : p.image || "";
+    const title = p.title != null ? String(p.title) : "";
     return Object.assign({}, p, {
       handle: p.handle != null ? String(p.handle) : String(id),
       descriptionHtml:
@@ -203,7 +265,10 @@ function loadFallback() {
       variantId: p.variantId != null ? p.variantId : null,
       accentIndex: typeof id === "number" ? Math.abs(id) % 6 : 0,
       images: images,
-      image: primary
+      image: primary,
+      brand: title
+        ? deriveBrandFromTitle(title)
+        : normalizeBrandLabel(p.brand != null ? String(p.brand) : "—")
     });
   });
 }
