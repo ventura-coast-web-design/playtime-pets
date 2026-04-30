@@ -13,8 +13,10 @@ title: Shop
   {% assign animal_label = 'Dogs & cats' %}
 {% elsif product.animal == 'dog' %}
   {% assign animal_label = 'Dog' %}
-{% else %}
+{% elsif product.animal == 'cat' %}
   {% assign animal_label = 'Cat' %}
+{% else %}
+  {% assign animal_label = '—' %}
 {% endif %}
 
 {% if product.breedSize == 'all' %}

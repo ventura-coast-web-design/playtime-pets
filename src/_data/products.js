@@ -74,11 +74,11 @@ function pickVariant(variants) {
 }
 
 /**
- * Optional tag conventions (colon-separated), e.g. animal:dog, breed:small, material:Plush, rating:4.5
+ * Optional tag conventions (colon-separated), e.g. breed:small, material:Plush, rating:4.5
+ * (Animal type is derived from the product title, not tags.)
  */
 function parseTagFilters(tags) {
   const out = {
-    animal: "both",
     breedSize: "all",
     material: "—",
     rating: 4.5
@@ -86,10 +86,7 @@ function parseTagFilters(tags) {
   if (!Array.isArray(tags)) return out;
   for (const t of tags) {
     const lower = t.toLowerCase();
-    if (lower.startsWith("animal:")) {
-      const v = t.slice(7).trim().toLowerCase();
-      if (v === "dog" || v === "cat" || v === "both") out.animal = v;
-    } else if (lower.startsWith("breed:")) {
+    if (lower.startsWith("breed:")) {
       const v = t.slice(6).trim().toLowerCase();
       if (v === "small" || v === "medium" || v === "large" || v === "all") out.breedSize = v;
     } else if (lower.startsWith("material:")) {
@@ -100,6 +97,17 @@ function parseTagFilters(tags) {
     }
   }
   return out;
+}
+
+/** Shopify / channel tags omitted from storefront (e.g. marketplace listing labels). */
+const TAGS_HIDDEN_FROM_DISPLAY = new Set(["listing site - us"]);
+
+function filterDisplayTags(tags) {
+  if (!Array.isArray(tags)) return [];
+  return tags.filter(function (t) {
+    if (typeof t !== "string") return false;
+    return !TAGS_HIDDEN_FROM_DISPLAY.has(t.trim().toLowerCase());
+  });
 }
 
 function formatMoney(amountStr) {
@@ -189,9 +197,24 @@ function deriveBrandFromTitle(title) {
   } else if (fl === "barkbox" || fl === "bark-box") {
     raw = "BarkBox";
   } else {
-    raw = first;
+  raw = first;
   }
   return normalizeBrandLabel(raw);
+}
+
+/**
+ * Animal filter value from the product title (case-insensitive "dog" / "cat").
+ * Both substrings → "both"; only one → that species; neither → "none" (excluded from Dog-only / Cat-only filters).
+ */
+function deriveAnimalFromTitle(title) {
+  if (!title || typeof title !== "string") return "none";
+  const t = title.toLowerCase();
+  const hasDog = t.indexOf("dog") !== -1;
+  const hasCat = t.indexOf("cat") !== -1;
+  if (hasDog && hasCat) return "both";
+  if (hasDog) return "dog";
+  if (hasCat) return "cat";
+  return "none";
 }
 
 function mapShopifyNode(node) {
@@ -226,11 +249,11 @@ function mapShopifyNode(node) {
     images: imageUrls,
     category: node.productType || "Products",
     brand: deriveBrandFromTitle(node.title),
-    animal: tagParsed.animal,
+    animal: deriveAnimalFromTitle(node.title),
     breedSize: tagParsed.breedSize,
     material: tagParsed.material,
     rating: tagParsed.rating,
-    tags: node.tags || [],
+    tags: filterDisplayTags(node.tags || []),
     inStock: Boolean(node.availableForSale && variant.availableForSale),
     variantId: variant.id,
     accentIndex: Math.abs(numericId) % 6
@@ -268,7 +291,9 @@ function loadFallback() {
       image: primary,
       brand: title
         ? deriveBrandFromTitle(title)
-        : normalizeBrandLabel(p.brand != null ? String(p.brand) : "—")
+        : normalizeBrandLabel(p.brand != null ? String(p.brand) : "—"),
+      animal: deriveAnimalFromTitle(title),
+      tags: filterDisplayTags(Array.isArray(p.tags) ? p.tags : [])
     });
   });
 }
