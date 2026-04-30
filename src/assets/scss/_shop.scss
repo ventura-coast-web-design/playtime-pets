@@ -441,6 +441,9 @@ $shop-filters-sticky-top: 6.75rem;
   .shop-view__product-card {
     display: flex;
     flex-direction: column;
+    &[hidden] {
+      display: none !important;
+    }
     height: 100%;
     min-height: 0;
     background-color: #ffffff;

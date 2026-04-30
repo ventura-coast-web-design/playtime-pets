@@ -2949,6 +2949,11 @@
 .shop-view .shop-view__product-card {
   display: flex;
   flex-direction: column;
+}
+.shop-view .shop-view__product-card[hidden] {
+  display: none !important;
+}
+.shop-view .shop-view__product-card {
   height: 100%;
   min-height: 0;
   background-color: #ffffff;

@@ -791,53 +791,56 @@
   }
 
   function bindAddToCartButtons() {
-    document.querySelectorAll('.js-add-to-cart').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        if (btn.disabled) return;
-        var qty = qtyForAddToCartButton(btn);
-        var variantId = btn.getAttribute('data-variant-id');
-        if (shopifyMode() && variantId) {
-          var original = btn.textContent;
-          btn.disabled = true;
-          shopifyAddLine(variantId, qty)
-            .then(function () {
-              btn.textContent = 'Added!';
-              updateHeaderBadge();
-              window.setTimeout(function () {
-                btn.textContent = original;
-                btn.disabled = false;
-              }, 1600);
-            })
-            .catch(function (e) {
-              btn.disabled = false;
-              alert(e.message || 'Could not add to cart');
-            });
-          return;
-        }
-
-        var id = btn.getAttribute('data-product-id');
-        var title = btn.getAttribute('data-product-title') || '';
-        var price = btn.getAttribute('data-product-price');
-        var image = btn.getAttribute('data-product-image') || '';
-        var compare = btn.getAttribute('data-product-compare-price');
-        legacyAddToCart(
-          {
-            id: id,
-            title: title,
-            price: price,
-            image: image,
-            comparePrice: compare || null
-          },
-          qty
-        );
+    var grid = document.getElementById('shop-product-grid');
+    if (!grid || grid.getAttribute('data-cart-atc-bound') === '1') return;
+    grid.setAttribute('data-cart-atc-bound', '1');
+    grid.addEventListener('click', function (e) {
+      var btn = e.target.closest('.js-add-to-cart');
+      if (!btn || !grid.contains(btn)) return;
+      if (btn.disabled) return;
+      var qty = qtyForAddToCartButton(btn);
+      var variantId = btn.getAttribute('data-variant-id');
+      if (shopifyMode() && variantId) {
         var original = btn.textContent;
-        btn.textContent = 'Added!';
         btn.disabled = true;
-        window.setTimeout(function () {
-          btn.textContent = original;
-          btn.disabled = false;
-        }, 1600);
-      });
+        shopifyAddLine(variantId, qty)
+          .then(function () {
+            btn.textContent = 'Added!';
+            updateHeaderBadge();
+            window.setTimeout(function () {
+              btn.textContent = original;
+              btn.disabled = false;
+            }, 1600);
+          })
+          .catch(function (err) {
+            btn.disabled = false;
+            alert(err.message || 'Could not add to cart');
+          });
+        return;
+      }
+
+      var id = btn.getAttribute('data-product-id');
+      var title = btn.getAttribute('data-product-title') || '';
+      var price = btn.getAttribute('data-product-price');
+      var image = btn.getAttribute('data-product-image') || '';
+      var compare = btn.getAttribute('data-product-compare-price');
+      legacyAddToCart(
+        {
+          id: id,
+          title: title,
+          price: price,
+          image: image,
+          comparePrice: compare || null
+        },
+        qty
+      );
+      var originalLegacy = btn.textContent;
+      btn.textContent = 'Added!';
+      btn.disabled = true;
+      window.setTimeout(function () {
+        btn.textContent = originalLegacy;
+        btn.disabled = false;
+      }, 1600);
     });
   }
 
