@@ -360,18 +360,18 @@ async function fetchAllShopifyProducts() {
     const data = result.data;
     if (shopifyDebugEnabled()) {
       const edgesPreview = (data && data.products && data.products.edges) || [];
-      console.log("[Shopify DEBUG] products query response:", {
-        httpStatus: result.httpStatus,
-        graphqlErrors: result.errors,
-        pageInfo: data && data.products ? data.products.pageInfo : null,
-        edgesThisPage: edgesPreview.length,
-        sampleTitles: edgesPreview.slice(0, 5).map(function (e) {
-          return e.node && e.node.title;
-        })
-      });
-      if (process.env.SHOPIFY_DEBUG_FULL === "1" && data) {
-        console.log("[Shopify DEBUG] full data JSON:\n" + JSON.stringify(data, null, 2));
-      }
+      // console.log("[Shopify DEBUG] products query response:", {
+      //   httpStatus: result.httpStatus,
+      //   graphqlErrors: result.errors,
+      //   pageInfo: data && data.products ? data.products.pageInfo : null,
+      //   edgesThisPage: edgesPreview.length,
+      //   sampleTitles: edgesPreview.slice(0, 5).map(function (e) {
+      //     return e.node && e.node.title;
+      //   })
+      // });
+      // if (process.env.SHOPIFY_DEBUG_FULL === "1" && data) {
+      //   console.log("[Shopify DEBUG] full data JSON:\n" + JSON.stringify(data, null, 2));
+      // }
     }
     if (!data || !data.products) break;
     const edges = data.products.edges || [];
