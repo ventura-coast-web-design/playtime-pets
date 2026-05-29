@@ -10,7 +10,6 @@ permalink: "{% if pagination.pageNumber == 0 %}shop/index.html{% else %}shop/pag
 
 {% assign filter_brands = products | map: "brand" | compact | uniq | sort %}
 {% assign filter_materials = products | map: "material" | compact | uniq | sort %}
-{% assign filter_categories = products | map: "category" | compact | uniq | sort %}
 
 <div class="shop-page">
   <div class="shop-page__container">
@@ -72,10 +71,10 @@ permalink: "{% if pagination.pageNumber == 0 %}shop/index.html{% else %}shop/pag
               </fieldset>
 
               <fieldset class="shop-filters__group">
-                <legend class="shop-filters__legend">Category</legend>
-                <select id="filter-category" name="filter-category" class="shop-filters__select" multiple size="4" aria-label="Filter by category">
-                  {% for cat in filter_categories %}
-                  <option value="{{ cat }}">{{ cat }}</option>
+                <legend class="shop-filters__legend">Categories</legend>
+                <select id="filter-collection" name="filter-collection" class="shop-filters__select" multiple size="6" aria-label="Filter by collection">
+                  {% for collection in shopCollections %}
+                  <option value="{{ collection.title }}">{{ collection.title }}</option>
                   {% endfor %}
                 </select>
               </fieldset>
@@ -140,12 +139,13 @@ permalink: "{% if pagination.pageNumber == 0 %}shop/index.html{% else %}shop/pag
               <div class="shop-view__grid" id="shop-product-grid">
                 {% for product in pagedProducts %}
                 {% assign index = forloop.index0 | modulo: 6 %}
+                {% assign product_collection_titles = product.collections | map: "title" | join: "|" %}
                 <article
                   class="shop-view__product-card shop-view__product-card--color-{{ index }}"
                   data-shop-product
                   data-brand="{{ product.brand }}"
                   data-animal="{{ product.animal }}"
-                  data-category="{{ product.category }}"
+                  data-collections="{{ product_collection_titles }}"
                   data-breed-size="{{ product.breedSize }}"
                   data-material="{{ product.material }}"
                   data-price="{{ product.price }}"

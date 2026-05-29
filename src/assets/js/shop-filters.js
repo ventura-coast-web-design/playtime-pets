@@ -32,7 +32,7 @@
     return {
       brands: getSelectValues('filter-brand'),
       animals: getSelectValues('filter-animal'),
-      categories: getSelectValues('filter-category'),
+      categories: getSelectValues('filter-collection'),
       breedSizes: getSelectValues('filter-breed'),
       materials: getSelectValues('filter-material'),
       prices: getSelectValues('filter-price'),
@@ -74,6 +74,41 @@
     return selected.indexOf(productValue) !== -1;
   }
 
+  function parseCollectionTitles(raw) {
+    if (!raw) return [];
+    return String(raw)
+      .split('|')
+      .map(function (s) {
+        return s.trim();
+      })
+      .filter(Boolean);
+  }
+
+  function collectionTitlesFromProduct(raw) {
+    if (Array.isArray(raw)) {
+      return raw
+        .map(function (c) {
+          if (typeof c === 'string') return c.trim();
+          return c && c.title != null ? String(c.title).trim() : '';
+        })
+        .filter(Boolean);
+    }
+    return parseCollectionTitles(raw);
+  }
+
+  function collectionTitlesAttr(collections) {
+    return collectionTitlesFromProduct(collections).join('|');
+  }
+
+  function matchesCollections(productCollections, selected) {
+    if (!selected.length) return true;
+    var titles = collectionTitlesFromProduct(productCollections);
+    if (!titles.length) return false;
+    return selected.some(function (s) {
+      return titles.indexOf(s) !== -1;
+    });
+  }
+
   function matchesPrice(price, selectedRanges) {
     if (!selectedRanges.length) return true;
     var p = parseFloat(String(price), 10);
@@ -102,7 +137,7 @@
     return (
       matchesOrAttr(p.brand != null ? String(p.brand) : '', c.brands) &&
       matchesAnimal(p.animal != null ? String(p.animal) : '', c.animals) &&
-      matchesOrAttr(p.category != null ? String(p.category) : '', c.categories) &&
+      matchesCollections(p.collections, c.categories) &&
       matchesBreedSize(breed, c.breedSizes) &&
       matchesOrAttr(p.material != null ? String(p.material) : '', c.materials) &&
       matchesPrice(p.price != null ? p.price : '0', c.prices) &&
@@ -143,7 +178,7 @@
     article.setAttribute('data-shop-product', '');
     article.setAttribute('data-brand', p.brand != null ? String(p.brand) : '');
     article.setAttribute('data-animal', p.animal != null ? String(p.animal) : '');
-    article.setAttribute('data-category', p.category != null ? String(p.category) : '');
+    article.setAttribute('data-collections', collectionTitlesAttr(p.collections));
     article.setAttribute('data-breed-size', p.breedSize != null ? String(p.breedSize) : '');
     article.setAttribute('data-material', p.material != null ? String(p.material) : '');
     article.setAttribute('data-price', priceStr);
@@ -334,7 +369,7 @@
       var ok =
         matchesOrAttr(card.getAttribute('data-brand') || '', c.brands) &&
         matchesAnimal(card.getAttribute('data-animal') || '', c.animals) &&
-        matchesOrAttr(card.getAttribute('data-category') || '', c.categories) &&
+        matchesCollections(card.getAttribute('data-collections') || '', c.categories) &&
         matchesBreedSize(card.getAttribute('data-breed-size') || '', c.breedSizes) &&
         matchesOrAttr(card.getAttribute('data-material') || '', c.materials) &&
         matchesPrice(card.getAttribute('data-price') || '0', c.prices) &&

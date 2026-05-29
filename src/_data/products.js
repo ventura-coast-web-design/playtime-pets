@@ -58,6 +58,53 @@ const PRODUCTS_QUERY = `
   }
 `;
 
+const COLLECTIONS_QUERY = `
+  query Collections($first: Int!, $after: String) {
+    collections(first: $first, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      edges {
+        node {
+          id
+          handle
+          title
+          products(first: 250) {
+            pageInfo {
+              hasNextPage
+              endCursor
+            }
+            edges {
+              node {
+                id
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
+const COLLECTION_PRODUCTS_QUERY = `
+  query CollectionProducts($id: ID!, $first: Int!, $after: String) {
+    collection(id: $id) {
+      products(first: $first, after: $after) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        edges {
+          node {
+            id
+          }
+        }
+      }
+    }
+  }
+`;
+
 function gidNumericId(gid) {
   if (!gid || typeof gid !== "string") return 0;
   const m = /\/(\d+)\s*$/.exec(gid);
@@ -139,6 +186,143 @@ function collectProductImageUrls(node) {
 function productImageUrl(node) {
   const urls = collectProductImageUrls(node);
   return urls.length ? urls[0] : null;
+}
+
+async function productIdsInCollection(col) {
+  const ids = [];
+  const seen = new Set();
+
+  function addEdges(edges) {
+    for (const edge of edges || []) {
+      const gid = edge && edge.node && edge.node.id;
+      if (!gid || seen.has(gid)) continue;
+      seen.add(gid);
+      ids.push(gid);
+    }
+  }
+
+  addEdges(col.products && col.products.edges);
+
+  let hasNext = col.products && col.products.pageInfo && col.products.pageInfo.hasNextPage;
+  let after = hasNext ? col.products.pageInfo.endCursor : null;
+
+  while (hasNext) {
+    const result = await shopifyGraphql(COLLECTION_PRODUCTS_QUERY, {
+      id: col.id,
+      first: 250,
+      after: after
+    });
+
+    if (result.errors && result.errors.length && !isUnauthorizedError(result.errors)) {
+      console.error("[Shopify GraphQL errors]", JSON.stringify(result.errors, null, 2));
+    }
+
+    const productsConn = result.data && result.data.collection && result.data.collection.products;
+    if (!productsConn) break;
+
+    addEdges(productsConn.edges);
+    hasNext = productsConn.pageInfo && productsConn.pageInfo.hasNextPage;
+    after = hasNext ? productsConn.pageInfo.endCursor : null;
+  }
+
+  return ids;
+}
+
+async function fetchCollectionMembershipByProductId() {
+  const byProductId = new Map();
+  let after = null;
+  let hasNext = true;
+  let collectionCount = 0;
+
+  while (hasNext) {
+    const result = await shopifyGraphql(COLLECTIONS_QUERY, {
+      first: 50,
+      after: after
+    });
+
+    if (result.errors && result.errors.length) {
+      if (isUnauthorizedError(result.errors)) {
+        const err = new Error("STOREFRONT_UNAUTHORIZED");
+        err.code = "STOREFRONT_UNAUTHORIZED";
+        err.graphqlErrors = result.errors;
+        throw err;
+      }
+      console.error("[Shopify GraphQL errors]", JSON.stringify(result.errors, null, 2));
+    }
+
+    const data = result.data;
+    if (!data || !data.collections) break;
+
+    const edges = data.collections.edges || [];
+    for (const edge of edges) {
+      const col = edge && edge.node;
+      if (!col || !col.title) continue;
+
+      collectionCount += 1;
+      const meta = {
+        handle: col.handle != null ? String(col.handle) : "",
+        title: String(col.title).trim()
+      };
+      const productGids = await productIdsInCollection(col);
+
+      for (const gid of productGids) {
+        const numericId = gidNumericId(gid);
+        if (!numericId) continue;
+        if (!byProductId.has(numericId)) byProductId.set(numericId, []);
+        const list = byProductId.get(numericId);
+        if (!list.some(function (c) {
+          return c.title === meta.title;
+        })) {
+          list.push(meta);
+        }
+      }
+    }
+
+    hasNext = data.collections.pageInfo && data.collections.pageInfo.hasNextPage;
+    after = hasNext ? data.collections.pageInfo.endCursor : null;
+  }
+
+  return { byProductId: byProductId, collectionCount: collectionCount };
+}
+
+function attachCollectionsToProducts(products, byProductId) {
+  let withCollections = 0;
+  for (const product of products) {
+    const fromCollections = byProductId.get(product.id) || [];
+    const merged = normalizeCollections(
+      (product.collections || []).concat(fromCollections)
+    );
+    product.collections = merged;
+    if (merged.length) withCollections += 1;
+  }
+  return withCollections;
+}
+
+function normalizeCollections(raw) {
+  if (!Array.isArray(raw)) return [];
+  const out = [];
+  const seen = new Set();
+  for (const item of raw) {
+    if (!item) continue;
+    const title =
+      typeof item === "string"
+        ? item.trim()
+        : item.title != null
+          ? String(item.title).trim()
+          : "";
+    if (!title || seen.has(title)) continue;
+    seen.add(title);
+    out.push({
+      handle:
+        item && item.handle != null
+          ? String(item.handle)
+          : title.toLowerCase().replace(/\s+/g, "-"),
+      title: title
+    });
+  }
+  return out.sort(function (a, b) {
+    return a.title.localeCompare(b.title);
+  });
 }
 
 /**
@@ -247,7 +431,7 @@ function mapShopifyNode(node) {
     comparePrice: comparePrice,
     image: imageUrl,
     images: imageUrls,
-    category: node.productType || "Products",
+    collections: [],
     brand: deriveBrandFromTitle(node.title),
     animal: deriveAnimalFromTitle(node.title),
     breedSize: tagParsed.breedSize,
@@ -280,6 +464,13 @@ function loadFallback() {
           : [];
     const primary = images.length ? images[0] : p.image || "";
     const title = p.title != null ? String(p.title) : "";
+    const collections = normalizeCollections(
+      Array.isArray(p.collections)
+        ? p.collections
+        : p.category
+          ? [{ handle: String(p.category).toLowerCase().replace(/\s+/g, "-"), title: String(p.category) }]
+          : []
+    );
     return Object.assign({}, p, {
       handle: p.handle != null ? String(p.handle) : String(id),
       descriptionHtml:
@@ -289,6 +480,7 @@ function loadFallback() {
       accentIndex: typeof id === "number" ? Math.abs(id) % 6 : 0,
       images: images,
       image: primary,
+      collections: collections,
       brand: title
         ? deriveBrandFromTitle(title)
         : normalizeBrandLabel(p.brand != null ? String(p.brand) : "—"),
@@ -360,18 +552,6 @@ async function fetchAllShopifyProducts() {
     const data = result.data;
     if (shopifyDebugEnabled()) {
       const edgesPreview = (data && data.products && data.products.edges) || [];
-      // console.log("[Shopify DEBUG] products query response:", {
-      //   httpStatus: result.httpStatus,
-      //   graphqlErrors: result.errors,
-      //   pageInfo: data && data.products ? data.products.pageInfo : null,
-      //   edgesThisPage: edgesPreview.length,
-      //   sampleTitles: edgesPreview.slice(0, 5).map(function (e) {
-      //     return e.node && e.node.title;
-      //   })
-      // });
-      // if (process.env.SHOPIFY_DEBUG_FULL === "1" && data) {
-      //   console.log("[Shopify DEBUG] full data JSON:\n" + JSON.stringify(data, null, 2));
-      // }
     }
     if (!data || !data.products) break;
     const edges = data.products.edges || [];
@@ -381,6 +561,23 @@ async function fetchAllShopifyProducts() {
     }
     hasNext = data.products.pageInfo && data.products.pageInfo.hasNextPage;
     after = hasNext ? data.products.pageInfo.endCursor : null;
+  }
+
+  const membership = await fetchCollectionMembershipByProductId();
+  const withCollections = attachCollectionsToProducts(all, membership.byProductId);
+  console.log(
+    "[products] Linked " +
+      membership.collectionCount +
+      " Shopify collections to " +
+      withCollections +
+      " of " +
+      all.length +
+      " products."
+  );
+  if (membership.collectionCount === 0) {
+    console.warn(
+      "[products] No collections returned from Shopify. Publish collections to your Online Store sales channel, then rebuild."
+    );
   }
 
   return all;

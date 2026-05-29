@@ -22,7 +22,7 @@ module.exports = {
         brand: p.brand,
         animal: p.animal,
         breedSize: p.breedSize,
-        category: p.category,
+        collections: Array.isArray(p.collections) ? p.collections : [],
         material: p.material,
         rating: p.rating,
         price: p.price,

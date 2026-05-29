@@ -88,7 +88,13 @@ title: Shop
       </div>
 
       <div class="shop-item-show__details">
-        <p class="shop-item-show__eyebrow">{{ product.category | upcase }}</p>
+        <p class="shop-item-show__eyebrow">
+          {% if product.collections.size > 0 %}
+            {{ product.collections | map: "title" | join: ", " | upcase }}
+          {% else %}
+            SHOP
+          {% endif %}
+        </p>
         <h1 class="shop-item-show__title">{{ product.title }}</h1>
 
         <div class="shop-item-show__rating-row">
