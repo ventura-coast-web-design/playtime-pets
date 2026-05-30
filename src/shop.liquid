@@ -127,7 +127,7 @@ permalink: "{% if pagination.pageNumber == 0 %}shop/index.html{% else %}shop/pag
             </aside>
           </div>
 
-          <div class="shop-view__main-column">
+          <div class="shop-view__catalog-main">
             <p class="shop-view__results-count" id="shop-results-count" aria-live="polite">Showing {{ pagedProducts | size }} of {{ products | size }} products</p>
 
             {% if pagedProducts.size == 0 %}
@@ -267,7 +267,9 @@ permalink: "{% if pagination.pageNumber == 0 %}shop/index.html{% else %}shop/pag
             </nav>
             {% endif %}
             {% endif %}
+          </div>
 
+          <div class="shop-view__main-below">
             <!-- Colorful Promo Section -->
             <div class="shop-view__promo-section">
               <div class="shop-view__promo-card shop-view__promo-card--purple">

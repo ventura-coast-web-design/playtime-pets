@@ -2,9 +2,6 @@
 @use 'mixins' as *;
 @use 'variables' as *;
 
-// Sticky site header (promo + main + nav) — keep filters below it and within the viewport
-$shop-filters-sticky-top: 6.75rem;
-
 .shop-page {
   background-color: #FDFBF5; // Warm cream background
 }
@@ -70,6 +67,12 @@ $shop-filters-sticky-top: 6.75rem;
 // Wrapper: on small viewports the filter form is hidden until the toggle opens
 .shop-filters-panel {
   min-width: 0;
+
+  @include respond-to(lg) {
+    display: flex;
+    flex-direction: column;
+    align-self: stretch;
+  }
 }
 
 .shop-filters__toggle {
@@ -154,15 +157,10 @@ $shop-filters-sticky-top: 6.75rem;
   border: 1px solid rgba(38, 51, 95, 0.08);
 
   @include respond-to(lg) {
-    position: sticky;
-    top: $shop-filters-sticky-top;
-    align-self: start;
-    // Tall filter form: scroll inside the panel instead of forcing page scroll past the whole gallery
-    max-height: calc(100dvh - #{$shop-filters-sticky-top} - #{$spacing-md});
-    overflow-y: auto;
-    overflow-x: hidden;
-    overscroll-behavior: contain;
-    -webkit-overflow-scrolling: touch;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
     padding: $spacing-xl $spacing-lg;
   }
 
@@ -247,6 +245,8 @@ $shop-filters-sticky-top: 6.75rem;
   }
 
   &__actions {
+    margin-top: auto;
+
     display: flex;
     flex-direction: column;
     gap: $spacing-sm;
@@ -285,11 +285,11 @@ $shop-filters-sticky-top: 6.75rem;
     padding: 0;
   }
 
-  // Filters sidebar + product column (narrower sidebar → more room for product grid)
+  // Filters sidebar + product grid row; promos/collections span full width below
   .shop-view__main-layout {
     display: grid;
     gap: $spacing-xl;
-    align-items: start;
+    align-items: stretch;
 
     @include respond-to(lg) {
       grid-template-columns: minmax(220px, 260px) 1fr;
@@ -297,8 +297,19 @@ $shop-filters-sticky-top: 6.75rem;
     }
   }
 
-  .shop-view__main-column {
+  .shop-view__catalog-main {
     min-width: 0;
+
+    @include respond-to(lg) {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .shop-view__main-below {
+    @include respond-to(lg) {
+      grid-column: 1 / -1;
+    }
   }
 
   .shop-view__results-count {
@@ -396,6 +407,10 @@ $shop-filters-sticky-top: 6.75rem;
   
   // Product Grid Wrapper with Color Background
   .shop-view__grid-wrapper {
+    @include respond-to(lg) {
+      flex: 1;
+    }
+
     background: linear-gradient(180deg, #FFF9E6 0%, #FDFBF5 50%, #F0F8FF 100%);
     padding: $spacing-xl $spacing-sm;
 

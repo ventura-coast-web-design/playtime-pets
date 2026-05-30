@@ -512,7 +512,7 @@
   document.addEventListener('DOMContentLoaded', function () {
     grid = document.getElementById('shop-product-grid');
     countEl = document.getElementById('shop-results-count');
-    paginationEl = document.querySelector('.shop-view__main-column nav.shop-view__pagination');
+    paginationEl = document.querySelector('.shop-view__catalog-main nav.shop-view__pagination');
     noMatchEl = document.getElementById('shop-no-matches');
     if (grid) gridSnapshot = grid.innerHTML;
     if (countEl) originalCountText = countEl.textContent;
