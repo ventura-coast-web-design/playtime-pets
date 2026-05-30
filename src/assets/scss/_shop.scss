@@ -13,6 +13,11 @@
   justify-content: center;
   gap: $spacing-sm;
   flex-wrap: wrap;
+
+  &[hidden],
+  &--suppressed {
+    display: none !important;
+  }
 }
 
 .shop-view__pagination-pages {
@@ -21,6 +26,17 @@
   gap: $spacing-xs;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.shop-view__pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  padding: 0 0.2rem;
+  color: #26335f;
+  font-weight: $font-weight-semibold;
+  user-select: none;
 }
 
 .shop-view__pagination-link {

@@ -321,6 +321,7 @@ permalink: "{% if pagination.pageNumber == 0 %}shop/index.html{% else %}shop/pag
 </div>
 
 {% if pagedProducts.size > 0 %}
+<script type="application/json" id="shop-catalog-data">{{ shopCatalogJson }}</script>
 <script src="/assets/js/shop-filters.js" defer></script>
 <script src="/assets/js/shop-card-gallery.js" defer></script>
 {% endif %}

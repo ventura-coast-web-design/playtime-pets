@@ -2543,6 +2543,9 @@
   gap: 0.5rem;
   flex-wrap: wrap;
 }
+.shop-view__pagination[hidden], .shop-view__pagination--suppressed {
+  display: none !important;
+}
 
 .shop-view__pagination-pages {
   display: inline-flex;
@@ -2550,6 +2553,17 @@
   gap: 0.25rem;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.shop-view__pagination-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.5rem;
+  padding: 0 0.2rem;
+  color: #26335f;
+  font-weight: 600;
+  user-select: none;
 }
 
 .shop-view__pagination-link {
