@@ -791,12 +791,11 @@
   }
 
   function bindAddToCartButtons() {
-    var grid = document.getElementById('shop-product-grid');
-    if (!grid || grid.getAttribute('data-cart-atc-bound') === '1') return;
-    grid.setAttribute('data-cart-atc-bound', '1');
-    grid.addEventListener('click', function (e) {
+    if (document.documentElement.getAttribute('data-cart-atc-bound') === '1') return;
+    document.documentElement.setAttribute('data-cart-atc-bound', '1');
+    document.addEventListener('click', function (e) {
       var btn = e.target.closest('.js-add-to-cart');
-      if (!btn || !grid.contains(btn)) return;
+      if (!btn) return;
       if (btn.disabled) return;
       var qty = qtyForAddToCartButton(btn);
       var variantId = btn.getAttribute('data-variant-id');
