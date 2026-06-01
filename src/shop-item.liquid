@@ -117,9 +117,14 @@ title: Shop
           <span class="shop-item-show__price">${{ product.price }}</span>
         </div>
 
-        <div class="shop-item-show__description shop-item-show__description--rte">
-          {{ product.descriptionHtml }}
+        {% if product.descriptionHtml != blank %}
+        <div class="shop-item-show__about">
+          <h2 class="shop-item-show__about-title">About this product</h2>
+          <div class="shop-item-show__description shop-item-show__description--rte">
+            {{ product.descriptionHtml }}
+          </div>
         </div>
+        {% endif %}
 
         <dl class="shop-item-show__specs">
           <div class="shop-item-show__spec">

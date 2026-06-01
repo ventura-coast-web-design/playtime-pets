@@ -1832,6 +1832,18 @@
   color: #999999;
   text-decoration: line-through;
 }
+.shop-item-show__about {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.shop-item-show__about-title {
+  font-family: "Fredoka", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #26335f;
+  margin: 0;
+}
 .shop-item-show__description {
   font-size: 16px;
   color: #333333;
@@ -1839,6 +1851,15 @@
 }
 .shop-item-show__description p {
   margin: 0;
+}
+.shop-item-show__description--rte h2,
+.shop-item-show__description--rte h3,
+.shop-item-show__description--rte h4 {
+  font-family: "Fredoka", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  font-size: 16px;
+  font-weight: 600;
+  color: #26335f;
+  margin: 0 0 0.5rem;
 }
 .shop-item-show__description--rte p {
   margin: 0 0 1rem;
@@ -1850,6 +1871,10 @@
 .shop-item-show__description--rte ol {
   margin: 0 0 1rem;
   padding-left: 1.25rem;
+}
+.shop-item-show__description--rte strong {
+  font-weight: 600;
+  color: #26335f;
 }
 .shop-item-show__description--rte a {
   color: #6caae1;

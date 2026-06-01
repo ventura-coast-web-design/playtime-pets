@@ -23,6 +23,7 @@ const PRODUCTS_QUERY = `
           id
           handle
           title
+          description
           descriptionHtml
           vendor
           productType
@@ -425,8 +426,10 @@ function mapShopifyNode(node) {
     id: numericId,
     handle: node.handle,
     title: node.title,
-    description: "",
-    descriptionHtml: node.descriptionHtml || "",
+    description: node.description || "",
+    descriptionHtml:
+      node.descriptionHtml ||
+      (node.description ? "<p>" + escapeHtml(String(node.description)) + "</p>" : ""),
     price: price,
     comparePrice: comparePrice,
     image: imageUrl,

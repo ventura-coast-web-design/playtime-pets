@@ -313,6 +313,19 @@ $shop-pink: #ff6b9d;
     text-decoration: line-through;
   }
 
+  &__about {
+    @include flex-column;
+    gap: $spacing-sm;
+  }
+
+  &__about-title {
+    font-family: 'Fredoka', $font-family-heading;
+    font-size: $font-size-lg;
+    font-weight: $font-weight-semibold;
+    color: $shop-navy;
+    margin: 0;
+  }
+
   &__description {
     font-size: $font-size-base;
     color: $color-text;
@@ -324,6 +337,16 @@ $shop-pink: #ff6b9d;
   }
 
   &__description--rte {
+    h2,
+    h3,
+    h4 {
+      font-family: 'Fredoka', $font-family-heading;
+      font-size: $font-size-base;
+      font-weight: $font-weight-semibold;
+      color: $shop-navy;
+      margin: 0 0 $spacing-sm;
+    }
+
     p {
       margin: 0 0 $spacing-md;
 
@@ -336,6 +359,11 @@ $shop-pink: #ff6b9d;
     ol {
       margin: 0 0 $spacing-md;
       padding-left: 1.25rem;
+    }
+
+    strong {
+      font-weight: $font-weight-semibold;
+      color: $shop-navy;
     }
 
     a {
