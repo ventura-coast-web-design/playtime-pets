@@ -128,7 +128,32 @@ permalink: "{% if pagination.pageNumber == 0 %}shop/index.html{% else %}shop/pag
           </div>
 
           <div class="shop-view__catalog-main">
-            <p class="shop-view__results-count" id="shop-results-count" aria-live="polite">Showing {{ pagedProducts | size }} of {{ products | size }} products</p>
+            <div class="shop-view__catalog-toolbar">
+              <p class="shop-view__results-count" id="shop-results-count" aria-live="polite">Showing {{ pagedProducts | size }} of {{ products | size }} products</p>
+              <div class="shop-view__search">
+                <label class="shop-view__search-label" for="shop-search-input">Search products</label>
+                <div class="shop-view__search-field">
+                  <i class="fa-solid fa-magnifying-glass shop-view__search-icon" aria-hidden="true"></i>
+                  <input
+                    type="search"
+                    id="shop-search-input"
+                    class="shop-view__search-input"
+                    placeholder="Search products…"
+                    autocomplete="off"
+                    enterkeyhint="search"
+                  >
+                  <button
+                    type="button"
+                    id="shop-search-clear"
+                    class="shop-view__search-clear"
+                    hidden
+                    aria-label="Clear search"
+                  >
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
 
             {% if pagedProducts.size == 0 %}
             <div class="shop-view__empty">
@@ -143,6 +168,7 @@ permalink: "{% if pagination.pageNumber == 0 %}shop/index.html{% else %}shop/pag
                 <article
                   class="shop-view__product-card shop-view__product-card--color-{{ index }}"
                   data-shop-product
+                  data-title="{{ product.title | escape }}"
                   data-brand="{{ product.brand }}"
                   data-animal="{{ product.animal }}"
                   data-collections="{{ product_collection_titles }}"
