@@ -417,6 +417,43 @@
     return out;
   }
 
+  function shopPageUrl(page) {
+    if (page <= 1) return '/shop/';
+    return '/shop/page/' + page + '/';
+  }
+
+  function paginationJumpFormHtml(totalPages) {
+    return (
+      '<form class="shop-view__pagination-jump" data-shop-pagination-jump data-total-pages="' +
+      totalPages +
+      '" action="#" method="get">' +
+      '<label class="shop-view__pagination-jump-label" for="shop-page-jump-input">Go to page</label>' +
+      '<input id="shop-page-jump-input" class="shop-view__pagination-jump-input" name="page" type="number" min="1" max="' +
+      totalPages +
+      '" inputmode="numeric" aria-label="Page number">' +
+      '<button type="submit" class="shop-view__pagination-link shop-view__pagination-link--control">Go</button>' +
+      '</form>'
+    );
+  }
+
+  function paginationControlLink(label, page) {
+    return (
+      '<a class="shop-view__pagination-link shop-view__pagination-link--control" href="#" data-filter-page="' +
+      page +
+      '">' +
+      label +
+      '</a>'
+    );
+  }
+
+  function paginationDisabledControl(label) {
+    return (
+      '<span class="shop-view__pagination-link shop-view__pagination-link--control is-disabled" aria-disabled="true">' +
+      label +
+      '</span>'
+    );
+  }
+
   function renderFilteredPagination(totalMatched, page) {
     if (!paginationEl) return;
     var totalPages = Math.max(1, Math.ceil(totalMatched / PAGE_SIZE));
@@ -429,13 +466,14 @@
 
     setPaginationVisible(true);
     var items = getPaginationPages(page, totalPages);
-    var html = '';
+    var html = '<div class="shop-view__pagination-controls">';
 
     if (page > 1) {
-      html +=
-        '<a class="shop-view__pagination-link shop-view__pagination-link--prev" href="#" data-filter-page="' +
-        (page - 1) +
-        '">Previous</a>';
+      html += paginationControlLink('First', 1);
+      html += paginationControlLink('Back', page - 1);
+    } else {
+      html += paginationDisabledControl('First');
+      html += paginationDisabledControl('Back');
     }
 
     html += '<div class="shop-view__pagination-pages">';
@@ -459,11 +497,15 @@
     html += '</div>';
 
     if (page < totalPages) {
-      html +=
-        '<a class="shop-view__pagination-link shop-view__pagination-link--next" href="#" data-filter-page="' +
-        (page + 1) +
-        '">Next</a>';
+      html += paginationControlLink('Next', page + 1);
+      html += paginationControlLink('Last', totalPages);
+    } else {
+      html += paginationDisabledControl('Next');
+      html += paginationDisabledControl('Last');
     }
+
+    html += '</div>';
+    html += paginationJumpFormHtml(totalPages);
 
     paginationEl.innerHTML = html;
   }
@@ -530,6 +572,21 @@
       var page = parseInt(link.getAttribute('data-filter-page'), 10);
       if (isNaN(page)) return;
       goToFilteredPage(page);
+    });
+    main.addEventListener('submit', function (e) {
+      var form = e.target.closest('[data-shop-pagination-jump]');
+      if (!form) return;
+      e.preventDefault();
+      var total = parseInt(form.getAttribute('data-total-pages'), 10);
+      var input = form.querySelector('input[name="page"]');
+      var page = parseInt(input && input.value, 10);
+      if (isNaN(page) || page < 1) return;
+      if (!isNaN(total) && total > 0) page = Math.min(page, total);
+      if (filteredMode) {
+        goToFilteredPage(page);
+        return;
+      }
+      window.location.href = shopPageUrl(page);
     });
   }
 

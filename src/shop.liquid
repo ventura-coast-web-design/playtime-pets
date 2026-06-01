@@ -241,29 +241,60 @@ permalink: "{% if pagination.pageNumber == 0 %}shop/index.html{% else %}shop/pag
 
             {% assign total_pages = pagination.hrefs | size %}
             {% if total_pages > 1 %}
+            {% assign current_index = pagination.pageNumber %}
+            {% assign current_page = current_index | plus: 1 %}
+            {% assign last_index = total_pages | minus: 1 %}
+            {% assign prev_index = current_index | minus: 1 %}
+            {% assign next_index = current_index | plus: 1 %}
+            {% assign window = current_page | paginationWindow: total_pages %}
             <nav class="shop-view__pagination" aria-label="Shop pages">
-              {% assign current_index = pagination.pageNumber %}
-              {% assign prev_index = current_index | minus: 1 %}
-              {% assign next_index = current_index | plus: 1 %}
-
-              {% if current_index > 0 %}
-              <a class="shop-view__pagination-link shop-view__pagination-link--prev" href="{{ pagination.hrefs[prev_index] }}">Previous</a>
-              {% endif %}
-
-              <div class="shop-view__pagination-pages">
-                {% for href in pagination.hrefs %}
-                {% assign page_number = forloop.index %}
-                {% if forloop.index0 == current_index %}
-                <span class="shop-view__pagination-link is-current" aria-current="page">{{ page_number }}</span>
+              <div class="shop-view__pagination-controls">
+                {% if current_page > 1 %}
+                <a class="shop-view__pagination-link shop-view__pagination-link--control" href="{{ pagination.hrefs[0] }}">First</a>
+                <a class="shop-view__pagination-link shop-view__pagination-link--control" href="{{ pagination.hrefs[prev_index] }}">Back</a>
                 {% else %}
-                <a class="shop-view__pagination-link" href="{{ href }}">{{ page_number }}</a>
+                <span class="shop-view__pagination-link shop-view__pagination-link--control is-disabled" aria-disabled="true">First</span>
+                <span class="shop-view__pagination-link shop-view__pagination-link--control is-disabled" aria-disabled="true">Back</span>
                 {% endif %}
-                {% endfor %}
+
+                <div class="shop-view__pagination-pages">
+                  {% for item in window %}
+                  {% if item == 'ellipsis' %}
+                  <span class="shop-view__pagination-ellipsis" aria-hidden="true">…</span>
+                  {% else %}
+                  {% assign page_index = item | minus: 1 %}
+                  {% if page_index == current_index %}
+                  <span class="shop-view__pagination-link is-current" aria-current="page">{{ item }}</span>
+                  {% else %}
+                  <a class="shop-view__pagination-link" href="{{ pagination.hrefs[page_index] }}">{{ item }}</a>
+                  {% endif %}
+                  {% endif %}
+                  {% endfor %}
+                </div>
+
+                {% if current_page < total_pages %}
+                <a class="shop-view__pagination-link shop-view__pagination-link--control" href="{{ pagination.hrefs[next_index] }}">Next</a>
+                <a class="shop-view__pagination-link shop-view__pagination-link--control" href="{{ pagination.hrefs[last_index] }}">Last</a>
+                {% else %}
+                <span class="shop-view__pagination-link shop-view__pagination-link--control is-disabled" aria-disabled="true">Next</span>
+                <span class="shop-view__pagination-link shop-view__pagination-link--control is-disabled" aria-disabled="true">Last</span>
+                {% endif %}
               </div>
 
-              {% if next_index < total_pages %}
-              <a class="shop-view__pagination-link shop-view__pagination-link--next" href="{{ pagination.hrefs[next_index] }}">Next</a>
-              {% endif %}
+              <form class="shop-view__pagination-jump" data-shop-pagination-jump data-total-pages="{{ total_pages }}" action="#" method="get">
+                <label class="shop-view__pagination-jump-label" for="shop-page-jump-input">Go to page</label>
+                <input
+                  id="shop-page-jump-input"
+                  class="shop-view__pagination-jump-input"
+                  name="page"
+                  type="number"
+                  min="1"
+                  max="{{ total_pages }}"
+                  inputmode="numeric"
+                  aria-label="Page number"
+                >
+                <button type="submit" class="shop-view__pagination-link shop-view__pagination-link--control">Go</button>
+              </form>
             </nav>
             {% endif %}
             {% endif %}
