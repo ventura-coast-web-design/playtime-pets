@@ -19,7 +19,9 @@ title: Shop
   {% assign animal_label = '—' %}
 {% endif %}
 
-{% if product.breedSize == 'all' %}
+{% if product.breedSizeLabel and product.breedSizeLabel != '—' %}
+  {% assign breed_label = product.breedSizeLabel %}
+{% elsif product.breedSize == 'all' %}
   {% assign breed_label = 'All sizes' %}
 {% elsif product.breedSize %}
   {% assign breed_label = product.breedSize | capitalize %}

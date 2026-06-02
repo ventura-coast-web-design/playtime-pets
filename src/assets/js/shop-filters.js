@@ -135,11 +135,32 @@
     });
   }
 
-  function matchesBreedSize(productSize, selected) {
+  function parsePipeList(raw) {
+    if (!raw) return [];
+    return String(raw)
+      .split('|')
+      .map(function (s) {
+        return s.trim().toLowerCase();
+      })
+      .filter(Boolean);
+  }
+
+  function matchesAnyPipeValue(productValue, selected) {
     if (!selected.length) return true;
+    var values = parsePipeList(productValue);
+    if (!values.length) return false;
+    if (values.indexOf('all') !== -1) return true;
     return selected.some(function (s) {
-      return productSize === s || productSize === 'all';
+      return values.indexOf(String(s).toLowerCase()) !== -1;
     });
+  }
+
+  function matchesBreedSize(productSize, selected) {
+    return matchesAnyPipeValue(productSize, selected);
+  }
+
+  function matchesMaterial(productMaterial, selected) {
+    return matchesAnyPipeValue(productMaterial, selected);
   }
 
   function matchesOrAttr(productValue, selected) {
@@ -212,7 +233,14 @@
       matchesAnimal(p.animal != null ? String(p.animal) : '', c.animals) &&
       matchesCollections(p.collections, c.categories) &&
       matchesBreedSize(breed, c.breedSizes) &&
-      matchesOrAttr(p.material != null ? String(p.material) : '', c.materials) &&
+      matchesMaterial(
+        p.materialFilter != null && String(p.materialFilter)
+          ? String(p.materialFilter)
+          : p.material != null
+            ? String(p.material)
+            : '',
+        c.materials
+      ) &&
       matchesPrice(p.price != null ? p.price : '0', c.prices) &&
       matchesRating(p.rating != null ? p.rating : '0', c.ratings) &&
       matchesSearchProduct(p, c.search)
@@ -255,7 +283,14 @@
     article.setAttribute('data-animal', p.animal != null ? String(p.animal) : '');
     article.setAttribute('data-collections', collectionTitlesAttr(p.collections));
     article.setAttribute('data-breed-size', p.breedSize != null ? String(p.breedSize) : '');
-    article.setAttribute('data-material', p.material != null ? String(p.material) : '');
+    article.setAttribute(
+      'data-material',
+      p.materialFilter != null && String(p.materialFilter)
+        ? String(p.materialFilter)
+        : p.material != null
+          ? String(p.material)
+          : ''
+    );
     article.setAttribute('data-price', priceStr);
     article.setAttribute('data-rating', p.rating != null ? String(p.rating) : '');
 
@@ -692,7 +727,7 @@
         matchesAnimal(card.getAttribute('data-animal') || '', c.animals) &&
         matchesCollections(card.getAttribute('data-collections') || '', c.categories) &&
         matchesBreedSize(card.getAttribute('data-breed-size') || '', c.breedSizes) &&
-        matchesOrAttr(card.getAttribute('data-material') || '', c.materials) &&
+        matchesMaterial(card.getAttribute('data-material') || '', c.materials) &&
         matchesPrice(card.getAttribute('data-price') || '0', c.prices) &&
         matchesRating(card.getAttribute('data-rating') || '0', c.ratings) &&
         matchesSearchCard(card, c.search);

@@ -11,6 +11,22 @@ function shopifyDebugEnabled() {
   return v === "1" || v === "true" || String(v).toLowerCase() === "yes";
 }
 
+const METAFIELD_REFERENCES_FRAGMENT = `
+  references(first: 10) {
+    edges {
+      node {
+        ... on Metaobject {
+          handle
+          fields {
+            key
+            value
+          }
+        }
+      }
+    }
+  }
+`;
+
 const PRODUCTS_QUERY = `
   query Products($first: Int!, $after: String) {
     products(first: $first, after: $after) {
@@ -52,6 +68,12 @@ const PRODUCTS_QUERY = `
                 }
               }
             }
+          }
+          toyGameMaterial: metafield(namespace: "shopify", key: "toy-game-material") {
+            ${METAFIELD_REFERENCES_FRAGMENT}
+          }
+          suitableForBreedSize: metafield(namespace: "shopify", key: "suitable-for-breed-size") {
+            ${METAFIELD_REFERENCES_FRAGMENT}
           }
         }
       }
@@ -121,9 +143,121 @@ function pickVariant(variants) {
   return (available || edges[0]).node;
 }
 
+/** Labels from Shopify category metafields (list.metaobject_reference). */
+function metaobjectLabels(metafield) {
+  const edges = (metafield && metafield.references && metafield.references.edges) || [];
+  const labels = [];
+  for (const edge of edges) {
+    const node = edge && edge.node;
+    if (!node) continue;
+    const fields = node.fields || [];
+    let label = "";
+    for (const f of fields) {
+      if (f && f.key === "label" && f.value) {
+        label = String(f.value).trim();
+        break;
+      }
+    }
+    if (!label && node.handle) {
+      label = String(node.handle)
+        .replace(/_/g, " ")
+        .replace(/\b\w/g, function (c) {
+          return c.toUpperCase();
+        });
+    }
+    if (label) labels.push(label);
+  }
+  return labels;
+}
+
+function capitalizeLabel(s) {
+  if (!s) return "";
+  const lower = String(s).trim().toLowerCase();
+  return lower.charAt(0).toUpperCase() + lower.slice(1);
+}
+
+/**
+ * Shopify category metafield: shopify.toy-game-material → display + filter tokens.
+ */
+function parseMaterialFromMetafield(metafield) {
+  const labels = metaobjectLabels(metafield);
+  if (!labels.length) {
+    return { material: "—", materialFilter: "" };
+  }
+  const filterTokens = labels.map(function (l) {
+    return l.trim().toLowerCase();
+  });
+  return {
+    material: labels.join(", "),
+    materialFilter: filterTokens.join("|")
+  };
+}
+
+/**
+ * Shopify category metafield: shopify.suitable-for-breed-size → pipe-separated filter tokens.
+ */
+function parseBreedSizeFromMetafield(metafield) {
+  const labels = metaobjectLabels(metafield);
+  const tokens = [];
+  for (const label of labels) {
+    const v = label.trim().toLowerCase();
+    if (v === "small" || v === "medium" || v === "large" || v === "all") {
+      if (tokens.indexOf(v) === -1) tokens.push(v);
+    }
+  }
+  if (!tokens.length) {
+    return { breedSize: "all", breedSizeLabel: "—" };
+  }
+  return {
+    breedSize: tokens.join("|"),
+    breedSizeLabel: labels.join(", ")
+  };
+}
+
+function breedSizeFromTagValue(tagValue) {
+  const v = tagValue != null ? String(tagValue).trim().toLowerCase() : "all";
+  if (v === "small" || v === "medium" || v === "large" || v === "all") {
+    return {
+      breedSize: v,
+      breedSizeLabel: v === "all" ? "All sizes" : capitalizeLabel(v)
+    };
+  }
+  return { breedSize: "all", breedSizeLabel: "—" };
+}
+
+function resolveProductAttributes(node, tagParsed) {
+  const fromMaterialMeta = parseMaterialFromMetafield(node.toyGameMaterial);
+  const fromBreedMeta = parseBreedSizeFromMetafield(node.suitableForBreedSize);
+  const fromBreedTag = breedSizeFromTagValue(tagParsed.breedSize);
+
+  const material =
+    fromMaterialMeta.material !== "—"
+      ? fromMaterialMeta.material
+      : tagParsed.material !== "—"
+        ? tagParsed.material
+        : "—";
+
+  const materialFilter =
+    fromMaterialMeta.materialFilter ||
+    (tagParsed.material !== "—" ? tagParsed.material.trim().toLowerCase() : "");
+
+  const breedFromMeta = fromBreedMeta.breedSize !== "all" || fromBreedMeta.breedSizeLabel !== "—";
+  const breedSize = breedFromMeta ? fromBreedMeta.breedSize : fromBreedTag.breedSize;
+  const breedSizeLabel = breedFromMeta ? fromBreedMeta.breedSizeLabel : fromBreedTag.breedSizeLabel;
+
+  return {
+    material: material,
+    materialFilter: materialFilter,
+    breedSize: breedSize,
+    breedSizeLabel: breedSizeLabel,
+    rating: tagParsed.rating
+  };
+}
+
 /**
  * Optional tag conventions (colon-separated), e.g. breed:small, material:Plush, rating:4.5
  * (Animal type is derived from the product title, not tags.)
+ * Category metafields take precedence when present.
  */
 function parseTagFilters(tags) {
   const out = {
@@ -420,6 +554,7 @@ function mapShopifyNode(node) {
   }
 
   const tagParsed = parseTagFilters(node.tags);
+  const attrs = resolveProductAttributes(node, tagParsed);
   const numericId = gidNumericId(node.id);
 
   return {
@@ -437,9 +572,11 @@ function mapShopifyNode(node) {
     collections: [],
     brand: deriveBrandFromTitle(node.title),
     animal: deriveAnimalFromTitle(node.title),
-    breedSize: tagParsed.breedSize,
-    material: tagParsed.material,
-    rating: tagParsed.rating,
+    breedSize: attrs.breedSize,
+    breedSizeLabel: attrs.breedSizeLabel,
+    material: attrs.material,
+    materialFilter: attrs.materialFilter,
+    rating: attrs.rating,
     tags: filterDisplayTags(node.tags || []),
     inStock: Boolean(node.availableForSale && variant.availableForSale),
     variantId: variant.id,
@@ -474,6 +611,22 @@ function loadFallback() {
           ? [{ handle: String(p.category).toLowerCase().replace(/\s+/g, "-"), title: String(p.category) }]
           : []
     );
+    const breedFromTag = breedSizeFromTagValue(p.breedSize);
+    const material =
+      p.material != null && String(p.material).trim() && String(p.material).trim() !== "—"
+        ? String(p.material).trim()
+        : "—";
+    const materialFilter =
+      material !== "—"
+        ? material
+            .split(/[,|]/)
+            .map(function (s) {
+              return s.trim().toLowerCase();
+            })
+            .filter(Boolean)
+            .join("|")
+        : "";
+
     return Object.assign({}, p, {
       handle: p.handle != null ? String(p.handle) : String(id),
       descriptionHtml:
@@ -488,6 +641,10 @@ function loadFallback() {
         ? deriveBrandFromTitle(title)
         : normalizeBrandLabel(p.brand != null ? String(p.brand) : "—"),
       animal: deriveAnimalFromTitle(title),
+      breedSize: breedFromTag.breedSize,
+      breedSizeLabel: breedFromTag.breedSizeLabel,
+      material: material,
+      materialFilter: materialFilter,
       tags: filterDisplayTags(Array.isArray(p.tags) ? p.tags : [])
     });
   });

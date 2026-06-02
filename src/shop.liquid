@@ -9,7 +9,7 @@ permalink: "{% if pagination.pageNumber == 0 %}shop/index.html{% else %}shop/pag
 ---
 
 {% assign filter_brands = products | map: "brand" | compact | uniq | sort %}
-{% assign filter_materials = products | map: "material" | compact | uniq | sort %}
+{% assign filter_materials = shopFilterOptions.materials %}
 
 <div class="shop-page">
   <div class="shop-page__container">
@@ -173,7 +173,7 @@ permalink: "{% if pagination.pageNumber == 0 %}shop/index.html{% else %}shop/pag
                   data-animal="{{ product.animal }}"
                   data-collections="{{ product_collection_titles }}"
                   data-breed-size="{{ product.breedSize }}"
-                  data-material="{{ product.material }}"
+                  data-material="{{ product.materialFilter | default: product.material }}"
                   data-price="{{ product.price }}"
                   data-rating="{{ product.rating }}">
                   <div class="shop-view__product-media">
