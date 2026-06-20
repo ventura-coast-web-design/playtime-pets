@@ -3,7 +3,7 @@
 @use 'variables' as *;
 
 .shop-page {
-  background-color: #FDFBF5; // Warm cream background
+  background-color: $color-background;
 }
 
 .shop-view__pagination {
@@ -580,7 +580,7 @@
       flex: 1;
     }
 
-    background: linear-gradient(180deg, #FFF9E6 0%, #FDFBF5 50%, #F0F8FF 100%);
+    background-color: $color-background;
     padding: $spacing-xl $spacing-sm;
 
     @media (max-width: ($breakpoint-sm - 0.02px)) {
@@ -1267,7 +1267,7 @@
   .shop-view__collections {
     margin-top: $spacing-xxxl;
     padding: $spacing-xxl $spacing-md;
-    background: linear-gradient(135deg, #FFF9E6 0%, #F0F8FF 50%, #FFF5F5 100%);
+    background-color: $color-background;
     border-radius: $border-radius-xl;
     text-align: center;
     

@@ -2557,7 +2557,7 @@
 }
 
 .shop-page {
-  background-color: #FDFBF5;
+  background-color: #ffffff;
 }
 
 .shop-view__pagination {
@@ -3107,7 +3107,7 @@
   }
 }
 .shop-view .shop-view__grid-wrapper {
-  background: linear-gradient(180deg, #FFF9E6 0%, #FDFBF5 50%, #F0F8FF 100%);
+  background-color: #ffffff;
   padding: 2rem 0.5rem;
 }
 @media (max-width: 575.98px) {
@@ -3754,7 +3754,7 @@
 .shop-view .shop-view__collections {
   margin-top: 4rem;
   padding: 3rem 1rem;
-  background: linear-gradient(135deg, #FFF9E6 0%, #F0F8FF 50%, #FFF5F5 100%);
+  background-color: #ffffff;
   border-radius: 16px;
   text-align: center;
 }
