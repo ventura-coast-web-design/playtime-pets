@@ -1891,7 +1891,7 @@
   padding: 1.5rem;
   background-color: #ffffff;
   border-radius: 12px;
-  border: 1px solid rgba(38, 51, 95, 0.1);
+  border: 2px solid rgba(38, 51, 95, 0.5);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 @media (min-width: 576px) {
@@ -1936,7 +1936,7 @@
   flex-direction: column;
   gap: 1rem;
   padding-top: 1rem;
-  border-top: 1px solid #e0e0e0;
+  border-top: 2px solid rgba(38, 51, 95, 0.3);
 }
 @media (min-width: 576px) {
   .shop-item-show__actions {
@@ -1981,7 +1981,7 @@
   min-width: 12rem;
   color: #26335f;
   background: transparent;
-  border: 2px solid rgba(38, 51, 95, 0.25);
+  border: 2px solid rgba(38, 51, 95, 0.38);
 }
 .shop-item-show__btn--secondary:hover {
   background: rgba(38, 51, 95, 0.06);

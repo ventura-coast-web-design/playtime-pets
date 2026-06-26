@@ -383,7 +383,7 @@ $shop-pink: #ff6b9d;
     padding: $spacing-lg;
     background-color: #ffffff;
     border-radius: $border-radius-lg;
-    border: 1px solid rgba(38, 51, 95, 0.1);
+    border: 2px solid rgba(38, 51, 95, 0.5);
     box-shadow: $shadow-sm;
 
     @include respond-to(sm) {
@@ -433,7 +433,7 @@ $shop-pink: #ff6b9d;
     flex-direction: column;
     gap: $spacing-md;
     padding-top: $spacing-md;
-    border-top: 1px solid $color-border;
+    border-top: 2px solid rgba(38, 51, 95, 0.3);
 
     @include respond-to(sm) {
       flex-direction: row;
@@ -483,7 +483,7 @@ $shop-pink: #ff6b9d;
       min-width: 12rem;
       color: $shop-navy;
       background: transparent;
-      border: 2px solid rgba(38, 51, 95, 0.25);
+      border: 2px solid rgba(38, 51, 95, 0.38);
 
       &:hover {
         background: rgba(38, 51, 95, 0.06);
