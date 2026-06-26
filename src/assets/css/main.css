@@ -1569,7 +1569,7 @@
 .shop-item-show {
   flex: 1;
   width: 100%;
-  background-color: #fdfbf5;
+  background-color: #ffffff;
   padding: 2rem 0 3rem;
 }
 @media (min-width: 768px) {

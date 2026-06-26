@@ -1,16 +1,15 @@
-// Product detail page — aligned with shop (View 3) styling: cream bg, navy text, gradient CTAs
+// Product detail page — aligned with shop styling: white bg, navy text, gradient CTAs
 @use 'mixins' as *;
 
 // Matches shop page accents in _shop.scss
 $shop-navy: #26335f;
 $shop-blue: #6caae1;
-$shop-cream: #fdfbf5;
 $shop-pink: #ff6b9d;
 
 .shop-item-show {
   flex: 1;
   width: 100%;
-  background-color: $shop-cream;
+  background-color: $color-background;
   padding: $spacing-xl 0 $spacing-xxl;
 
   @include respond-to(md) {
