@@ -6,7 +6,7 @@
 }
 
 .site-header__promo {
-  background: linear-gradient(135deg, #6baae4 0%, #4d8cd1 100%);
+  background: linear-gradient(135deg, #82c4ff 0%, #5eb0ff 100%);
   color: white;
   display: flex;
   align-items: center;
@@ -605,7 +605,7 @@
   overflow: hidden;
   min-height: 280px;
   max-height: min(70vh, 26rem);
-  background: linear-gradient(135deg, #fff176 0%, #ffee54 100%);
+  background: linear-gradient(135deg, #fff59d 0%, #ffeb3b 100%);
   box-shadow: 0 8px 28px rgba(38, 51, 95, 0.12);
 }
 @media (min-width: 768px) {
@@ -805,7 +805,7 @@
   background: linear-gradient(135deg, rgba(108, 170, 225, 0.2) 0%, rgba(255, 107, 157, 0.15) 100%);
 }
 .hero-grid__promo:nth-child(1) {
-  background: linear-gradient(135deg, #6baae4 0%, #4d8cd1 100%);
+  background: linear-gradient(135deg, #82c4ff 0%, #5eb0ff 100%);
   border-color: rgba(255, 255, 255, 0.22);
 }
 .hero-grid__promo:nth-child(1) .hero-grid__promo-brand,
@@ -818,7 +818,7 @@
   color: #fff3b0;
 }
 .hero-grid__promo:nth-child(2) {
-  background: linear-gradient(135deg, #fff176 0%, #ffee54 100%);
+  background: linear-gradient(135deg, #fff59d 0%, #ffeb3b 100%);
   border-color: rgba(38, 51, 95, 0.12);
 }
 .hero-grid__promo:nth-child(2) .hero-grid__promo-brand,
@@ -831,7 +831,7 @@
   color: #26335f;
 }
 .hero-grid__promo:nth-child(3) {
-  background: linear-gradient(135deg, #e96d93 0%, #c84869 100%);
+  background: linear-gradient(135deg, #ff9ebb 0%, #ff6b9d 100%);
   border-color: rgba(255, 255, 255, 0.2);
 }
 .hero-grid__promo:nth-child(3) .hero-grid__promo-brand,
@@ -844,7 +844,7 @@
   color: #fff3b0;
 }
 .hero-grid__promo:nth-child(4) {
-  background: #dc2f02;
+  background: #ff922b;
   border-color: rgba(255, 255, 255, 0.2);
 }
 .hero-grid__promo:nth-child(4) .hero-grid__promo-brand,
@@ -1093,14 +1093,14 @@
 }
 .hero-categories__item:hover {
   background: #f8f9fa;
-  color: #e85d04;
+  color: #ff922b;
 }
 .hero-categories__icon {
   width: 56px;
   height: 56px;
   border-radius: 50%;
   background: #fff;
-  border: 2px solid #e85d04;
+  border: 2px solid #ff922b;
   display: flex;
   align-items: center;
   justify-content: center;
