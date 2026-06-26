@@ -37,12 +37,12 @@ module.exports = async function () {
     {
       label: "For Dogs",
       href: "/collections/dog",
-      image: "/assets/images/dog_hero.png"
+      image: "/assets/images/cartoon_dog_hero.png"
     },
     {
       label: "For Cats",
       href: "/collections/cat",
-      image: "/assets/images/cat_hero.png"
+      image: "/assets/images/cartoon_cat_hero.png"
     }
   ];
 
