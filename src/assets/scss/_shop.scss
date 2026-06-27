@@ -526,7 +526,7 @@
     text-align: center;
     font-size: $font-size-lg;
     font-weight: $font-weight-semibold;
-    color: #ffffff;
+    color: $hero-grid-navy;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     transition: all $transition-base;
     cursor: pointer;
@@ -558,19 +558,19 @@
     }
     
     &--pink {
-      background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
+      background: $strip-pink;
     }
     
     &--blue {
-      background: linear-gradient(135deg, #6CAAE1 0%, #4A90E2 100%);
+      background: $strip-blue;
     }
     
     &--yellow {
-      background: linear-gradient(135deg, #FBD786 0%, #F7971E 100%);
+      background: $strip-yellow;
     }
     
     &--green {
-      background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+      background: $strip-green;
     }
   }
   
@@ -1174,13 +1174,13 @@
   .shop-view__promo-title {
     font-size: $font-size-xl;
     font-weight: $font-weight-bold;
-    color: #ffffff;
+    color: $hero-grid-navy;
     margin: 0 0 $spacing-xs 0;
   }
   
   .shop-view__promo-text {
     font-size: $font-size-base;
-    color: rgba(255, 255, 255, 0.9);
+    color: rgba(38, 51, 95, 0.85);
     margin: 0;
   }
   

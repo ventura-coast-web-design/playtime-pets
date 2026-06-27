@@ -1992,6 +1992,7 @@
   color: #666666;
   line-height: 1.6;
 }
+
 .shop-item-show__extras {
   margin-top: 3rem;
   padding-top: 3rem;
@@ -2003,6 +2004,7 @@
     padding-top: 4rem;
   }
 }
+
 .shop-item-show__policy-list {
   display: grid;
   gap: 1.5rem;
@@ -2013,36 +2015,52 @@
     gap: 2rem;
   }
 }
+
 .shop-item-show__policy {
   margin: 0;
   padding: 1.5rem;
-  background-color: #ffffff;
   border-radius: 12px;
-  border: 1px solid rgba(38, 51, 95, 0.2);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+.shop-item-show__policy .shop-item-show__policy-title,
+.shop-item-show__policy .shop-item-show__policy-text {
+  color: #26335f;
+}
+.shop-item-show__policy .shop-item-show__policy-text a {
+  color: #26335f;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.shop-item-show__policy .shop-item-show__policy-text a:hover {
+  color: rgba(38, 51, 95, 0.75);
+}
+
 .shop-item-show__policy-title {
   margin: 0 0 0.5rem;
   font-size: 16px;
   font-weight: 700;
-  color: #26335f;
   line-height: 1.2;
 }
+
 .shop-item-show__policy-text {
   margin: 0;
   font-size: 14px;
-  color: #666666;
   line-height: 1.6;
 }
-.shop-item-show__policy-text a {
-  color: #6caae1;
-  font-weight: 500;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+
+.shop-item-show__policy:nth-child(1) {
+  background: linear-gradient(135deg, #ff9ebb 0%, #ff6b9d 100%);
 }
-.shop-item-show__policy-text a:hover {
-  color: #26335f;
+
+.shop-item-show__policy:nth-child(2) {
+  background: linear-gradient(135deg, #82c4ff 0%, #5eb0ff 100%);
 }
+
+.shop-item-show__policy:nth-child(3) {
+  background: #ffeb3b;
+}
+
 .shop-item-show__bundle-offer {
   margin: 2rem 0 0;
   padding: 1rem 1.5rem;
@@ -2050,9 +2068,9 @@
   font-weight: 600;
   color: #26335f;
   text-align: center;
-  background: rgba(108, 170, 225, 0.15);
-  border-radius: 8px;
-  border: 1px solid rgba(108, 170, 225, 0.35);
+  background: linear-gradient(135deg, #6ee7d8 0%, #4dd4c4 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .shop-item-show--accent-0 .shop-item-show__image-frame {
@@ -2200,17 +2218,17 @@
   text-align: center;
   font-size: 14px;
   font-weight: 600;
-  color: #ffffff;
+  color: #26335f;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 .cart-page__strip-block--pink {
-  background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
+  background: linear-gradient(135deg, #ff9ebb 0%, #ff6b9d 100%);
 }
 .cart-page__strip-block--blue {
-  background: linear-gradient(135deg, #6caae1 0%, #4a90e2 100%);
+  background: linear-gradient(135deg, #82c4ff 0%, #5eb0ff 100%);
 }
 .cart-page__strip-block--teal {
-  background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+  background: linear-gradient(135deg, #6ee7d8 0%, #4dd4c4 100%);
 }
 .cart-page__layout {
   display: grid;
@@ -2614,6 +2632,10 @@
 .cart-page__empty-cta:hover {
   background: linear-gradient(135deg, #1a2447 0%, #4a90e2 100%);
 }
+.cart-page .is-hidden {
+  display: none !important;
+}
+
 .cart-page__extras {
   margin-top: 3rem;
   padding-top: 3rem;
@@ -2625,6 +2647,7 @@
     padding-top: 4rem;
   }
 }
+
 .cart-page__policy-list {
   display: grid;
   gap: 1.5rem;
@@ -2635,36 +2658,52 @@
     gap: 2rem;
   }
 }
+
 .cart-page__policy {
   margin: 0;
   padding: 1.5rem;
-  background-color: #ffffff;
   border-radius: 12px;
-  border: 1px solid rgba(38, 51, 95, 0.2);
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+.cart-page__policy .cart-page__policy-title,
+.cart-page__policy .cart-page__policy-text {
+  color: #26335f;
+}
+.cart-page__policy .cart-page__policy-text a {
+  color: #26335f;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.cart-page__policy .cart-page__policy-text a:hover {
+  color: rgba(38, 51, 95, 0.75);
+}
+
 .cart-page__policy-title {
   margin: 0 0 0.5rem;
   font-size: 16px;
   font-weight: 700;
-  color: #26335f;
   line-height: 1.2;
 }
+
 .cart-page__policy-text {
   margin: 0;
   font-size: 14px;
-  color: #666666;
   line-height: 1.6;
 }
-.cart-page__policy-text a {
-  color: #6caae1;
-  font-weight: 500;
-  text-decoration: underline;
-  text-underline-offset: 2px;
+
+.cart-page__policy:nth-child(1) {
+  background: linear-gradient(135deg, #ff9ebb 0%, #ff6b9d 100%);
 }
-.cart-page__policy-text a:hover {
-  color: #26335f;
+
+.cart-page__policy:nth-child(2) {
+  background: linear-gradient(135deg, #82c4ff 0%, #5eb0ff 100%);
 }
+
+.cart-page__policy:nth-child(3) {
+  background: #ffeb3b;
+}
+
 .cart-page__bundle-offer {
   margin: 2rem 0 0;
   padding: 1rem 1.5rem;
@@ -2672,12 +2711,9 @@
   font-weight: 600;
   color: #26335f;
   text-align: center;
-  background: rgba(108, 170, 225, 0.15);
-  border-radius: 8px;
-  border: 1px solid rgba(108, 170, 225, 0.35);
-}
-.cart-page .is-hidden {
-  display: none !important;
+  background: linear-gradient(135deg, #6ee7d8 0%, #4dd4c4 100%);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .shop-page {
@@ -3184,7 +3220,7 @@
   text-align: center;
   font-size: 18px;
   font-weight: 600;
-  color: #ffffff;
+  color: #26335f;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   transition: all 0.3s ease;
   cursor: pointer;
@@ -3214,16 +3250,16 @@
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 .shop-view .shop-view__category-block--pink {
-  background: linear-gradient(135deg, #FF6B9D 0%, #C44569 100%);
+  background: linear-gradient(135deg, #ff9ebb 0%, #ff6b9d 100%);
 }
 .shop-view .shop-view__category-block--blue {
-  background: linear-gradient(135deg, #6CAAE1 0%, #4A90E2 100%);
+  background: linear-gradient(135deg, #82c4ff 0%, #5eb0ff 100%);
 }
 .shop-view .shop-view__category-block--yellow {
-  background: linear-gradient(135deg, #FBD786 0%, #F7971E 100%);
+  background: #ffeb3b;
 }
 .shop-view .shop-view__category-block--green {
-  background: linear-gradient(135deg, #4ECDC4 0%, #44A08D 100%);
+  background: linear-gradient(135deg, #6ee7d8 0%, #4dd4c4 100%);
 }
 @media (min-width: 992px) {
   .shop-view .shop-view__grid-wrapper {
@@ -3794,12 +3830,12 @@
 .shop-view .shop-view__promo-title {
   font-size: 20px;
   font-weight: 700;
-  color: #ffffff;
+  color: #26335f;
   margin: 0 0 0.25rem 0;
 }
 .shop-view .shop-view__promo-text {
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.9);
+  color: rgba(38, 51, 95, 0.85);
   margin: 0;
 }
 .shop-view .shop-view__shop-all {

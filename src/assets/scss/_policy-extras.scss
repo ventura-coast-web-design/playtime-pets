@@ -1,0 +1,85 @@
+// Shared policy / offer strip — matches shop category-block colors
+@use 'mixins' as *;
+
+@mixin policy-extras($block) {
+  .#{$block}__extras {
+    margin-top: $spacing-xxl;
+    padding-top: $spacing-xxl;
+    border-top: 1px solid rgba(38, 51, 95, 0.2);
+
+    @include respond-to(md) {
+      margin-top: $spacing-xxxl;
+      padding-top: $spacing-xxxl;
+    }
+  }
+
+  .#{$block}__policy-list {
+    display: grid;
+    gap: $spacing-lg;
+
+    @include respond-to(md) {
+      grid-template-columns: repeat(3, 1fr);
+      gap: $spacing-xl;
+    }
+  }
+
+  .#{$block}__policy {
+    margin: 0;
+    padding: $spacing-lg;
+    border-radius: $border-radius-lg;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    .#{$block}__policy-title,
+    .#{$block}__policy-text {
+      color: $hero-grid-navy;
+    }
+
+    .#{$block}__policy-text a {
+      color: $hero-grid-navy;
+      font-weight: $font-weight-semibold;
+      text-decoration: underline;
+      text-underline-offset: 2px;
+
+      &:hover {
+        color: rgba(38, 51, 95, 0.75);
+      }
+    }
+  }
+
+  .#{$block}__policy-title {
+    margin: 0 0 $spacing-sm;
+    font-size: $font-size-base;
+    font-weight: $font-weight-bold;
+    line-height: $line-height-heading;
+  }
+
+  .#{$block}__policy-text {
+    margin: 0;
+    font-size: $font-size-sm;
+    line-height: $line-height-base;
+  }
+
+  .#{$block}__policy:nth-child(1) {
+    background: $strip-pink;
+  }
+
+  .#{$block}__policy:nth-child(2) {
+    background: $strip-blue;
+  }
+
+  .#{$block}__policy:nth-child(3) {
+    background: $strip-yellow;
+  }
+
+  .#{$block}__bundle-offer {
+    margin: $spacing-xl 0 0;
+    padding: $spacing-md $spacing-lg;
+    font-size: $font-size-base;
+    font-weight: $font-weight-semibold;
+    color: $hero-grid-navy;
+    text-align: center;
+    background: $strip-green;
+    border-radius: $border-radius-lg;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  }
+}
