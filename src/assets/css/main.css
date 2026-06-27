@@ -605,7 +605,7 @@
   overflow: hidden;
   min-height: 280px;
   max-height: min(70vh, 26rem);
-  background: linear-gradient(135deg, #fff59d 0%, #ffeb3b 100%);
+  background: #ffeb3b;
   box-shadow: 0 8px 28px rgba(38, 51, 95, 0.12);
 }
 @media (min-width: 768px) {
@@ -818,7 +818,7 @@
   color: #fff3b0;
 }
 .hero-grid__promo:nth-child(2) {
-  background: linear-gradient(135deg, #fff59d 0%, #ffeb3b 100%);
+  background: #ffeb3b;
   border-color: rgba(38, 51, 95, 0.12);
 }
 .hero-grid__promo:nth-child(2) .hero-grid__promo-brand,
