@@ -4,65 +4,30 @@
 @use 'sass:color';
 
 .hero-grid {
-  padding: $spacing-md 0 $spacing-lg;
-
-  @media (max-width: ($breakpoint-md - 0.02px)) {
-    // Let the hero card go edge-to-edge on small screens (image reads full-width)
-    padding-left: 0;
-    padding-right: 0;
-  }
-
-  @include respond-to(md) {
-    padding: $spacing-lg 0 $spacing-xl;
-  }
+  padding: 0;
 
   &__container {
     @include container;
-
-    @media (max-width: ($breakpoint-md - 0.02px)) {
-      max-width: none;
-      padding-left: 0;
-      padding-right: 0;
-    }
   }
 
-  &__layout {
-    display: grid;
-    gap: $spacing-md;
-    align-items: stretch;
-
-    @include respond-to(lg) {
-      grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr) minmax(200px, 0.72fr);
-      gap: $spacing-md;
-    }
-  }
-
-  // —— Main banner (left)
+  // —— Full-width hero banner
   &__main {
     position: relative;
     display: flex;
     flex-direction: column;
     text-decoration: none;
     color: inherit;
-    border-radius: $border-radius-lg;
+    width: 100%;
     overflow: hidden;
-    min-height: 280px;
-    // Card height is layout-driven, not image-intrinsic (large PNGs must not stretch this)
-    max-height: min(70vh, 26rem);
-    background: $vibrant-yellow;
-    box-shadow: 0 8px 28px rgba(38, 51, 95, 0.12);
+    min-height: clamp(16rem, 52vw, 20rem);
+    background: #fff;
 
     @include respond-to(md) {
-      // Definite height so the inner grid’s 1fr row fills the card (no orange strip under the image)
-      min-height: 300px;
-      height: min(28rem, 65vh);
-      max-height: min(65vh, 28rem);
+      min-height: clamp(18rem, 38vw, 24rem);
     }
 
     @include respond-to(lg) {
-      min-height: 380px;
-      height: min(32rem, 55vh);
-      max-height: min(32rem, 55vh);
+      min-height: clamp(20rem, 32vw, 26rem);
     }
 
     &:hover .hero-grid__main-cta {
@@ -72,66 +37,226 @@
 
     &:focus-visible {
       outline: 3px solid #6caae1;
-      outline-offset: 3px;
+      outline-offset: -3px;
+    }
+  }
+
+  &__main-pathway {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 58%;
+    z-index: 0;
+    pointer-events: none;
+
+    @include respond-to(md) {
+      height: 55%;
+    }
+  }
+
+  &__pathway-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__main-deco {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  // Brand-color bubbles (logo palette — subtle, not crowded)
+  &__bubble {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.55;
+
+    &--1 {
+      width: clamp(2rem, 6vw, 3.5rem);
+      height: clamp(2rem, 6vw, 3.5rem);
+      top: 10%;
+      left: 5%;
+      background: #6caae1;
+    }
+
+    &--2 {
+      width: clamp(1rem, 3vw, 1.5rem);
+      height: clamp(1rem, 3vw, 1.5rem);
+      top: 28%;
+      right: 12%;
+      background: #ffeb3b;
+      opacity: 0.7;
+    }
+
+    &--3 {
+      width: clamp(1.25rem, 3.5vw, 2rem);
+      height: clamp(1.25rem, 3.5vw, 2rem);
+      top: 6%;
+      right: 4%;
+      background: #ff6b9d;
+    }
+
+    &--4 {
+      width: clamp(0.85rem, 2.5vw, 1.25rem);
+      height: clamp(0.85rem, 2.5vw, 1.25rem);
+      top: 42%;
+      left: 18%;
+      background: #ff922b;
+      opacity: 0.65;
+    }
+
+    &--5 {
+      width: clamp(1.25rem, 3.5vw, 2rem);
+      height: clamp(1.25rem, 3.5vw, 2rem);
+      top: 20%;
+      left: 38%;
+      background: #4dd4c4;
+      opacity: 0.5;
+    }
+
+    &--6 {
+      width: clamp(0.65rem, 2vw, 1rem);
+      height: clamp(0.65rem, 2vw, 1rem);
+      top: 48%;
+      right: 22%;
+      background: #26335f;
+      opacity: 0.35;
+    }
+  }
+
+  &__confetti {
+    position: absolute;
+    width: 0.45rem;
+    height: 1.1rem;
+    border-radius: 1px;
+    opacity: 0.75;
+
+    &--1 {
+      top: 22%;
+      left: 24%;
+      background: #ff922b;
+      transform: rotate(24deg);
+    }
+
+    &--2 {
+      top: 16%;
+      right: 26%;
+      background: #ff6b9d;
+      transform: rotate(-18deg);
+    }
+
+    &--3 {
+      top: 36%;
+      right: 8%;
+      background: #ffeb3b;
+      transform: rotate(42deg);
+    }
+
+    &--4 {
+      top: 32%;
+      left: 10%;
+      background: #6caae1;
+      transform: rotate(-32deg);
     }
   }
 
   &__main-inner {
+    @include container;
     position: relative;
-    z-index: 1;
+    z-index: 2;
     flex: 1 1 auto;
-    min-height: 0;
+    width: 100%;
+    min-height: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    // Cap image row on small screens so huge assets don’t dictate page height
-    grid-template-rows: auto minmax(10rem, min(40vw, 14rem));
+    grid-template-rows: auto 1fr;
     gap: $spacing-md;
-    padding: $spacing-xl $spacing-lg;
-    min-height: 0;
+    padding-top: $spacing-lg;
+    padding-bottom: 0;
+    align-content: space-between;
     align-items: stretch;
 
-    @media (max-width: ($breakpoint-md - 0.02px)) {
-      padding-left: 0;
-      padding-right: 0;
+    @include respond-to(md) {
+      grid-template-columns: minmax(5rem, 0.5fr) minmax(0, 1.15fr) minmax(9rem, 1fr) minmax(5rem, 0.5fr);
+      grid-template-rows: 1fr;
+      gap: $spacing-md;
+      padding-top: $spacing-lg;
       padding-bottom: 0;
-      // Copy on top; bottom row = full-width banner strip (no side padding)
-      grid-template-rows: auto clamp(11rem, 38vw, 16rem);
+      align-content: stretch;
+      align-items: end;
     }
 
+    @include respond-to(lg) {
+      grid-template-columns: minmax(6rem, 0.55fr) minmax(0, 1fr) minmax(11rem, 1.05fr) minmax(6rem, 0.55fr);
+      gap: $spacing-lg;
+    }
+  }
+
+  &__main-pet {
+    display: block;
+    pointer-events: none;
+    position: absolute;
+    bottom: 0;
+    width: auto;
+    max-height: clamp(5rem, 22vw, 7.5rem);
+    height: auto;
+    object-fit: contain;
+    object-position: center bottom;
+    filter: drop-shadow(0 4px 12px rgba(38, 51, 95, 0.15));
+    z-index: 4;
+
     @include respond-to(md) {
-      grid-template-columns: minmax(0, 1fr) minmax(9rem, 42%);
-      // One row fills the flex area so the image column matches full card height
-      grid-template-rows: minmax(0, 1fr);
-      gap: 0;
-      padding: 0;
-      align-items: stretch;
-      align-content: stretch;
-      flex: 1 1 auto;
-      min-height: 100%;
-      height: 100%;
-      max-height: inherit;
+      position: static;
+      align-self: end;
+      max-height: clamp(8rem, 36vw, 13rem);
+    }
+
+    @include respond-to(lg) {
+      max-height: clamp(9rem, 32vw, 15rem);
+    }
+
+    &--dog {
+      left: $spacing-sm;
+
+      @include respond-to(md) {
+        left: auto;
+        justify-self: start;
+      }
+    }
+
+    &--cat {
+      right: $spacing-sm;
+
+      @include respond-to(md) {
+        right: auto;
+        justify-self: end;
+      }
     }
   }
 
   &__main-copy {
     text-align: center;
-
-    @media (max-width: ($breakpoint-md - 0.02px)) {
-      padding-left: $spacing-lg;
-      padding-right: $spacing-lg;
-    }
+    align-self: start;
+    position: relative;
+    z-index: 3;
+    padding: 0 $spacing-sm;
 
     @include respond-to(md) {
-      padding: $spacing-xl $spacing-xl;
+      text-align: left;
+      padding: $spacing-md 0;
       align-self: center;
     }
   }
 
   &__main-title {
     font-family: 'Fredoka', $font-family-primary;
-    font-size: clamp(1.5rem, 4.5vw, 2.35rem);
+    font-size: clamp(1.75rem, 5vw, 3rem);
     font-weight: 700;
-    line-height: 1.12;
+    line-height: 1.1;
     color: $hero-grid-navy;
     margin: 0 0 $spacing-sm;
     letter-spacing: 0.02em;
@@ -139,15 +264,17 @@
   }
 
   &__main-lede {
-    margin: 0 auto $spacing-lg;
+    margin: 0 auto $spacing-md;
     font-size: $font-size-sm;
-    line-height: 1.5;
+    line-height: 1.45;
     color: color.adjust($hero-grid-navy, $lightness: -5%);
-    max-width: 22rem;
+    max-width: 26rem;
     text-align: center;
 
     @include respond-to(md) {
+      margin: 0 0 $spacing-md;
       font-size: $font-size-base;
+      text-align: left;
     }
   }
 
@@ -167,65 +294,75 @@
 
   &__main-visual {
     position: relative;
-    min-height: 0;
-    overflow: hidden;
-
-    @media (max-width: ($breakpoint-md - 0.02px)) {
-      // Size container for cqw/cqh so rotated image scales to true full-width banner
-      container-type: size;
-      align-self: stretch;
-      width: 100%;
-      min-height: 0;
-      border-radius: 0 0 $border-radius-lg $border-radius-lg;
-    }
+    align-self: end;
+    justify-self: center;
+    width: 100%;
+    max-width: 18rem;
+    min-height: clamp(9rem, 34vw, 13rem);
+    z-index: 3;
 
     @include respond-to(md) {
-      align-self: stretch;
-      min-height: 100%;
-      border-radius: 0;
+      max-width: none;
+      width: 100%;
+      min-height: clamp(11rem, 28vw, 16rem);
     }
 
     img {
       display: block;
-      position: absolute;
-      inset: 0;
-      width: 100%;
+      width: auto;
       height: 100%;
-      margin: 0;
-      object-fit: cover;
-      object-position: 88% 85%;
-
-      @media (max-width: ($breakpoint-md - 0.02px)) {
-        // Portrait asset → -90° for a left-to-right banner. Swap w/h with cqh/cqw so the
-        // rotated box matches the strip exactly — no scale() (avoids ratio bugs / overflow).
-        inset: auto;
-        left: 50%;
-        top: 50%;
-        width: 100cqh;
-        height: 100cqw;
-        max-width: none;
-        transform: translate(-50%, -50%) rotate(-90deg);
-        transform-origin: center center;
-        object-fit: cover;
-        object-position: 88% 85%;
-      }
+      max-height: clamp(9rem, 34vw, 13rem);
+      margin: 0 auto;
+      object-fit: contain;
+      object-position: center bottom;
+      filter: drop-shadow(0 6px 16px rgba(38, 51, 95, 0.12));
 
       @include respond-to(md) {
-        transform: none;
-        object-position: 82% 100%;
+        position: absolute;
+        inset: auto 0 0;
+        width: auto;
+        height: 100%;
+        max-height: clamp(11rem, 28vw, 18rem);
+        margin: 0 auto;
+        left: 50%;
+        transform: translateX(-50%);
+        object-position: center bottom;
+      }
+
+      @include respond-to(lg) {
+        max-height: clamp(13rem, 26vw, 20rem);
       }
     }
   }
 
-  // —— 2×2 promo tiles (center)
+  // —— Featured items (below hero)
+  &__featured {
+    padding: $spacing-xl 0 $spacing-xxl;
+    background: $color-background;
+  }
+
+  &__featured-title {
+    font-family: 'Fredoka', $font-family-primary;
+    font-size: $font-size-h4;
+    font-weight: $font-weight-bold;
+    color: $hero-grid-navy;
+    margin: 0 0 $spacing-lg;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
   &__promos {
     list-style: none;
     margin: 0;
     padding: 0;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: $spacing-sm;
-    min-height: 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-md;
+
+    @include respond-to(lg) {
+      grid-template-columns: repeat(4, 1fr);
+      gap: $spacing-md;
+    }
   }
 
   &__promo {
@@ -427,104 +564,6 @@
     i {
       color: #ffba08;
       font-size: 0.75rem;
-    }
-  }
-
-  // —— Category stack (right)
-  &__categories {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: $spacing-sm;
-
-    @include respond-to(lg) {
-      grid-template-columns: 1fr;
-    }
-  }
-
-  &__category {
-    display: flex;
-    flex-direction: row;
-    align-items: stretch;
-    justify-content: space-between;
-    gap: $spacing-sm;
-    text-decoration: none;
-    color: inherit;
-    background: $hero-grid-mint;
-    border-radius: $border-radius-md;
-    padding: 0 $spacing-sm;
-    min-height: 3.25rem;
-
-    @include respond-to(md) {
-      min-height: 3.75rem;
-    }
-    border: 1px solid rgba(78, 205, 196, 0.25);
-    box-shadow: 0 2px 10px rgba(27, 67, 50, 0.06);
-    transition: transform $transition-fast, box-shadow $transition-fast;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(27, 67, 50, 0.1);
-    }
-
-    &:focus-visible {
-      outline: 2px solid #6caae1;
-      outline-offset: 2px;
-    }
-  }
-
-  &__category-label {
-    align-self: center;
-    flex-shrink: 0;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    font-size: $font-size-lg;
-    font-weight: 800;
-    color: $hero-grid-green;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    line-height: 1;
-
-    @include respond-to(md) {
-      font-size: $font-size-xl;
-    }
-
-    @include respond-to(lg) {
-      font-size: $font-size-xxl;
-    }
-  }
-
-  &__category-img-wrap {
-    position: relative;
-    align-self: stretch;
-    flex: 1 1 50%;
-    min-width: 4.75rem;
-    max-width: 11rem;
-    min-height: 0;
-    display: flex;
-    align-items: stretch;
-    justify-content: flex-end;
-    overflow: hidden;
-    background: transparent;
-
-    @include respond-to(md) {
-      max-width: 12.5rem;
-    }
-
-    @include respond-to(lg) {
-      max-width: 13rem;
-    }
-
-    img {
-      display: block;
-      height: 100%;
-      width: auto;
-      max-width: 100%;
-      margin: 0;
-      object-fit: contain;
-      object-position: center bottom;
     }
   }
 }

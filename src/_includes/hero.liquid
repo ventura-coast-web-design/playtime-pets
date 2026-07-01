@@ -1,27 +1,52 @@
 <section class="hero-grid" aria-label="Featured promotions">
-  <div class="hero-grid__container">
-    <div class="hero-grid__layout">
-      <a href="/shop/" class="hero-grid__main">
-        <div class="hero-grid__main-bg" aria-hidden="true"></div>
-        <div class="hero-grid__main-inner">
-          <div class="hero-grid__main-copy">
-            <h1 class="hero-grid__main-title">Opening Soon!</h1>
-            <p class="hero-grid__main-lede">We're coming soon. Straight from our store to your door.</p>
-            <span class="hero-grid__main-cta">Shop now</span>
-          </div>
-          <div class="hero-grid__main-visual">
-              <img
-                src="/assets/images/paw-reach.png"
-                alt=""
-                width="480"
-                height="480"
-                loading="eager"
-                decoding="async"
-              />
-          </div>
-        </div>
-      </a>
+  <a href="/shop/" class="hero-grid__main">
+    <div class="hero-grid__main-deco" aria-hidden="true">
+      <span class="hero-grid__bubble hero-grid__bubble--1"></span>
+      <span class="hero-grid__bubble hero-grid__bubble--2"></span>
+      <span class="hero-grid__bubble hero-grid__bubble--3"></span>
+      <span class="hero-grid__bubble hero-grid__bubble--4"></span>
+      <span class="hero-grid__bubble hero-grid__bubble--5"></span>
+      <span class="hero-grid__bubble hero-grid__bubble--6"></span>
+      <span class="hero-grid__confetti hero-grid__confetti--1"></span>
+      <span class="hero-grid__confetti hero-grid__confetti--2"></span>
+      <span class="hero-grid__confetti hero-grid__confetti--3"></span>
+      <span class="hero-grid__confetti hero-grid__confetti--4"></span>
+    </div>
+    <div class="hero-grid__main-pathway" aria-hidden="true">
+      <svg class="hero-grid__pathway-svg" viewBox="0 0 1440 200" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="hero-pathway-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#82c4ff"/>
+            <stop offset="100%" stop-color="#5eb0ff"/>
+          </linearGradient>
+        </defs>
+        <path d="M0,72 C280,148 520,28 760,88 C1000,148 1220,42 1440,78 L1440,200 L0,200 Z" fill="url(#hero-pathway-grad)"/>
+        <path d="M0,88 C280,152 520,48 760,100 C1000,152 1220,58 1440,92" fill="none" stroke="rgba(255,255,255,0.4)" stroke-width="5"/>
+        <path d="M0,108 C280,168 520,68 760,118 C1000,168 1220,78 1440,110" fill="none" stroke="rgba(255,255,255,0.22)" stroke-width="4"/>
+      </svg>
+    </div>
+    <div class="hero-grid__main-inner">
+      <div class="hero-grid__main-copy">
+        <h1 class="hero-grid__main-title">Opening Soon!</h1>
+        <p class="hero-grid__main-lede">We're coming soon. Straight from our store to your door.</p>
+        <span class="hero-grid__main-cta">Shop now</span>
+      </div>
+      </div>
+      <img
+        class="hero-grid__main-pet hero-grid__main-pet--cat"
+        src="/assets/images/playing-pets.png"
+        alt=""
+        width="200"
+        height="200"
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+  </a>
 
+  <div class="hero-grid__featured">
+    <div class="hero-grid__container">
+      <h2 class="hero-grid__featured-title">Featured items</h2>
       <div class="hero-grid__promos" role="list">
         {% for p in heroShowcase.promoSlots %}
           {% if p %}
@@ -60,22 +85,6 @@
               </span>
             </a>
           {% endif %}
-        {% endfor %}
-      </div>
-
-      <div class="hero-grid__categories" role="list">
-        {% for tile in heroShowcase.categoryTiles %}
-          <a role="listitem" href="{{ tile.href }}" class="hero-grid__category">
-            <span class="hero-grid__category-label">{{ tile.label }}</span>
-            <span class="hero-grid__category-img-wrap">
-              <img
-                src="{{ tile.image }}"
-                alt=""
-                loading="lazy"
-                decoding="async"
-              />
-            </span>
-          </a>
         {% endfor %}
       </div>
     </div>
