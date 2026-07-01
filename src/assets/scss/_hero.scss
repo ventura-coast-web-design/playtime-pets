@@ -19,15 +19,15 @@
     color: inherit;
     width: 100%;
     overflow: hidden;
-    min-height: clamp(16rem, 52vw, 20rem);
+    min-height: clamp(18rem, 55vw, 22rem);
     background: #fff;
 
     @include respond-to(md) {
-      min-height: clamp(18rem, 38vw, 24rem);
+      min-height: clamp(20rem, 42vw, 28rem);
     }
 
     @include respond-to(lg) {
-      min-height: clamp(20rem, 32vw, 26rem);
+      min-height: clamp(22rem, 36vw, 30rem);
     }
 
     &:hover .hero-grid__main-cta {
@@ -181,60 +181,13 @@
     align-items: stretch;
 
     @include respond-to(md) {
-      grid-template-columns: minmax(5rem, 0.5fr) minmax(0, 1.15fr) minmax(9rem, 1fr) minmax(5rem, 0.5fr);
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
       grid-template-rows: 1fr;
-      gap: $spacing-md;
+      gap: $spacing-xl;
       padding-top: $spacing-lg;
       padding-bottom: 0;
       align-content: stretch;
-      align-items: end;
-    }
-
-    @include respond-to(lg) {
-      grid-template-columns: minmax(6rem, 0.55fr) minmax(0, 1fr) minmax(11rem, 1.05fr) minmax(6rem, 0.55fr);
-      gap: $spacing-lg;
-    }
-  }
-
-  &__main-pet {
-    display: block;
-    pointer-events: none;
-    position: absolute;
-    bottom: 0;
-    width: auto;
-    max-height: clamp(5rem, 22vw, 7.5rem);
-    height: auto;
-    object-fit: contain;
-    object-position: center bottom;
-    filter: drop-shadow(0 4px 12px rgba(38, 51, 95, 0.15));
-    z-index: 4;
-
-    @include respond-to(md) {
-      position: static;
-      align-self: end;
-      max-height: clamp(8rem, 36vw, 13rem);
-    }
-
-    @include respond-to(lg) {
-      max-height: clamp(9rem, 32vw, 15rem);
-    }
-
-    &--dog {
-      left: $spacing-sm;
-
-      @include respond-to(md) {
-        left: auto;
-        justify-self: start;
-      }
-    }
-
-    &--cat {
-      right: $spacing-sm;
-
-      @include respond-to(md) {
-        right: auto;
-        justify-self: end;
-      }
+      align-items: center;
     }
   }
 
@@ -294,43 +247,44 @@
 
   &__main-visual {
     position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     align-self: end;
-    justify-self: center;
     width: 100%;
-    max-width: 18rem;
-    min-height: clamp(9rem, 34vw, 13rem);
+    min-height: clamp(11rem, 40vw, 16rem);
     z-index: 3;
 
     @include respond-to(md) {
-      max-width: none;
-      width: 100%;
-      min-height: clamp(11rem, 28vw, 16rem);
+      align-self: center;
+      justify-self: center;
+      min-height: clamp(14rem, 32vw, 22rem);
+      padding-right: $spacing-md;
+    }
+
+    @include respond-to(lg) {
+      min-height: clamp(16rem, 28vw, 26rem);
     }
 
     img {
       display: block;
       width: auto;
-      height: 100%;
-      max-height: clamp(9rem, 34vw, 13rem);
+      height: auto;
+      max-width: min(100%, 22rem);
+      max-height: clamp(11rem, 40vw, 16rem);
       margin: 0 auto;
       object-fit: contain;
-      object-position: center bottom;
+      object-position: center center;
       filter: drop-shadow(0 6px 16px rgba(38, 51, 95, 0.12));
 
       @include respond-to(md) {
-        position: absolute;
-        inset: auto 0 0;
-        width: auto;
-        height: 100%;
-        max-height: clamp(11rem, 28vw, 18rem);
-        margin: 0 auto;
-        left: 50%;
-        transform: translateX(-50%);
-        object-position: center bottom;
+        max-width: 100%;
+        max-height: clamp(14rem, 32vw, 22rem);
+        margin: 0;
       }
 
       @include respond-to(lg) {
-        max-height: clamp(13rem, 26vw, 20rem);
+        max-height: clamp(16rem, 28vw, 26rem);
       }
     }
   }
