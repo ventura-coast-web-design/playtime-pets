@@ -126,6 +126,24 @@
       background: #26335f;
       opacity: 0.35;
     }
+
+    &--7 {
+      width: clamp(1.1rem, 3vw, 1.65rem);
+      height: clamp(1.1rem, 3vw, 1.65rem);
+      top: 14%;
+      left: 52%;
+      background: #ff6b9d;
+      opacity: 0.5;
+    }
+
+    &--8 {
+      width: clamp(0.9rem, 2.8vw, 1.35rem);
+      height: clamp(0.9rem, 2.8vw, 1.35rem);
+      top: 52%;
+      left: 6%;
+      background: #ffeb3b;
+      opacity: 0.6;
+    }
   }
 
   &__confetti {
@@ -161,6 +179,13 @@
       left: 10%;
       background: #6caae1;
       transform: rotate(-32deg);
+    }
+
+    &--5 {
+      top: 8%;
+      left: 32%;
+      background: #4dd4c4;
+      transform: rotate(15deg);
     }
   }
 
