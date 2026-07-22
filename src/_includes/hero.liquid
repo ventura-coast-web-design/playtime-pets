@@ -89,6 +89,16 @@
           </div>
         {% endfor %}
       </div>
+
+      <nav class="hero-grid__collection-bars" aria-label="Shop by collection">
+        <ul class="hero-grid__collection-bars-list">
+          {% for bar in heroShowcase.collectionBars %}
+            <li>
+              <a href="{{ bar.href }}" class="hero-grid__collection-bar">{{ bar.label }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </nav>
     </div>
   </div>
 </section>

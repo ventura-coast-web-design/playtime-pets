@@ -51,6 +51,9 @@ title: Cart
           <span>Estimated total</span>
           <span id="cart-total">$0.00</span>
         </div>
+        <p class="cart-page__disclaimer">
+          Playtime Pets is not responsible for how your pet uses its toy or the longevity of the toy. Supervision is recommended for all toys and is the sole responsibility of you as the pet parent.
+        </p>
         <button type="button" class="cart-page__checkout" id="cart-checkout-btn">Checkout</button>
         <a href="/shop/" class="cart-page__continue">Continue shopping</a>
         <p class="cart-page__trust">
@@ -61,22 +64,7 @@ title: Cart
     </div>
 
     <section class="cart-page__extras" aria-label="Policies and offers">
-      <div class="cart-page__policy-list">
-        <article class="cart-page__policy">
-          <h2 class="cart-page__policy-title">California Prop 65</h2>
-          <p class="cart-page__policy-text"><strong>WARNING:</strong> This product can expose you to chemicals known to the State of California to cause cancer and birth defects or other reproductive harm. For more information go to <a href="https://www.P65Warnings.ca.gov" target="_blank" rel="noopener noreferrer">www.P65Warnings.ca.gov</a>.</p>
-        </article>
-
-        <article class="cart-page__policy">
-          <h2 class="cart-page__policy-title">Return Policy</h2>
-          <p class="cart-page__policy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>
-        </article>
-
-        <article class="cart-page__policy">
-          <h2 class="cart-page__policy-title">Shipping Policy</h2>
-          <p class="cart-page__policy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-        </article>
-      </div>
+      {% include "policy-list.liquid", block: "cart-page" %}
 
       <p class="cart-page__bundle-offer">10% off when you buy 3 toys or more.</p>
     </section>

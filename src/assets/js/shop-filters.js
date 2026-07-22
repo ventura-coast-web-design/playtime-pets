@@ -843,6 +843,52 @@
     });
   }
 
+  function selectMatchingOptions(selectName, values) {
+    if (!values.length) return;
+    var el = document.querySelector('select[name="' + selectName + '"]');
+    if (!el) return;
+    var wanted = values.map(function (v) {
+      return String(v).trim().toLowerCase();
+    });
+    Array.from(el.options).forEach(function (opt) {
+      if (wanted.indexOf(String(opt.value).trim().toLowerCase()) !== -1) {
+        opt.selected = true;
+      }
+    });
+  }
+
+  function applyUrlFilterParams() {
+    var params = new URLSearchParams(window.location.search);
+    var animals = [];
+    var collections = [];
+
+    params.getAll('animal').forEach(function (raw) {
+      String(raw)
+        .split(',')
+        .map(function (s) {
+          return s.trim();
+        })
+        .filter(Boolean)
+        .forEach(function (v) {
+          animals.push(v);
+        });
+    });
+    params.getAll('collection').forEach(function (raw) {
+      String(raw)
+        .split(',')
+        .map(function (s) {
+          return s.trim();
+        })
+        .filter(Boolean)
+        .forEach(function (v) {
+          collections.push(v);
+        });
+    });
+
+    selectMatchingOptions('filter-animal', animals);
+    selectMatchingOptions('filter-collection', collections);
+  }
+
   function bindMobileFiltersDrawer() {
     var panel = document.querySelector('.shop-filters-panel');
     var toggle = document.getElementById('shop-filters-toggle');
@@ -909,6 +955,7 @@
     bindMobileFiltersDrawer();
     bindFilterSelectChanges();
     bindShopSearch();
+    applyUrlFilterParams();
 
     var applyBtn = document.getElementById('shop-filters-apply');
     var clearBtn = document.getElementById('shop-filters-clear');

@@ -57,6 +57,10 @@
     margin: 0;
     font-size: $font-size-sm;
     line-height: $line-height-base;
+
+    & + .#{$block}__policy-text {
+      margin-top: $spacing-sm;
+    }
   }
 
   .#{$block}__policy:nth-child(1) {

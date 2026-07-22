@@ -178,22 +178,7 @@ title: Shop
     </div>
 
     <section class="shop-item-show__extras" aria-label="Policies and offers">
-      <div class="shop-item-show__policy-list">
-        <article class="shop-item-show__policy">
-          <h2 class="shop-item-show__policy-title">California Prop 65</h2>
-          <p class="shop-item-show__policy-text"><strong>WARNING:</strong> This product can expose you to chemicals known to the State of California to cause cancer and birth defects or other reproductive harm. For more information go to <a href="https://www.P65Warnings.ca.gov" target="_blank" rel="noopener noreferrer">www.P65Warnings.ca.gov</a>.</p>
-        </article>
-
-        <article class="shop-item-show__policy">
-          <h2 class="shop-item-show__policy-title">Return Policy</h2>
-          <p class="shop-item-show__policy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Vestibulum tortor quam, feugiat vitae, ultricies eget, tempor sit amet, ante.</p>
-        </article>
-
-        <article class="shop-item-show__policy">
-          <h2 class="shop-item-show__policy-title">Shipping Policy</h2>
-          <p class="shop-item-show__policy-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu.</p>
-        </article>
-      </div>
+      {% include "policy-list.liquid", block: "shop-item-show" %}
 
       <p class="shop-item-show__bundle-offer">10% off when you buy 3 toys or more.</p>
     </section>
