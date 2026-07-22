@@ -57,8 +57,18 @@ module.exports = async function () {
     return Object.assign({}, section, { items: items });
   });
 
+  const collectionBars = [
+    { label: "Dog", href: "/shop/?animal=dog" },
+    { label: "Cat", href: "/shop/?animal=cat" },
+    { label: "Outdoor", href: "/shop/?collection=Outdoor" },
+    { label: "Solo Play", href: "/shop/?collection=Solo%20Play" },
+    { label: "Indoor", href: "/shop/?collection=Indoor" },
+    { label: "Interactive", href: "/shop/?collection=Interactive" }
+  ];
+
   return {
     main: withImage[0] || null,
-    featuredSections: featuredSections
+    featuredSections: featuredSections,
+    collectionBars: collectionBars
   };
 };

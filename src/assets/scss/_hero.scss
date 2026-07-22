@@ -483,79 +483,57 @@
     background: $hero-orange-dark;
     border-color: rgba(255, 255, 255, 0.2);
   }
-}
 
-// Shop by Category strip (below hero)
-.hero-categories {
-  background: $color-background;
-  margin-top: -$spacing-lg;
-  border-radius: $border-radius-xl $border-radius-xl 0 0;
-  padding: $spacing-xl $spacing-md $spacing-xxl;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
-  position: relative;
-  z-index: 2;
-
-  &__inner {
-    @include container;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+  // —— Collection bars (under showcase)
+  &__collection-bars {
+    margin-top: $spacing-xxl;
   }
 
-  &__title {
-    font-size: $font-size-h4;
-    font-weight: $font-weight-bold;
-    color: $color-text;
-    margin-bottom: $spacing-lg;
-    padding-left: $spacing-xs;
-  }
-
-  &__list {
+  &__collection-bars-list {
     list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: $spacing-md;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $spacing-lg $spacing-xl;
 
     @include respond-to(md) {
-      gap: $spacing-lg;
+      gap: $spacing-xl $spacing-xxl;
     }
   }
 
-  &__item {
+  &__collection-bar {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: $spacing-sm;
+    justify-content: center;
+    width: 100%;
+    min-height: 4rem;
+    padding: $spacing-md $spacing-xl;
+    border-radius: $border-radius-full;
+    background: $strip-blue;
+    color: $hero-grid-navy;
     text-decoration: none;
-    color: $color-text;
-    font-weight: $font-weight-medium;
-    font-size: $font-size-sm;
-    min-width: 72px;
-    padding: $spacing-sm;
-    border-radius: $border-radius-lg;
-    transition: background $transition-fast, color $transition-fast;
+    text-align: center;
+    font-family: 'Fredoka', $font-family-primary;
+    font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+    font-weight: $font-weight-semibold;
+    letter-spacing: 0.03em;
+    box-shadow: 0 3px 10px rgba(38, 51, 95, 0.12);
+    transition: transform $transition-fast, box-shadow $transition-fast;
+
+    @include respond-to(md) {
+      min-height: 4.75rem;
+      padding: $spacing-lg $spacing-xxl;
+    }
 
     &:hover {
-      background: $color-background-alt;
-      color: $hero-orange;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(38, 51, 95, 0.2);
     }
-  }
 
-  &__icon {
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background: #fff;
-    border: 2px solid $hero-orange;
-    @include flex-center;
-    font-size: 1.5rem;
-    flex-shrink: 0;
-    transition: transform $transition-fast, background $transition-fast;
-
-    .hero-categories__item:hover & {
-      background: $hero-yellow-light;
-      transform: scale(1.08);
+    &:focus-visible {
+      outline: 3px solid #6caae1;
+      outline-offset: 2px;
     }
   }
 }
