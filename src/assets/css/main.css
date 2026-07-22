@@ -2434,6 +2434,10 @@
   font-size: 16px;
   color: #333333;
 }
+.cart-page__summary-row--discount {
+  color: #2d8a5e;
+  font-weight: 500;
+}
 .cart-page__summary-row--emphasis {
   font-size: 20px;
   font-weight: 700;

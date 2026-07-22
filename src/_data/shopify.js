@@ -23,6 +23,9 @@ module.exports = function () {
     configured: Boolean(domain && token),
     domainParts: chunkString(domain, 4),
     storefrontTokenParts: chunkString(token, 4),
-    apiVersion: process.env.SHOPIFY_STOREFRONT_API_VERSION || "2024-10"
+    apiVersion: process.env.SHOPIFY_STOREFRONT_API_VERSION || "2024-10",
+    // Create this code in Shopify Admin (10% off, min 3 items) so checkout matches the cart UI.
+    bundleDiscountCode:
+      process.env.SHOPIFY_BUNDLE_DISCOUNT_CODE || "BUY3SAVE10"
   };
 };

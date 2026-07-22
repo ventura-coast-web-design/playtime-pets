@@ -355,6 +355,11 @@ $shop-pink: #ff6b9d;
     font-size: $font-size-base;
     color: $color-text;
 
+    &--discount {
+      color: #2d8a5e;
+      font-weight: $font-weight-medium;
+    }
+
     &--emphasis {
       font-size: $font-size-xl;
       font-weight: $font-weight-bold;
