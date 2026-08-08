@@ -487,6 +487,12 @@
   // —— Collection bars (under showcase)
   &__collection-bars {
     margin-top: $spacing-xxl;
+
+    @include respond-to(md) {
+      max-width: 28rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
   &__collection-bars-list {
@@ -498,7 +504,7 @@
     gap: $spacing-lg $spacing-xl;
 
     @include respond-to(md) {
-      gap: $spacing-xl $spacing-xxl;
+      gap: $spacing-md $spacing-lg;
     }
   }
 
@@ -515,15 +521,16 @@
     text-decoration: none;
     text-align: center;
     font-family: 'Fredoka', $font-family-primary;
-    font-size: clamp(1.25rem, 3.5vw, 1.75rem);
+    font-size: 1.25rem;
     font-weight: $font-weight-semibold;
     letter-spacing: 0.03em;
     box-shadow: 0 3px 10px rgba(38, 51, 95, 0.12);
     transition: transform $transition-fast, box-shadow $transition-fast;
 
     @include respond-to(md) {
-      min-height: 4.75rem;
-      padding: $spacing-lg $spacing-xxl;
+      min-height: 3.25rem;
+      padding: $spacing-sm $spacing-lg;
+      font-size: 1.375rem;
     }
 
     &:hover {
