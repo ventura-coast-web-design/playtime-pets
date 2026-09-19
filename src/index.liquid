@@ -7,12 +7,51 @@ home: true
 {% include "hero.liquid" %}
 
 <section class="home-page__story" aria-label="Our story">
+  <div class="home-page__story-deco" aria-hidden="true">
+    <span class="home-page__story-bubble home-page__story-bubble--1"></span>
+    <span class="home-page__story-bubble home-page__story-bubble--2"></span>
+    <span class="home-page__story-bubble home-page__story-bubble--3"></span>
+    <span class="home-page__story-bubble home-page__story-bubble--4"></span>
+  </div>
   <div class="home-page__container">
-    <h2 class="home-page__story-title">Our story</h2>
-    <div class="home-page__story-content">
-      <p>I started Playtime Pets with my wife after being on another big buying and selling platform—however I didn't feel like I was connecting with my customers like I wanted to. In the brick-and-mortar store I have a connection with all the customers, and I wanted that to be the experience people get when they shop online with us.</p>
-      <p>I felt I could make the online shopping experience as close as possible to being in the store with me. People have questions, they have concerns, and sometimes there is a problem. When any of these occur, people want someone to answer their questions or address any issues—not ignore them.</p>
-      <p>I will always acknowledge your purchase and ship out the next day when possible. We take pride in people having a great experience shopping with us.</p>
+    <div class="home-page__story-layout">
+      <div class="home-page__story-visual">
+        <div class="home-page__story-pets">
+          <img
+            class="home-page__story-pet home-page__story-pet--dog"
+            src="/assets/images/cartoon_dog_hero.png"
+            alt=""
+            width="400"
+            height="600"
+            loading="lazy"
+            decoding="async"
+          >
+          <img
+            class="home-page__story-pet home-page__story-pet--cat"
+            src="/assets/images/cartoon_cat_hero.png"
+            alt=""
+            width="400"
+            height="600"
+            loading="lazy"
+            decoding="async"
+          >
+        </div>
+        <p class="home-page__story-caption">From our store to your door</p>
+      </div>
+      <div class="home-page__story-copy">
+        <p class="home-page__story-eyebrow">
+          <i class="fa-solid fa-heart" aria-hidden="true"></i>
+          Family owned in Moorpark, CA
+        </p>
+        <h2 class="home-page__story-title">Our story</h2>
+        <div class="home-page__story-content">
+          <p>I started Playtime Pets with my wife after being on another big buying and selling platform—however I didn't feel like I was connecting with my customers like I wanted to. In the brick-and-mortar store I have a connection with all the customers, and I wanted that to be the experience people get when they shop online with us.</p>
+          <p>I felt I could make the online shopping experience as close as possible to being in the store with me. People have questions, they have concerns, and sometimes there is a problem. When any of these occur, people want someone to answer their questions or address any issues—not ignore them.</p>
+        </div>
+        <blockquote class="home-page__story-promise">
+          <p>I will always acknowledge your purchase and ship out the next day when possible. We take pride in people having a great experience shopping with us.</p>
+        </blockquote>
+      </div>
     </div>
   </div>
 </section>
