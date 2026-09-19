@@ -437,18 +437,19 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  font-size: 2.5rem;
 }
 
 .site-header__cart-badge {
   position: absolute;
-  top: -0.35rem;
-  right: -0.5rem;
-  min-width: 1.125rem;
-  height: 1.125rem;
-  padding: 0 0.25rem;
-  font-size: 0.65rem;
+  top: -0.7rem;
+  right: -1rem;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  padding: 0 0.5rem;
+  font-size: 1.3rem;
   font-weight: 700;
-  line-height: 1.125rem;
+  line-height: 2.25rem;
   text-align: center;
   color: #ffffff;
   background: linear-gradient(135deg, #ff6b9d 0%, #c44569 100%);
