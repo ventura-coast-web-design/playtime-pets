@@ -1,61 +1,65 @@
 /**
- * Home hero: main spotlight + four tagged category sections (Fetch, Chew, Plush, Treat dispensing).
- * Products match Shopify tags hero-fetch, hero-chew, hero-plush, hero-treat-dispensing when present;
- * otherwise slots fill from the standard product list in order.
+ * Home hero: category collection cards (4 dog + 4 cat) + shop-by-collection bars.
  */
 module.exports = async function () {
-  const products = await require("./products.js")();
-  const withImage = (products || []).filter(function (p) {
-    return p && p.image;
-  });
-
-  const HERO_SECTIONS = [
-    { id: "fetch", title: "Fetch", tag: "hero-fetch" },
-    { id: "chew", title: "Chew", tag: "hero-chew" },
-    { id: "plush", title: "Plush", tag: "hero-plush" },
-    { id: "treat-dispensing", title: "Treat Dispensing", tag: "hero-treat-dispensing" }
+  const featuredCategories = [
+    {
+      id: "dog-fetch",
+      title: "Fetch",
+      image: "/assets/images/collection-images/dog-fetch.png",
+      href: "/shop/?animal=dog&collection=Fetch",
+      accent: "blue"
+    },
+    {
+      id: "dog-chew",
+      title: "Chew",
+      image: "/assets/images/collection-images/dog-chew.png",
+      href: "/shop/?animal=dog&collection=Chew",
+      accent: "yellow"
+    },
+    {
+      id: "dog-plush",
+      title: "Plush",
+      image: "/assets/images/collection-images/dog-plush.png",
+      href: "/shop/?animal=dog&collection=Plush",
+      accent: "pink"
+    },
+    {
+      id: "dog-run",
+      title: "Run",
+      image: "/assets/images/collection-images/dog-run.png",
+      href: "/shop/?animal=dog&collection=Run",
+      accent: "teal"
+    },
+    {
+      id: "cat-catch",
+      title: "Catch",
+      image: "/assets/images/collection-images/cat-catch.png",
+      href: "/shop/?animal=cat&collection=Catch",
+      accent: "orange"
+    },
+    {
+      id: "cat-chew",
+      title: "Chew",
+      image: "/assets/images/collection-images/cat-chew.png",
+      href: "/shop/?animal=cat&collection=Chew",
+      accent: "navy"
+    },
+    {
+      id: "cat-scratch",
+      title: "Scratch",
+      image: "/assets/images/collection-images/cat-scratch.png",
+      href: "/shop/?animal=cat&collection=Scratch",
+      accent: "blue"
+    },
+    {
+      id: "cat-tease",
+      title: "Tease",
+      image: "/assets/images/collection-images/cat-tease.png",
+      href: "/shop/?animal=cat&collection=Tease",
+      accent: "pink"
+    }
   ];
-
-  const ITEMS_PER_SECTION = 2;
-
-  function hasHeroTag(product, tag) {
-    return (product.tags || []).some(function (t) {
-      return String(t).trim().toLowerCase() === tag.toLowerCase();
-    });
-  }
-
-  function pickTagged(products, tag, used, limit) {
-    const picked = [];
-    for (const p of products) {
-      if (picked.length >= limit) break;
-      if (!hasHeroTag(p, tag) || used.has(p.handle)) continue;
-      picked.push(p);
-      used.add(p.handle);
-    }
-    return picked;
-  }
-
-  function pickFallback(products, used, limit) {
-    const picked = [];
-    for (const p of products) {
-      if (picked.length >= limit) break;
-      if (used.has(p.handle)) continue;
-      picked.push(p);
-      used.add(p.handle);
-    }
-    return picked;
-  }
-
-  const used = new Set();
-  const featuredSections = HERO_SECTIONS.map(function (section) {
-    let items = pickTagged(withImage, section.tag, used, ITEMS_PER_SECTION);
-    if (items.length < ITEMS_PER_SECTION) {
-      items = items.concat(
-        pickFallback(withImage, used, ITEMS_PER_SECTION - items.length)
-      );
-    }
-    return Object.assign({}, section, { items: items });
-  });
 
   const collectionBars = [
     { label: "Dog", href: "/shop/?animal=dog" },
@@ -67,8 +71,7 @@ module.exports = async function () {
   ];
 
   return {
-    main: withImage[0] || null,
-    featuredSections: featuredSections,
+    featuredCategories: featuredCategories,
     collectionBars: collectionBars
   };
 };

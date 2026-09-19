@@ -768,7 +768,7 @@ function logUnauthorizedHelp() {
   console.warn("");
 }
 
-/** Single fetch per build (also used by heroShowcase.js). */
+/** Single fetch per build (shared across shop data modules). */
 let productsLoadPromise = null;
 
 async function loadProductsInternal() {

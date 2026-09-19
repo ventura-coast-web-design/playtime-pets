@@ -1,4 +1,4 @@
-<section class="hero-grid" aria-label="Featured promotions">
+<section class="hero-grid" aria-label="Shop by category">
   <a href="/shop/" class="hero-grid__main">
     <div class="hero-grid__main-deco" aria-hidden="true">
       <span class="hero-grid__bubble hero-grid__bubble--1"></span>
@@ -49,46 +49,28 @@
 
   <div class="hero-grid__featured">
     <div class="hero-grid__container">
-      <div class="hero-grid__sections" role="list">
-        {% for section in heroShowcase.featuredSections %}
-          <div role="listitem" class="hero-grid__section hero-grid__section--{{ section.id }}">
-            <h2 class="hero-grid__section-title">{{ section.title }}</h2>
-            <ul class="hero-grid__section-items">
-              {% for p in section.items %}
-                <li>
-                  <a href="/shop/{{ p.handle }}/" class="hero-grid__section-product">
-                    <span class="hero-grid__section-product-img">
-                      <img src="{{ p.image }}" alt="" width="200" height="200" loading="lazy" decoding="async" />
-                      {% if p.comparePrice %}
-                        <span class="hero-grid__section-product-badge">Sale</span>
-                      {% endif %}
-                    </span>
-                    <span class="hero-grid__section-product-name">{{ p.title }}</span>
-                    <span class="hero-grid__section-product-price">
-                      {% if p.comparePrice %}
-                        <span class="hero-grid__section-product-was">Was ${{ p.comparePrice }}</span>
-                        <span class="hero-grid__section-product-now">${{ p.price }}</span>
-                      {% else %}
-                        <span class="hero-grid__section-product-now">${{ p.price }}</span>
-                      {% endif %}
-                    </span>
-                  </a>
-                </li>
-              {% else %}
-                <li>
-                  <a href="/shop/" class="hero-grid__section-product hero-grid__section-product--empty">
-                    <span class="hero-grid__section-product-img hero-grid__section-product-img--placeholder"></span>
-                    <span class="hero-grid__section-product-name">More coming soon</span>
-                    <span class="hero-grid__section-product-price">
-                      <span class="hero-grid__section-product-now">Browse shop</span>
-                    </span>
-                  </a>
-                </li>
-              {% endfor %}
-            </ul>
-          </div>
+      <ul class="hero-grid__categories" role="list">
+        {% for category in heroShowcase.featuredCategories %}
+          <li class="hero-grid__category">
+            <a
+              href="{{ category.href }}"
+              class="hero-grid__category-card hero-grid__category-card--{{ category.accent }}"
+            >
+              <span class="hero-grid__category-media">
+                <img
+                  src="{{ category.image }}"
+                  alt=""
+                  width="400"
+                  height="400"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
+              <span class="hero-grid__category-title">{{ category.title }}</span>
+            </a>
+          </li>
         {% endfor %}
-      </div>
+      </ul>
 
       <nav class="hero-grid__collection-bars" aria-label="Shop by collection">
         <ul class="hero-grid__collection-bars-list">
