@@ -27,35 +27,35 @@ module.exports = async function () {
     {
       id: "dog-puzzle",
       title: "Puzzle",
-      image: "/assets/images/collection-images/dog-puzzle.png",
+      image: "/assets/images/collection-images/dog-puzzle.webp",
       href: "/shop/?animal=dog&collection=Puzzle",
       accent: "teal"
     },
     {
       id: "cat-catnip",
       title: "Catnip",
-      image: "/assets/images/collection-images/cat-catnip.png",
+      image: "/assets/images/collection-images/cat-catnip.webp",
       href: "/shop/?animal=cat&collection=Catnip",
       accent: "orange"
     },
     {
       id: "cat-interactive",
       title: "Interactive",
-      image: "/assets/images/collection-images/cat-interactive.png",
+      image: "/assets/images/collection-images/cat-interactive.webp",
       href: "/shop/?animal=cat&collection=Interactive",
       accent: "navy"
     },
     {
       id: "cat-scratch",
       title: "Scratch",
-      image: "/assets/images/collection-images/cat-scratch.png",
+      image: "/assets/images/collection-images/cat-scratch.webp",
       href: "/shop/?animal=cat&collection=Scratch",
       accent: "blue"
     },
     {
       id: "cat-teaser",
       title: "Teaser",
-      image: "/assets/images/collection-images/cat-tease.png",
+      image: "/assets/images/collection-images/cat-tease.webp",
       href: "/shop/?animal=cat&collection=Teaser",
       accent: "pink"
     }
