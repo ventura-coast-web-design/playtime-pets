@@ -6,21 +6,21 @@ module.exports = async function () {
     {
       id: "dog-fetch",
       title: "Fetch",
-      image: "/assets/images/collection-images/dog-fetch.png",
+      image: "/assets/images/collection-images/dog-fetch.webp",
       href: "/shop/?animal=dog&collection=Fetch",
       accent: "blue"
     },
     {
       id: "dog-chew",
       title: "Chew",
-      image: "/assets/images/collection-images/dog-chew.png",
+      image: "/assets/images/collection-images/dog-chew.webp",
       href: "/shop/?animal=dog&collection=Chew",
       accent: "yellow"
     },
     {
       id: "dog-plush",
       title: "Plush",
-      image: "/assets/images/collection-images/dog-plush.png",
+      image: "/assets/images/collection-images/dog-plush.webp",
       href: "/shop/?animal=dog&collection=Plush",
       accent: "pink"
     },
