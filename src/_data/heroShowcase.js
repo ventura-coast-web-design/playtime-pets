@@ -25,24 +25,24 @@ module.exports = async function () {
       accent: "pink"
     },
     {
-      id: "dog-run",
-      title: "Run",
-      image: "/assets/images/collection-images/dog-run.png",
-      href: "/shop/?animal=dog&collection=Run",
+      id: "dog-puzzle",
+      title: "Puzzle",
+      image: "/assets/images/collection-images/dog-puzzle.png",
+      href: "/shop/?animal=dog&collection=Puzzle",
       accent: "teal"
     },
     {
-      id: "cat-catch",
-      title: "Catch",
-      image: "/assets/images/collection-images/cat-catch.png",
-      href: "/shop/?animal=cat&collection=Catch",
+      id: "cat-catnip",
+      title: "Catnip",
+      image: "/assets/images/collection-images/cat-catnip.png",
+      href: "/shop/?animal=cat&collection=Catnip",
       accent: "orange"
     },
     {
-      id: "cat-chew",
-      title: "Chew",
-      image: "/assets/images/collection-images/cat-chew.png",
-      href: "/shop/?animal=cat&collection=Chew",
+      id: "cat-interactive",
+      title: "Interactive",
+      image: "/assets/images/collection-images/cat-interactive.png",
+      href: "/shop/?animal=cat&collection=Interactive",
       accent: "navy"
     },
     {
@@ -53,10 +53,10 @@ module.exports = async function () {
       accent: "blue"
     },
     {
-      id: "cat-tease",
-      title: "Tease",
+      id: "cat-teaser",
+      title: "Teaser",
       image: "/assets/images/collection-images/cat-tease.png",
-      href: "/shop/?animal=cat&collection=Tease",
+      href: "/shop/?animal=cat&collection=Teaser",
       accent: "pink"
     }
   ];
