@@ -1,6 +1,39 @@
 <header class="site-header">
   <div class="site-header__promo">
-    <p class="site-header__promo-text">Free Shipping | 10% off when you order 3 items or more! | Competitive Prices | Unbeatable Service</p>
+    {% capture promo_items %}
+      <li class="site-header__promo-item">
+        <span class="site-header__promo-chip">
+          <i class="fa-solid fa-truck-fast" aria-hidden="true"></i>
+          Free Shipping
+        </span>
+      </li>
+      <li class="site-header__promo-item">
+        <span class="site-header__promo-chip site-header__promo-chip--deal">
+          <i class="fa-solid fa-percent" aria-hidden="true"></i>
+          10% off when you order 3 items or more!
+        </span>
+      </li>
+      <li class="site-header__promo-item">
+        <span class="site-header__promo-chip">
+          <i class="fa-solid fa-tags" aria-hidden="true"></i>
+          Competitive Prices
+        </span>
+      </li>
+      <li class="site-header__promo-item">
+        <span class="site-header__promo-chip">
+          <i class="fa-solid fa-heart" aria-hidden="true"></i>
+          Unbeatable Service
+        </span>
+      </li>
+    {% endcapture %}
+    <div class="site-header__promo-inner">
+      <ul class="site-header__promo-list">
+        {{ promo_items }}
+      </ul>
+      <ul class="site-header__promo-list site-header__promo-list--clone" aria-hidden="true">
+        {{ promo_items }}
+      </ul>
+    </div>
   </div>
   <div class="site-header__main">
     <div class="site-header__main-inner">

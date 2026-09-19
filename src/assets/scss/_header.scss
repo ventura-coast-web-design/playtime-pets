@@ -10,57 +10,156 @@
   box-shadow: $shadow-sm;
 }
 
-// Top promotional banner — dark teal, white text, carousel arrows
+// Top promotional banner — playful chip ticker
 .site-header__promo {
+  --promo-paw: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='5.2' cy='8.8' r='2.1' fill='white'/%3E%3Ccircle cx='9.8' cy='5.6' r='2.1' fill='white'/%3E%3Ccircle cx='14.8' cy='5.6' r='2.1' fill='white'/%3E%3Ccircle cx='19.2' cy='8.8' r='2.1' fill='white'/%3E%3Cellipse cx='12.2' cy='16.4' rx='5.6' ry='4.6' fill='white'/%3E%3C/svg%3E");
   background: $vibrant-dark-blue;
   color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: $spacing-md;
-  padding: $spacing-sm $spacing-lg;
+  overflow: hidden;
   position: relative;
+  padding: 0.45rem 0;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      rgba(38, 51, 95, 0.18) 0%,
+      transparent 12%,
+      transparent 88%,
+      rgba(38, 51, 95, 0.18) 100%
+    );
+  }
 }
 
-.site-header__promo-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  color: $color-background;
-  width: 2rem;
-  height: 2rem;
-  border-radius: $border-radius-sm;
-  cursor: pointer;
-  font-size: 1rem;
+.site-header__promo-inner {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background $transition-fast, border-color $transition-fast;
+  width: max-content;
+  animation: promo-marquee 28s linear infinite;
 
   &:hover {
-    background: rgba(255, 255, 255, 0.15);
-    border-color: $color-background;
-  }
-
-  &:first-of-type {
-    left: $spacing-md;
-  }
-
-  &:last-of-type {
-    right: $spacing-md;
+    animation-play-state: paused;
   }
 }
 
-.site-header__promo-text {
+.site-header__promo-list {
+  display: flex;
+  align-items: center;
+  list-style: none;
   margin: 0;
-  font-size: $font-size-sm;
-  font-weight: $font-weight-medium;
-  text-align: center;
+  padding: 0;
+  flex-shrink: 0;
+}
 
-  @include respond-to(md) {
+.site-header__promo-list::after {
+  content: "";
+  width: 0.7rem;
+  height: 0.7rem;
+  flex-shrink: 0;
+  background: white;
+  mask: var(--promo-paw) center / contain no-repeat;
+  -webkit-mask: var(--promo-paw) center / contain no-repeat;
+  opacity: 0.75;
+  margin-inline: $spacing-md;
+}
+
+.site-header__promo-item {
+  display: inline-flex;
+  align-items: center;
+  margin: 0;
+
+  &:not(:last-child)::after {
+    content: "";
+    width: 0.7rem;
+    height: 0.7rem;
+    flex-shrink: 0;
+    margin-inline: $spacing-md;
+    background: white;
+    mask: var(--promo-paw) center / contain no-repeat;
+    -webkit-mask: var(--promo-paw) center / contain no-repeat;
+    opacity: 0.75;
+  }
+}
+
+.site-header__promo-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.2rem 0.15rem;
+  font-family: 'Fredoka', $font-family-primary;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-semibold;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  line-height: 1.2;
+
+  i {
+    font-size: 0.85em;
+  }
+
+  &--deal {
+    background: $hero-yellow;
+    color: $hero-grid-navy;
+    border-radius: $border-radius-full;
+    padding: 0.22rem 0.75rem;
+    font-weight: $font-weight-bold;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.45) inset, 0 1px 4px rgba(38, 51, 95, 0.16);
+  }
+}
+
+@keyframes promo-marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@include respond-to(xl) {
+  .site-header__promo::after {
+    display: none;
+  }
+
+  .site-header__promo-inner {
+    animation: none;
+    width: 100%;
+    justify-content: center;
+    padding-inline: $spacing-lg;
+
+    &:hover {
+      animation-play-state: running;
+    }
+  }
+
+  .site-header__promo-list--clone,
+  .site-header__promo-list::after {
+    display: none;
+  }
+
+  .site-header__promo-chip {
     font-size: $font-size-base;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-header__promo {
+    overflow-x: auto;
+  }
+
+  .site-header__promo-inner {
+    animation: none;
+    width: max-content;
+    min-width: 100%;
+    justify-content: center;
+  }
+
+  .site-header__promo-list--clone,
+  .site-header__promo-list::after {
+    display: none;
   }
 }
 
