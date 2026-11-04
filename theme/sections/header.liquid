@@ -1,0 +1,12 @@
+<header class="site-header">
+  <div class="site-header__promo"><div class="site-header__promo-inner"><ul class="site-header__promo-list"><li class="site-header__promo-item"><span class="site-header__promo-chip">Free Shipping</span></li><li class="site-header__promo-item"><span class="site-header__promo-chip site-header__promo-chip--deal">10% off when you order 3 items or more!</span></li><li class="site-header__promo-item"><span class="site-header__promo-chip">30-day returns</span></li></ul></div></div>
+  <div class="site-header__main"><div class="site-header__main-inner">
+    <a href="{{ routes.root_url }}" class="site-header__perks" aria-label="{{ shop.name }} home"></a>
+    <a href="{{ routes.root_url }}" class="site-header__logo" aria-label="{{ shop.name }} home"><span class="site-header__logo-main">{% if settings.logo != blank %}{{ settings.logo | image_url: width: settings.logo_width | image_tag: alt: shop.name }}{% else %}<img src="{{ 'color-logo.png' | asset_url }}" alt="{{ shop.name }}" width="180" height="74">{% endif %}</span></a>
+    <div class="site-header__actions"><a href="{{ routes.cart_url }}" class="site-header__icon site-header__cart-link" aria-label="Shopping cart">Cart <span class="site-header__cart-badge" data-cart-count {% if cart.item_count == 0 %}hidden{% endif %}>{{ cart.item_count }}</span></a></div>
+  </div></div>
+  <nav class="site-header__nav" aria-label="Main navigation"><div class="site-header__nav-inner"><ul class="site-header__nav-list">{% if section.settings.menu != blank %}{% for link in section.settings.menu.links %}<li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>{% endfor %}{% else %}<li><a href="{{ routes.all_products_collection_url }}">Shop all toys</a></li>{% endif %}</ul></div></nav>
+</header>
+{% schema %}
+{"name":"Header","settings":[{"type":"link_list","id":"menu","label":"Menu"}]}
+{% endschema %}

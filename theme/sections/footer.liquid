@@ -1,0 +1,4 @@
+<footer class="site-footer"><div class="page-width"><p>© {{ 'now' | date: '%Y' }} {{ shop.name }}. Made for happy pets.</p>{% if section.settings.menu != blank %}<nav aria-label="Footer navigation">{% for link in section.settings.menu.links %}<a href="{{ link.url }}">{{ link.title | escape }}</a>{% endfor %}</nav>{% endif %}</div></footer>
+{% schema %}
+{"name":"Footer","settings":[{"type":"link_list","id":"menu","label":"Menu"}]}
+{% endschema %}

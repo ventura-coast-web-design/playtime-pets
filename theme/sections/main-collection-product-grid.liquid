@@ -1,0 +1,23 @@
+{%- paginate collection.products by section.settings.products_per_page -%}
+  <section class="shop-page"><div class="shop-page__container"><div class="shop-view shop-view--3"><div class="shop-view__content">
+    <div class="shop-view__category-strip"><div class="shop-view__category-block shop-view__category-block--pink">New Arrivals</div><div class="shop-view__category-block shop-view__category-block--blue">Best Sellers</div><div class="shop-view__category-block shop-view__category-block--yellow">On Sale</div><div class="shop-view__category-block shop-view__category-block--green">Gift Sets</div></div>
+    <header class="shop-view__catalog-toolbar"><div><p class="shop-view__results-count">Showing {{ collection.products_count }} products</p><h1 class="visually-hidden">{{ collection.title | escape }}</h1></div></header>
+    <div class="shop-view__main-layout">
+      {% if section.settings.enable_filtering and collection.filters.size > 0 %}
+      <div class="shop-filters-panel"><form class="shop-filters" action="{{ collection.url }}" method="get">
+        <h2 class="shop-filters__title">Filter by:</h2>
+        {% for filter in collection.filters %}
+          <fieldset class="shop-filters__group"><legend class="shop-filters__legend">{{ filter.label | escape }}</legend>
+          {% case filter.type %}
+          {% when 'boolean', 'list' %}{% for value in filter.values %}<label><input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}" {% if value.active %}checked{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}> {{ value.label | escape }} ({{ value.count }})</label>{% endfor %}
+          {% when 'price_range' %}<label>Min <input name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency }}" type="number"></label><label>Max <input name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency }}" type="number"></label>
+          {% endcase %}</fieldset>
+        {% endfor %}<div class="shop-filters__actions"><button class="shop-filters__apply" type="submit">Apply filters</button><a class="shop-filters__clear" href="{{ collection.url }}">Clear all</a></div>
+      </form></div>{% endif %}
+      <div class="shop-view__catalog-main"><div class="shop-view__grid">{% for product in collection.products %}{% render 'product-card', product: product %}{% else %}<p>No products found.</p>{% endfor %}</div></div>
+    </div>
+    </div>{% if paginate.pages > 1 %}<nav class="shop-view__pagination" aria-label="Pagination">{{ paginate | default_pagination }}</nav>{% endif %}</div></div></div></section>
+{%- endpaginate -%}
+{% schema %}
+{"name":"Product grid","settings":[{"type":"range","id":"products_per_page","label":"Products per page","min":8,"max":48,"step":4,"default":16},{"type":"checkbox","id":"enable_filtering","label":"Enable filters","default":true}]}
+{% endschema %}
