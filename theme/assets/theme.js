@@ -4,12 +4,27 @@ document.addEventListener('submit', function (event) {
   event.preventDefault();
   var button = form.querySelector('button[type="submit"]');
   var data = new FormData(form);
+  var variantId = data.get('id');
   button.disabled = true;
   fetch(window.routes ? window.routes.cart_add_url + '.js' : '/cart/add.js', { method: 'POST', headers: { Accept: 'application/json' }, body: data })
     .then(function (response) { if (!response.ok) throw new Error('Could not add item'); return fetch('/cart.js'); })
     .then(function (response) { return response.json(); })
-    .then(function (cart) { document.querySelectorAll('[data-cart-count]').forEach(function (node) { node.textContent = cart.item_count; }); button.textContent = 'Added!'; setTimeout(function () { button.textContent = 'Add to cart'; button.disabled = false; }, 1200); })
+    .then(function (cart) { updateCartCount(cart); renderShopCardQuantity(form, cart, variantId); })
     .catch(function () { button.textContent = 'Try again'; button.disabled = false; });
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+  var forms = document.querySelectorAll('.quick-add-form');
+  if (!forms.length) return;
+  fetch('/cart.js')
+    .then(function (response) { return response.json(); })
+    .then(function (cart) {
+      forms.forEach(function (form) {
+        var variant = form.querySelector('input[name="id"]');
+        if (variant) renderShopCardQuantity(form, cart, variant.value);
+      });
+    })
+    .catch(function () {});
 });
 
 document.addEventListener('click', function (event) {
@@ -27,6 +42,15 @@ document.addEventListener('click', function (event) {
     var removeLines = Array.prototype.slice.call(document.querySelectorAll('.cart-page__line'));
     var removeInput = removeLine && removeLine.querySelector('input[type="number"]');
     if (removeLine && removeInput) updateCartLine(removeLine, removeLines.indexOf(removeLine) + 1, 0, removeInput, parseInt(removeInput.value, 10) || 0);
+    return;
+  }
+  var cardQuantityButton = event.target.closest('[data-card-quantity-step]');
+  if (cardQuantityButton) {
+    var cardForm = cardQuantityButton.closest('.quick-add-form');
+    var cardInput = cardForm && cardForm.querySelector('[data-card-quantity-input]');
+    if (!cardForm || !cardInput) return;
+    var cardNext = Math.max(0, (parseInt(cardInput.value, 10) || 0) + parseInt(cardQuantityButton.dataset.cardQuantityStep, 10));
+    updateShopCardQuantity(cardForm, cardInput, cardNext);
     return;
   }
   var button = event.target.closest('[data-quantity-step]');
@@ -93,7 +117,39 @@ function formatCartMoney(cents) {
 }
 
 function updateCartCount(cart) {
-  document.querySelectorAll('[data-cart-count]').forEach(function (node) { node.textContent = cart.item_count; });
+  document.querySelectorAll('[data-cart-count]').forEach(function (node) { node.textContent = cart.item_count; node.hidden = cart.item_count === 0; });
+}
+
+function renderShopCardQuantity(form, cart, variantId) {
+  var item = cart.items.filter(function (cartItem) { return String(cartItem.variant_id) === String(variantId); })[0];
+  if (!item) return;
+  form.dataset.cartLineKey = item.key;
+  form.innerHTML = '<input type="hidden" name="id" value="' + item.variant_id + '"><div class="shop-view__qty"><button type="button" class="shop-view__qty-btn" data-card-quantity-step="-1" aria-label="Decrease quantity">−</button><label class="shop-view__qty-label">Quantity</label><input class="shop-view__qty-input" data-card-quantity-input type="number" min="0" value="' + item.quantity + '" aria-label="Quantity"><button type="button" class="shop-view__qty-btn" data-card-quantity-step="1" aria-label="Increase quantity">+</button></div>';
+}
+
+function updateShopCardQuantity(form, input, quantity) {
+  var previous = parseInt(input.value, 10) || 0;
+  var controls = form.querySelectorAll('[data-card-quantity-step]');
+  controls.forEach(function (control) { control.disabled = true; });
+  fetch('/cart/change.js', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+    body: JSON.stringify({ id: form.dataset.cartLineKey, quantity: quantity })
+  })
+    .then(function (response) { if (!response.ok) throw new Error('Could not update cart'); return response.json(); })
+    .then(function (cart) {
+      updateCartCount(cart);
+      if (quantity === 0) {
+        form.removeAttribute('data-cart-line-key');
+        form.innerHTML = '<input type="hidden" name="id" value="' + form.querySelector('input[name="id"]').value + '"><button class="shop-view__add-btn" type="submit">Add to cart</button>';
+        return;
+      }
+      renderShopCardQuantity(form, cart, form.querySelector('input[name="id"]').value);
+    })
+    .catch(function () {
+      input.value = previous;
+      controls.forEach(function (control) { control.disabled = false; });
+    });
 }
 
 function updateCartSummary(cart) {
