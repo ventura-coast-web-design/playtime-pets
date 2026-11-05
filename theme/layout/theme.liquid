@@ -10,6 +10,7 @@
     {{ content_for_header }}
     {{ 'base.css' | asset_url | stylesheet_tag }}
     <style>.home-page__section--one-stop { background-image: url('{{ 'one-stop-shop.jpg' | asset_url }}'); }</style>
+    <script>window.themeCart = { currency: {{ cart.currency.iso_code | default: shop.currency | json }} };</script>
     <script src="https://kit.fontawesome.com/b96b0b2690.js" crossorigin="anonymous"></script>
     <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
     <script src="{{ 'shop-card-gallery.js' | asset_url }}" defer="defer"></script>

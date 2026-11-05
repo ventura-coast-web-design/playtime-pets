@@ -2730,6 +2730,17 @@
   color: #2d8a5e;
   font-weight: 500;
 }
+.cart-page__summary-note--success {
+  color: #2d8a5e;
+  font-weight: 500;
+}
+.cart-page__quantity-error {
+  width: 100%;
+  margin: 0.5rem 0 0;
+  color: #b42318;
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
 .cart-page__disclaimer {
   margin: 1.5rem 0 0;
   padding: 0.5rem 1rem;
