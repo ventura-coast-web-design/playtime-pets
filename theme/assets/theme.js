@@ -13,6 +13,13 @@ document.addEventListener('submit', function (event) {
 });
 
 document.addEventListener('click', function (event) {
+  var filterToggle = event.target.closest('[data-filter-panel] .shop-filters__toggle');
+  if (filterToggle) {
+    var panel = filterToggle.closest('[data-filter-panel]');
+    var isOpen = panel.classList.toggle('shop-filters-panel--open');
+    filterToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    return;
+  }
   var button = event.target.closest('[data-quantity-step]');
   if (!button) return;
   var input = button.parentElement.querySelector('input[type="number"]');
