@@ -1086,6 +1086,9 @@
   outline: 3px solid #6caae1;
   outline-offset: 2px;
 }
+.hero-grid__collection-bar {
+  font-size: 0;
+}
 
 .why-shop {
   background-color: #ffffff;
@@ -3502,6 +3505,9 @@
 }
 .shop-view .shop-view__category-block--green {
   background: linear-gradient(135deg, #6ee7d8 0%, #4dd4c4 100%);
+}
+.shop-view .shop-view__category-block {
+  font-size: 0;
 }
 @media (min-width: 992px) {
   .shop-view .shop-view__grid-wrapper {
