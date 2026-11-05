@@ -6,12 +6,12 @@
       {% if section.settings.enable_filtering and collection.filters.size > 0 %}
       <div class="shop-filters-panel" data-filter-panel><button class="shop-filters__toggle" type="button" aria-expanded="false" aria-controls="ShopFilters-{{ section.id }}"><span class="shop-filters__toggle-text">Filters</span><span class="shop-filters__toggle-icons" aria-hidden="true"><i class="fa-solid fa-bars shop-filters__icon-bars"></i><i class="fa-solid fa-xmark shop-filters__icon-close"></i></span></button><form id="ShopFilters-{{ section.id }}" class="shop-filters" action="{{ collection.url }}" method="get">
         <h2 class="shop-filters__title">Filter by:</h2>
-        {% for filter in collection.filters %}
+        {% for filter in collection.filters %}{% unless filter.label == 'Availability' %}
           <fieldset class="shop-filters__group"><legend class="shop-filters__legend">{% case filter.label %}{% when 'Vendor' %}Brand{% when 'Product type' %}Categories{% when 'Availability' %}Stock status{% else %}{{ filter.label | escape }}{% endcase %}</legend>
           {% case filter.type %}
           {% when 'boolean', 'list' %}<select class="shop-filters__select" name="{{ filter.values.first.param_name }}" multiple size="{% if filter.values.size < 6 %}{{ filter.values.size }}{% else %}6{% endif %}" aria-label="{{ filter.label | escape }}">{% for value in filter.values %}<option value="{{ value.value }}" {% if value.active %}selected{% endif %} {% if value.count == 0 and value.active == false %}disabled{% endif %}>{{ value.label | escape }} ({{ value.count }})</option>{% endfor %}</select>
           {% when 'price_range' %}<div class="shop-filters__price-range"><label for="FilterMin-{{ section.id }}">Min</label><input id="FilterMin-{{ section.id }}" class="shop-filters__select shop-filters__select--single" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value | money_without_currency }}" type="number" min="0" step="1" placeholder="0"><label for="FilterMax-{{ section.id }}">Max</label><input id="FilterMax-{{ section.id }}" class="shop-filters__select shop-filters__select--single" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value | money_without_currency }}" type="number" min="0" step="1" placeholder="Any"></div>
-          {% endcase %}</fieldset>
+          {% endcase %}</fieldset>{% endunless %}
         {% endfor %}<div class="shop-filters__actions"><button class="shop-filters__apply" type="submit">Apply filters</button><a class="shop-filters__clear" href="{{ collection.url }}">Clear all</a></div>
       </form></div>{% endif %}
       <div class="shop-view__catalog-main"><div class="shop-view__grid">{% for product in collection.products %}{% render 'product-card', product: product %}{% else %}<p>No products found.</p>{% endfor %}</div></div>
