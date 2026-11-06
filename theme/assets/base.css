@@ -1087,7 +1087,9 @@
   outline-offset: 2px;
 }
 .hero-grid__collection-bar {
-  font-size: 0;
+  /* Keep the collection names visible. The original app uses these as
+     full-size, tap-friendly collection links rather than decorative pills. */
+  font-size: 1.25rem;
 }
 
 .why-shop {
@@ -3507,7 +3509,8 @@
   background: linear-gradient(135deg, #6ee7d8 0%, #4dd4c4 100%);
 }
 .shop-view .shop-view__category-block {
-  font-size: 0;
+  /* These are filters, so a colour alone is not enough context on touch. */
+  font-size: 18px;
 }
 @media (min-width: 992px) {
   .shop-view .shop-view__grid-wrapper {
@@ -4267,5 +4270,187 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+
+/*
+ * Small screens follow the original app's mobile pattern: one consistent
+ * page gutter, compact horizontal controls, and stacked purchase flows.
+ * Keep these overrides at the end so Shopify's generated page markup gets
+ * the same responsive treatment as the original templates.
+ */
+@media (max-width: 767.98px) {
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  body {
+    overflow-x: clip;
+  }
+
+  .site-header__main {
+    padding: 0.75rem 0;
+  }
+
+  .site-header__main-inner,
+  .hero-grid__container,
+  .home-page__container,
+  .why-shop__inner,
+  .shop-page__container,
+  .shop-item-show__container,
+  .cart-page__container,
+  .site-footer .business-details,
+  .site-footer__inner {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  .site-header__logo-main img {
+    max-height: 4.5rem;
+  }
+
+  .site-header__cart-link {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    font-size: 2rem;
+  }
+
+  .site-header__cart-badge {
+    top: -0.25rem;
+    right: -0.25rem;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    padding: 0 0.25rem;
+    font-size: 0.8125rem;
+    line-height: 1.5rem;
+  }
+
+  .hero-grid__featured {
+    padding: 1.5rem 0 2rem;
+  }
+
+  .hero-grid__categories {
+    gap: 0.75rem;
+  }
+
+  .hero-grid__collection-bars {
+    margin-top: 2rem;
+  }
+
+  .hero-grid__collection-bars-list {
+    gap: 0.75rem;
+  }
+
+  .hero-grid__collection-bar {
+    min-height: 3.25rem;
+    padding: 0.5rem 0.75rem;
+    font-size: 1rem;
+  }
+
+  .shop-page {
+    padding: 1.5rem 0;
+  }
+
+  .shop-view .shop-view__catalog-toolbar {
+    margin: 0 0 1rem;
+    gap: 0.75rem;
+  }
+
+  .shop-view .shop-view__results-count,
+  .shop-view .shop-view__search {
+    min-width: 0;
+    max-width: none;
+    flex-basis: 100%;
+  }
+
+  .shop-view .shop-view__category-block {
+    font-size: 0.75rem;
+  }
+
+  .shop-filters__toggle,
+  .shop-filters__select,
+  .shop-filters__select--single,
+  .shop-view .shop-view__search-input {
+    min-height: 2.75rem;
+    font-size: 16px;
+  }
+
+  .shop-item-show,
+  .cart-page {
+    padding: 1.5rem 0 2.5rem;
+  }
+
+  .shop-item-show__breadcrumb,
+  .cart-page__breadcrumb {
+    margin-bottom: 1.5rem;
+  }
+
+  .shop-item-show__breadcrumb-current,
+  .cart-page__breadcrumb-current {
+    min-width: 0;
+    flex: 1 1 8rem;
+  }
+
+  .shop-item-show__layout {
+    gap: 2rem;
+  }
+
+  .shop-item-show__gallery-nav {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+
+  .shop-item-show__thumbs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+    scrollbar-width: thin;
+  }
+
+  .shop-item-show__thumb {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .shop-item-show__actions > select,
+  .shop-item-show__actions > input[type="number"] {
+    width: 100%;
+    min-height: 2.75rem;
+    padding: 0.5rem 0.75rem;
+    font: inherit;
+    font-size: 16px;
+    color: #26335f;
+    background: #ffffff;
+    border: 1px solid rgba(38, 51, 95, 0.25);
+    border-radius: 8px;
+  }
+
+  .shop-item-show__btn {
+    min-height: 3rem;
+    min-width: 0;
+  }
+
+  .cart-page__strip {
+    gap: 0.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .cart-page__strip-block {
+    min-width: min(9rem, 100%);
+    padding: 0.75rem 0.5rem;
+    font-size: 0.8125rem;
+  }
+
+  .cart-page__summary {
+    position: static;
+    padding: 1.5rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .cart-page__summary {
+    position: sticky;
+  }
 }
 
