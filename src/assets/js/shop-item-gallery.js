@@ -11,14 +11,19 @@
 
     var urls = Array.prototype.map.call(thumbs, function (btn) {
       var im = btn.querySelector('img');
-      return im ? im.getAttribute('src') || '' : '';
+      return btn.getAttribute('data-gallery-src') || (im ? im.getAttribute('src') || '' : '');
     });
 
     var index = 0;
 
     function setIndex(i) {
       index = (i + urls.length) % urls.length;
-      if (urls[index]) main.src = urls[index];
+      if (urls[index]) {
+        // Shopify's initial responsive sources otherwise keep the first photo visible.
+        main.removeAttribute('srcset');
+        main.removeAttribute('sizes');
+        main.src = urls[index];
+      }
       Array.prototype.forEach.call(thumbs, function (btn, j) {
         var on = j === index;
         btn.classList.toggle('is-active', on);
