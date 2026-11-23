@@ -14,7 +14,11 @@ document.addEventListener('submit', function (event) {
 });
 
 document.addEventListener('DOMContentLoaded', function () {
-  var forms = document.querySelectorAll('.quick-add-form');
+  hydrateShopCardQuantities(document);
+});
+
+function hydrateShopCardQuantities(scope) {
+  var forms = scope.querySelectorAll('.quick-add-form');
   if (!forms.length) return;
   fetch('/cart.js')
     .then(function (response) { return response.json(); })
@@ -25,9 +29,104 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     })
     .catch(function () {});
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('[data-server-product-search]').forEach(function (search) {
+    var input = search.querySelector('input[name="q"]');
+    var clear = search.querySelector('[data-server-product-search-clear]');
+    var timer;
+    var request;
+    if (!input) return;
+
+    function updateResults(url) {
+      if (request) request.abort();
+      request = new AbortController();
+
+      var sectionUrl = new URL(url, window.location.origin);
+      sectionUrl.searchParams.set('section_id', search.dataset.sectionId);
+
+      fetch(sectionUrl.toString(), { signal: request.signal })
+        .then(function (response) {
+          if (!response.ok) throw new Error('Could not update search results');
+          return response.text();
+        })
+        .then(function (html) {
+          var responseDocument = new DOMParser().parseFromString(html, 'text/html');
+          var replacementItems = responseDocument.querySelector('.shop-view__catalog-main');
+          var replacementCount = responseDocument.querySelector('.shop-view__results-count');
+          var replacementPagination = responseDocument.querySelector('[data-product-pagination]');
+          var content = search.closest('.shop-view__content');
+          var items = content.querySelector('.shop-view__catalog-main');
+          var count = content.querySelector('.shop-view__results-count');
+          var pagination = content.querySelector('[data-product-pagination]');
+          if (!replacementItems || !items) throw new Error('Could not find search results');
+
+          items.innerHTML = replacementItems.innerHTML;
+          if (replacementCount && count) count.innerHTML = replacementCount.innerHTML;
+          if (replacementPagination && pagination) {
+            pagination.outerHTML = replacementPagination.outerHTML;
+          } else if (replacementPagination) {
+            content.appendChild(replacementPagination);
+          } else if (pagination) {
+            pagination.remove();
+          }
+          hydrateShopCardQuantities(items);
+
+          var pageUrl = new URL(url, window.location.origin);
+          pageUrl.searchParams.delete('page');
+          window.history.replaceState({}, '', pageUrl.pathname + pageUrl.search + pageUrl.hash);
+        })
+        .catch(function (error) {
+          if (error.name !== 'AbortError') console.error(error);
+        });
+    }
+
+    function submitSearch() {
+      var url;
+      if (input.value.trim()) {
+        url = new URL(search.action, window.location.origin);
+        new FormData(search).forEach(function (value, key) { url.searchParams.append(key, value); });
+      } else {
+        url = new URL(search.dataset.clearUrl, window.location.origin);
+      }
+      updateResults(url);
+    }
+
+    function scheduleSearch() {
+      window.clearTimeout(timer);
+      if (clear) clear.hidden = !input.value.trim();
+      timer = window.setTimeout(submitSearch, 350);
+    }
+
+    input.addEventListener('input', scheduleSearch);
+    // `type="search"` dispatches this event when its native clear affordance
+    // (or Escape) empties the field; some browsers do not dispatch `input`.
+    input.addEventListener('search', scheduleSearch);
+    search.addEventListener('submit', function (event) {
+      event.preventDefault();
+      window.clearTimeout(timer);
+      submitSearch();
+    });
+    if (clear) clear.addEventListener('click', function () {
+      input.value = '';
+      clear.hidden = true;
+      window.clearTimeout(timer);
+      submitSearch();
+    });
+  });
 });
 
 document.addEventListener('click', function (event) {
+  var filterExpand = event.target.closest('[data-filter-expand]');
+  if (filterExpand) {
+    var filterValues = document.getElementById(filterExpand.dataset.filterExpand);
+    if (!filterValues) return;
+    var isExpanded = filterValues.classList.toggle('shop-filters__values--expanded');
+    filterExpand.setAttribute('aria-expanded', isExpanded ? 'true' : 'false');
+    filterExpand.textContent = isExpanded ? 'See less' : 'See more';
+    return;
+  }
   var filterToggle = event.target.closest('[data-filter-panel] .shop-filters__toggle');
   if (filterToggle) {
     var panel = filterToggle.closest('[data-filter-panel]');
@@ -67,6 +166,12 @@ document.addEventListener('click', function (event) {
   var lineNumber = lines.indexOf(line) + 1;
   if (!line || !lineNumber) return;
   updateCartLine(line, lineNumber, next, input, previous);
+});
+
+document.addEventListener('change', function (event) {
+  var control = event.target;
+  if (!control.matches('.shop-filters__tag-input')) return;
+  window.location.assign(control.dataset.tagUrl);
 });
 
 function updateCartLine(line, lineNumber, next, input, previous) {

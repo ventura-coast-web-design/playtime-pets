@@ -17,7 +17,7 @@ It deliberately keeps the original site intact so the migration can be previewed
 - Create a `Pet Toys` collection and point the home page feature section to it.
 - Set the navigation menus in **Content > Menus** and select them in the theme editor.
 - Configure product filters through the Shopify Search & Discovery app. The sidebar renders every enabled collection filter using Shopify URL parameters, so it works after pagination, sharing a link, or a page refresh.
-- Enable these filters to match the prior shop page: **Vendor** (displayed as Brand), **product metafields** for Animal type, Breed size, and Material, **Product type** (displayed as Categories), **Price**, and the standard **Product rating** metafield. Add Availability or Tags if desired.
+- Enable these filters in Shopify Search & Discovery: **Vendor** (displayed as Brand), **Tags**, **product metafields** for Animal type, Breed size, and Material, **Price**, and the standard **Product rating** metafield. The theme intentionally hides Product type/Category and Availability. The Features filter uses product tags that match collection titles, so collection membership can be filtered without a separate Shopify filter type.
 - Install Shopify Inbox, then enable **Online store chat** under **Theme customizer > App embeds**.
 
 ## URL migration
