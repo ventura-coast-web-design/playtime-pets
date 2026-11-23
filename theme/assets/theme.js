@@ -37,9 +37,11 @@ document.addEventListener('DOMContentLoaded', function () {
     var clear = search.querySelector('[data-server-product-search-clear]');
     var timer;
     var request;
+    var requestVersion = 0;
     if (!input) return;
 
     function updateResults(url) {
+      var version = ++requestVersion;
       if (request) request.abort();
       request = new AbortController();
 
@@ -52,6 +54,9 @@ document.addEventListener('DOMContentLoaded', function () {
           return response.text();
         })
         .then(function (html) {
+          // An aborted request can still finish parsing in some browsers. Do
+          // not let an older search overwrite the most recent result set.
+          if (version !== requestVersion) return;
           var responseDocument = new DOMParser().parseFromString(html, 'text/html');
           var replacementItems = responseDocument.querySelector('.shop-view__catalog-main');
           var replacementCount = responseDocument.querySelector('.shop-view__results-count');
@@ -96,6 +101,13 @@ document.addEventListener('DOMContentLoaded', function () {
     function scheduleSearch() {
       window.clearTimeout(timer);
       if (clear) clear.hidden = !input.value.trim();
+      // Resetting the field should restore the unfiltered page immediately,
+      // rather than leaving the final character's search visible during the
+      // debounce delay.
+      if (!input.value.trim()) {
+        submitSearch();
+        return;
+      }
       timer = window.setTimeout(submitSearch, 350);
     }
 
